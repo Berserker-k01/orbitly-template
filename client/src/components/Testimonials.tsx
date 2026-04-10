@@ -204,7 +204,7 @@ export default function Testimonials() {
             {/* G2 */}
             <div className="flex flex-col items-center gap-3">
               <div className="flex items-center gap-3">
-                <img src={G2_LOGO} alt="G2" className="h-8 w-auto opacity-90" />
+                <img src={G2_LOGO} alt="G2" className="w-12 h-12 object-contain opacity-90" />
                 <div>
                   <div className="flex gap-0.5 mb-0.5">
                     {[...Array(5)].map((_, i) => (
