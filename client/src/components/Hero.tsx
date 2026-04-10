@@ -306,8 +306,9 @@ export default function Hero() {
               style={{ background: "linear-gradient(to left, #030305, transparent)" }}
             />
             <div className="flex overflow-hidden">
-              <div className="marquee-track flex items-center gap-12 whitespace-nowrap">
-                {allLogos.map((logo, i) => (
+              {/* Two identical sets rendered side-by-side for seamless infinite loop */}
+              <div className="marquee-track flex items-center gap-16 whitespace-nowrap" aria-hidden="false">
+                {[...allLogos, ...allLogos].map((logo, i) => (
                   <div key={i} className="flex items-center flex-shrink-0">
                     {logo.svg}
                   </div>
