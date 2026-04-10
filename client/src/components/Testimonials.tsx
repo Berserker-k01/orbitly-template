@@ -14,7 +14,9 @@ const G2_LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663105007581/WVMihH
 const ProductHuntLogo = () => (
   <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Product Hunt">
     <circle cx="20" cy="20" r="20" fill="#DA552F"/>
-    <path d="M22.667 20c1.473 0 2.666-1.194 2.666-2.667S24.14 14.667 22.667 14.667H17.333v10.666h2.667V22h2.667zm0-2.667h-2.667v-2.666h2.667a1.333 1.333 0 0 1 0 2.666z" fill="white"/>
+    {/* P letterform: stem + rounded bowl */}
+    <rect x="14" y="12" width="3" height="16" rx="1.5" fill="white"/>
+    <path d="M17 12h4a5 5 0 0 1 0 10h-4V12z" fill="white"/>
   </svg>
 );
 
