@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Star, TrendingUp, Zap } from "lucide-react";
 import { staggerContainer, staggerItem } from "@/hooks/useScrollReveal";
+import Marquee from "react-fast-marquee";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663105007581/WVMihHZALT4vcd5EzoqTpv/orbitly-hero-bg-5aSwiDzmJdebv5f88UeaWz.webp";
 const DASHBOARD_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663105007581/WVMihHZALT4vcd5EzoqTpv/orbitly-dashboard-mockup-drZEpmgN2gQ3RyeRpBTR5n.webp";
@@ -286,36 +287,29 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Logo marquee — real SVG company logos */}
+        {/* Logo marquee — react-fast-marquee for guaranteed seamless infinite scroll */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 1.5 }}
-          className="w-full mt-20 overflow-hidden"
+          className="w-full mt-20"
         >
           <p className="text-xs text-white/45 uppercase tracking-[0.18em] text-center mb-8 font-medium">
             Trusted by teams at
           </p>
-          <div className="relative">
-            <div
-              className="absolute left-0 top-0 bottom-0 w-28 z-10 pointer-events-none"
-              style={{ background: "linear-gradient(to right, #030305, transparent)" }}
-            />
-            <div
-              className="absolute right-0 top-0 bottom-0 w-28 z-10 pointer-events-none"
-              style={{ background: "linear-gradient(to left, #030305, transparent)" }}
-            />
-            <div className="flex overflow-hidden">
-              {/* Two identical sets rendered side-by-side for seamless infinite loop */}
-              <div className="marquee-track flex items-center gap-16 whitespace-nowrap" aria-hidden="false">
-                {[...allLogos, ...allLogos].map((logo, i) => (
-                  <div key={i} className="flex items-center flex-shrink-0">
-                    {logo.svg}
-                  </div>
-                ))}
+          <Marquee
+            speed={50}
+            gradient={true}
+            gradientColor="#030305"
+            gradientWidth={80}
+            pauseOnHover={true}
+          >
+            {allLogos.map((logo, i) => (
+              <div key={i} className="flex items-center mx-10">
+                {logo.svg}
               </div>
-            </div>
-          </div>
+            ))}
+          </Marquee>
         </motion.div>
       </div>
     </section>
