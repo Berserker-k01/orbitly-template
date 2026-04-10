@@ -194,7 +194,7 @@ export default function Testimonials() {
             {/* G2 */}
             <div className="flex flex-col items-center gap-3">
               <div className="flex items-center gap-3">
-                <img src={G2_LOGO} alt="G2" className="h-7 w-auto opacity-70 invert" />
+                <img src={G2_LOGO} alt="G2" className="h-7 w-auto opacity-80" />
                 <div>
                   <div className="flex gap-0.5 mb-0.5">
                     {[...Array(5)].map((_, i) => (
@@ -214,7 +214,9 @@ export default function Testimonials() {
             {/* Product Hunt */}
             <div className="flex flex-col items-center gap-3">
               <div className="flex items-center gap-3">
-                <img src={PH_LOGO} alt="Product Hunt" className="h-7 w-auto opacity-70" />
+                <div className="bg-white/10 rounded-lg p-1.5">
+                  <img src={PH_LOGO} alt="Product Hunt" className="h-5 w-auto" />
+                </div>
                 <div>
                   <div className="flex gap-0.5 mb-0.5">
                     {[...Array(5)].map((_, i) => (
