@@ -1,44 +1,75 @@
 /*
- * Hero — Orbitly SaaS Template
- * Design: Orbital Dark — centered hero with radial glow, staggered text reveal,
- * dashboard mockup in device frame, and logo marquee below.
+ * Hero — Orbitly SaaS Template (Polish v2)
+ * Design: Orbital Dark — centered hero with animated glow, staggered word reveal,
+ * floating dashboard mockup, live stat ticker, and logo marquee.
  */
-import { motion } from "framer-motion";
-import { ArrowRight, Star } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Star, TrendingUp, Users, Zap } from "lucide-react";
+import { staggerContainer, staggerItem } from "@/hooks/useScrollReveal";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663105007581/WVMihHZALT4vcd5EzoqTpv/orbitly-hero-bg-5aSwiDzmJdebv5f88UeaWz.webp";
 const DASHBOARD_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663105007581/WVMihHZALT4vcd5EzoqTpv/orbitly-dashboard-mockup-drZEpmgN2gQ3RyeRpBTR5n.webp";
 
 const logos = [
   "Stripe", "Notion", "Figma", "Vercel", "Linear", "Supabase", "Resend", "Clerk",
+  "GitHub", "Slack", "Jira", "Confluence",
   "Stripe", "Notion", "Figma", "Vercel", "Linear", "Supabase", "Resend", "Clerk",
+  "GitHub", "Slack", "Jira", "Confluence",
 ];
 
-const stagger = {
-  container: {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
-  },
-  item: {
-    hidden: { opacity: 0, y: 24 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  },
-};
+// Rotating live activity ticker
+const activities = [
+  { icon: <TrendingUp className="w-3 h-3 text-emerald-400" />, text: "Sprint velocity up 34% this week" },
+  { icon: <Users className="w-3 h-3 text-indigo-400" />, text: "12,847 teams shipped on time last month" },
+  { icon: <Zap className="w-3 h-3 text-violet-400" />, text: "AI planned 2.1M tasks this week" },
+];
+
+function ActivityTicker() {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setIndex((i) => (i + 1) % activities.length), 3500);
+    return () => clearInterval(t);
+  }, []);
+  return (
+    <div className="flex items-center gap-2 overflow-hidden h-5">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.35 }}
+          className="flex items-center gap-1.5 text-white/50 text-xs"
+        >
+          {activities[index].icon}
+          <span>{activities[index].text}</span>
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-16">
       {/* Background glow image */}
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-60"
-        style={{ backgroundImage: `url(${HERO_BG})` }}
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${HERO_BG})`, opacity: 0.55 }}
         aria-hidden="true"
       />
       {/* Dot grid overlay */}
-      <div className="absolute inset-0 dot-grid opacity-30" aria-hidden="true" />
+      <div className="absolute inset-0 dot-grid opacity-25" aria-hidden="true" />
+      {/* Radial vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse 80% 60% at 50% 0%, transparent 40%, #030305 100%)" }}
+        aria-hidden="true"
+      />
       {/* Bottom fade */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none"
         style={{ background: "linear-gradient(to bottom, transparent, #030305)" }}
         aria-hidden="true"
       />
@@ -46,123 +77,192 @@ export default function Hero() {
       <div className="relative z-10 container flex flex-col items-center text-center">
         {/* Badge */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card border border-indigo-500/30 text-xs text-indigo-300 font-medium mb-8"
+          initial={{ opacity: 0, y: -12, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.05 }}
+          className="badge-pill mb-8"
         >
           <Star className="w-3 h-3 fill-indigo-400 text-indigo-400" />
           Trusted by 12,000+ teams worldwide
-          <span className="w-1 h-1 rounded-full bg-indigo-400" />
-          <span className="text-white/40">New: AI Sprint Planning →</span>
+          <span className="w-px h-3 bg-indigo-500/40 mx-0.5" />
+          <span className="text-white/35">New: AI Sprint Planning</span>
+          <ArrowRight className="w-3 h-3 text-white/35" />
         </motion.div>
 
-        {/* Headline */}
-        <motion.div variants={stagger.container} initial="hidden" animate="show">
+        {/* Headline — staggered words */}
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+          className="mb-6"
+        >
           <motion.h1
-            variants={stagger.item}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight mb-6"
+            variants={staggerItem}
+            className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold text-white leading-[1.04] tracking-tight"
             style={{ fontFamily: "'Outfit', sans-serif" }}
           >
-            Ship projects at the{" "}
-            <span className="gradient-text">speed of thought</span>
+            Ship projects at the
           </motion.h1>
-
-          <motion.p
-            variants={stagger.item}
-            className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto mb-10 leading-relaxed"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+          <motion.h1
+            variants={staggerItem}
+            className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold leading-[1.04] tracking-tight gradient-text"
+            style={{ fontFamily: "'Outfit', sans-serif" }}
           >
-            Orbitly brings AI-powered planning, real-time collaboration, and
-            intelligent automation into one workspace. Stop managing work. Start
-            delivering it.
-          </motion.p>
-
-          <motion.div
-            variants={stagger.item}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <a
-              href="#"
-              className="btn-primary inline-flex items-center gap-2 text-white font-semibold px-8 py-4 rounded-xl text-base"
-            >
-              Start for free
-              <ArrowRight className="w-4 h-4" />
-            </a>
-            <a
-              href="#"
-              className="inline-flex items-center gap-2 text-white/60 hover:text-white font-medium px-8 py-4 rounded-xl text-base glass-card border border-white/8 hover:border-white/15 transition-all duration-200"
-            >
-              View demo
-            </a>
-          </motion.div>
-
-          <motion.p
-            variants={stagger.item}
-            className="mt-5 text-sm text-white/30"
-          >
-            Free 14-day trial · No credit card required · Cancel anytime
-          </motion.p>
+            speed of thought
+          </motion.h1>
         </motion.div>
 
-        {/* Dashboard mockup */}
+        {/* Subheadline */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.45 }}
+          className="text-lg md:text-xl text-white/45 max-w-2xl mx-auto mb-3 leading-relaxed"
+          style={{ fontFamily: "'DM Sans', sans-serif" }}
+        >
+          Orbitly brings AI-powered planning, real-time collaboration, and
+          intelligent automation into one workspace. Stop managing work.
+          Start delivering it.
+        </motion.p>
+
+        {/* Live ticker */}
         <motion.div
-          initial={{ opacity: 0, y: 60, scale: 0.96 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mb-10"
+        >
+          <ActivityTicker />
+        </motion.div>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.55 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4"
+        >
+          <a
+            href="#"
+            className="btn-primary inline-flex items-center gap-2.5 text-white font-semibold px-8 py-4 rounded-xl text-base"
+          >
+            Start for free
+            <ArrowRight className="w-4 h-4" />
+          </a>
+          <a
+            href="#"
+            className="btn-ghost inline-flex items-center gap-2.5 text-white/70 hover:text-white font-medium px-8 py-4 rounded-xl text-base"
+          >
+            Watch demo
+            <span className="text-xs text-white/30 font-normal">2 min</span>
+          </a>
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          className="text-sm text-white/25 tracking-wide"
+        >
+          Free 14-day trial · No credit card required · Cancel anytime
+        </motion.p>
+
+        {/* Dashboard mockup — floating */}
+        <motion.div
+          initial={{ opacity: 0, y: 70, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="relative mt-16 w-full max-w-5xl mx-auto"
+          transition={{ duration: 1.1, delay: 0.85 }}
+          className="relative mt-16 w-full max-w-5xl mx-auto animate-float"
         >
           {/* Glow behind mockup */}
           <div
-            className="absolute -inset-4 rounded-3xl opacity-30 blur-3xl"
-            style={{ background: "radial-gradient(ellipse, rgba(99,102,241,0.4) 0%, transparent 70%)" }}
+            className="absolute -inset-8 rounded-3xl pointer-events-none"
+            style={{
+              background: "radial-gradient(ellipse 70% 50% at 50% 100%, rgba(99,102,241,0.25), transparent)",
+              filter: "blur(20px)",
+            }}
             aria-hidden="true"
           />
           {/* Device frame */}
-          <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-indigo-500/10">
+          <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] shadow-[0_32px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.04)]">
             {/* Browser chrome */}
-            <div className="bg-[#0D0D14] border-b border-white/5 px-4 py-3 flex items-center gap-2">
+            <div className="bg-[#0C0C14] border-b border-white/[0.06] px-4 py-3 flex items-center gap-3">
               <div className="flex gap-1.5">
-                <span className="w-3 h-3 rounded-full bg-red-500/60" />
-                <span className="w-3 h-3 rounded-full bg-yellow-500/60" />
-                <span className="w-3 h-3 rounded-full bg-green-500/60" />
+                <span className="w-3 h-3 rounded-full bg-[#FF5F57]" />
+                <span className="w-3 h-3 rounded-full bg-[#FEBC2E]" />
+                <span className="w-3 h-3 rounded-full bg-[#28C840]" />
               </div>
-              <div className="flex-1 mx-4">
-                <div className="bg-white/5 rounded-md px-3 py-1 text-xs text-white/30 text-center max-w-xs mx-auto">
+              <div className="flex-1 flex justify-center">
+                <div className="bg-white/[0.06] rounded-md px-4 py-1.5 text-xs text-white/25 flex items-center gap-2 max-w-xs w-full justify-center">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 relative pulse-ring" />
                   app.orbitly.io/dashboard
                 </div>
               </div>
+              <div className="w-16" />
             </div>
             <img
               src={DASHBOARD_IMG}
-              alt="Orbitly dashboard — kanban board with AI task management"
+              alt="Orbitly dashboard — AI-powered kanban project management"
               className="w-full block"
               loading="eager"
             />
           </div>
+
+          {/* Floating stat cards */}
+          <motion.div
+            initial={{ opacity: 0, x: -20, y: 10 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.5 }}
+            className="absolute -left-4 top-1/3 hidden lg:block"
+          >
+            <div className="glass-card gradient-border rounded-2xl px-4 py-3 shadow-xl">
+              <div className="text-xs text-white/40 mb-1">Sprint velocity</div>
+              <div className="text-xl font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>+34%</div>
+              <div className="flex items-center gap-1 mt-1">
+                <TrendingUp className="w-3 h-3 text-emerald-400" />
+                <span className="text-xs text-emerald-400">vs last sprint</span>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20, y: 10 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.7 }}
+            className="absolute -right-4 top-1/4 hidden lg:block"
+          >
+            <div className="glass-card gradient-border rounded-2xl px-4 py-3 shadow-xl">
+              <div className="text-xs text-white/40 mb-1">AI tasks planned</div>
+              <div className="text-xl font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>2.1M</div>
+              <div className="flex items-center gap-1 mt-1">
+                <Zap className="w-3 h-3 text-indigo-400" />
+                <span className="text-xs text-indigo-300">this week</span>
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
 
         {/* Logo marquee */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.4 }}
-          className="w-full mt-16 overflow-hidden"
+          transition={{ duration: 0.8, delay: 1.6 }}
+          className="w-full mt-20 overflow-hidden"
         >
-          <p className="text-xs text-white/25 uppercase tracking-widest text-center mb-6 font-medium">
+          <p className="text-xs text-white/20 uppercase tracking-[0.18em] text-center mb-7 font-medium">
             Trusted by teams at
           </p>
           <div className="relative">
-            <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+            <div className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
               style={{ background: "linear-gradient(to right, #030305, transparent)" }} />
-            <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+            <div className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
               style={{ background: "linear-gradient(to left, #030305, transparent)" }} />
             <div className="flex overflow-hidden">
-              <div className="marquee-track flex items-center gap-12 whitespace-nowrap">
+              <div className="marquee-track flex items-center gap-14 whitespace-nowrap">
                 {logos.map((logo, i) => (
                   <span
                     key={i}
-                    className="text-white/20 font-semibold text-lg tracking-tight hover:text-white/40 transition-colors"
+                    className="text-white/18 font-semibold text-base tracking-tight hover:text-white/40 transition-colors duration-300 select-none"
                     style={{ fontFamily: "'Outfit', sans-serif" }}
                   >
                     {logo}

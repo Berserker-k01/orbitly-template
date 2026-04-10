@@ -1,23 +1,10 @@
 /*
- * Footer — Orbitly SaaS Template
- * Design: Orbital Dark — full-width CTA with glow, then minimal dark footer.
+ * Footer — Orbitly SaaS Template (Polish v2)
+ * Design: Orbital Dark — full-width CTA with gradient card, polished footer grid.
  */
-import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Zap, Github, Twitter, Linkedin } from "lucide-react";
-
-function useInView(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true); }, { threshold });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, inView };
-}
+import { useScrollReveal, staggerContainer, staggerItem } from "@/hooks/useScrollReveal";
 
 const footerLinks = {
   Product: ["Features", "Pricing", "Changelog", "Roadmap", "Status"],
@@ -27,77 +14,102 @@ const footerLinks = {
 };
 
 export default function Footer() {
-  const { ref, inView } = useInView(0.1);
+  const { ref, inView } = useScrollReveal(0.08);
 
   return (
     <>
       {/* CTA Section */}
-      <section className="relative py-32 overflow-hidden" ref={ref}>
+      <section className="relative py-36 overflow-hidden" ref={ref}>
+        <div className="section-divider absolute top-0 left-0 right-0" />
         <div
-          className="glow-orb w-[700px] h-[400px] left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 opacity-15"
+          className="glow-orb w-[800px] h-[500px] left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 opacity-[0.12]"
           style={{ background: "radial-gradient(ellipse, #6366F1, transparent)" }}
           aria-hidden="true"
         />
         <div className="container relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7 }}
-            className="glass-card border border-indigo-500/20 rounded-3xl p-12 md:p-20 text-center max-w-4xl mx-auto"
-            style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.05))" }}
+            initial={{ opacity: 0, y: 40, scale: 0.98 }}
+            animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+            transition={{ duration: 0.75 }}
+            className="relative rounded-3xl overflow-hidden max-w-4xl mx-auto"
+            style={{
+              background: "linear-gradient(145deg, rgba(99,102,241,0.1), rgba(139,92,246,0.06), rgba(255,255,255,0.02))",
+              border: "1px solid rgba(99,102,241,0.25)",
+              boxShadow: "0 0 80px rgba(99,102,241,0.1), inset 0 1px 0 rgba(255,255,255,0.06)",
+            }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-xs text-indigo-300 font-medium mb-6">
-              <Zap className="w-3 h-3 fill-indigo-400 text-indigo-400" />
-              Start shipping faster today
-            </div>
-            <h2
-              className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight leading-tight"
-              style={{ fontFamily: "'Outfit', sans-serif" }}
-            >
-              Your team deserves better{" "}
-              <span className="gradient-text">than spreadsheets</span>
-            </h2>
-            <p className="text-white/50 text-lg max-w-xl mx-auto mb-10">
-              Join 12,000+ teams who replaced their patchwork of tools with
-              Orbitly. Free to start, no credit card required.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href="#"
-                className="btn-primary inline-flex items-center gap-2 text-white font-semibold px-8 py-4 rounded-xl text-base"
+            {/* Inner glow */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{ background: "radial-gradient(ellipse 60% 40% at 50% 0%, rgba(99,102,241,0.12), transparent)" }}
+              aria-hidden="true"
+            />
+            <div className="relative z-10 p-12 md:p-20 text-center">
+              <motion.div
+                variants={staggerContainer}
+                initial="hidden"
+                animate={inView ? "visible" : "hidden"}
               >
-                Get started free
-                <ArrowRight className="w-4 h-4" />
-              </a>
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 text-white/60 hover:text-white font-medium px-8 py-4 rounded-xl text-base glass-card border border-white/8 hover:border-white/15 transition-all duration-200"
-              >
-                Book a demo
-              </a>
+                <motion.div variants={staggerItem}>
+                  <span className="badge-pill mb-7">
+                    <Zap className="w-3 h-3 fill-indigo-400 text-indigo-400" />
+                    Start shipping faster today
+                  </span>
+                </motion.div>
+                <motion.h2
+                  variants={staggerItem}
+                  className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight leading-tight"
+                  style={{ fontFamily: "'Outfit', sans-serif" }}
+                >
+                  Your team deserves better{" "}
+                  <span className="gradient-text">than spreadsheets</span>
+                </motion.h2>
+                <motion.p variants={staggerItem} className="text-white/45 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
+                  Join 12,000+ teams who replaced their patchwork of tools with
+                  Orbitly. Free to start, no credit card required.
+                </motion.p>
+                <motion.div
+                  variants={staggerItem}
+                  className="flex flex-col sm:flex-row items-center justify-center gap-3"
+                >
+                  <a
+                    href="#"
+                    className="btn-primary inline-flex items-center gap-2.5 text-white font-semibold px-9 py-4 rounded-xl text-base"
+                  >
+                    Get started free
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                  <a
+                    href="#"
+                    className="btn-ghost inline-flex items-center gap-2.5 text-white/65 hover:text-white font-medium px-9 py-4 rounded-xl text-base"
+                  >
+                    Book a demo
+                  </a>
+                </motion.div>
+              </motion.div>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 py-16">
+      <footer className="border-t border-white/[0.05] py-20">
         <div className="container">
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-8 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-10 mb-16">
             {/* Brand */}
             <div className="col-span-2">
-              <a href="/" className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center">
+              <a href="/" className="flex items-center gap-2.5 mb-5">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/25">
                   <Zap className="w-4 h-4 text-white" fill="white" />
                 </div>
                 <span
-                  className="text-white font-semibold text-lg"
+                  className="text-white font-bold text-lg"
                   style={{ fontFamily: "'Outfit', sans-serif" }}
                 >
                   Orbitly
                 </span>
               </a>
-              <p className="text-white/35 text-sm leading-relaxed max-w-xs mb-6">
+              <p className="text-white/30 text-sm leading-relaxed max-w-xs mb-7">
                 AI-powered project management for modern engineering teams. Ship
                 faster, stress less.
               </p>
@@ -106,29 +118,29 @@ export default function Footer() {
                 <input
                   type="email"
                   placeholder="your@email.com"
-                  className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-white/25 focus:outline-none focus:border-indigo-500/50 transition-colors"
+                  className="flex-1 bg-white/[0.04] border border-white/[0.08] rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-indigo-500/40 focus:bg-white/[0.06] transition-all duration-200"
                 />
-                <button className="btn-primary px-4 py-2 rounded-lg text-white text-sm font-medium">
+                <button className="btn-primary px-4 py-2.5 rounded-xl text-white text-sm font-semibold whitespace-nowrap">
                   Subscribe
                 </button>
               </div>
             </div>
 
-            {/* Links */}
+            {/* Link columns */}
             {Object.entries(footerLinks).map(([category, links]) => (
               <div key={category}>
                 <h4
-                  className="text-white text-sm font-semibold mb-4"
+                  className="text-white text-sm font-semibold mb-5"
                   style={{ fontFamily: "'Outfit', sans-serif" }}
                 >
                   {category}
                 </h4>
-                <ul className="flex flex-col gap-2.5">
+                <ul className="flex flex-col gap-3">
                   {links.map((link) => (
                     <li key={link}>
                       <a
                         href="#"
-                        className="text-white/35 text-sm hover:text-white/70 transition-colors"
+                        className="text-white/30 text-sm hover:text-white/65 transition-colors duration-200"
                       >
                         {link}
                       </a>
@@ -140,24 +152,33 @@ export default function Footer() {
           </div>
 
           {/* Bottom bar */}
-          <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-white/25 text-sm">
+          <div className="section-divider mb-8" />
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-white/20 text-sm">
               © 2025 Orbitly, Inc. All rights reserved.
             </p>
-            <div className="flex items-center gap-4">
-              <a href="#" className="text-white/25 hover:text-white/60 transition-colors" aria-label="GitHub">
-                <Github className="w-4 h-4" />
-              </a>
-              <a href="#" className="text-white/25 hover:text-white/60 transition-colors" aria-label="Twitter">
-                <Twitter className="w-4 h-4" />
-              </a>
-              <a href="#" className="text-white/25 hover:text-white/60 transition-colors" aria-label="LinkedIn">
-                <Linkedin className="w-4 h-4" />
-              </a>
+            <div className="flex items-center gap-5">
+              {[
+                { icon: <Github className="w-4 h-4" />, label: "GitHub" },
+                { icon: <Twitter className="w-4 h-4" />, label: "Twitter" },
+                { icon: <Linkedin className="w-4 h-4" />, label: "LinkedIn" },
+              ].map(({ icon, label }) => (
+                <a
+                  key={label}
+                  href="#"
+                  className="text-white/20 hover:text-white/55 transition-colors duration-200"
+                  aria-label={label}
+                >
+                  {icon}
+                </a>
+              ))}
             </div>
             <p className="text-white/15 text-xs">
               Built with{" "}
-              <a href="https://antimatterai.com" className="text-indigo-400/60 hover:text-indigo-400 transition-colors">
+              <a
+                href="https://antimatterai.com"
+                className="text-indigo-400/50 hover:text-indigo-400 transition-colors duration-200"
+              >
                 Antimatter AI
               </a>
             </p>

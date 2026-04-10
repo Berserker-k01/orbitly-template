@@ -1,59 +1,53 @@
 /*
- * Features — Orbitly SaaS Template
- * Design: Orbital Dark — asymmetric bento grid with glassmorphic cards,
- * scroll-triggered fade-up animations, and product screenshot inserts.
+ * Features — Orbitly SaaS Template (Polish v2)
+ * Design: Orbital Dark — asymmetric bento grid, gradient-border cards,
+ * scroll-triggered stagger, product screenshot inserts with inner glow.
  */
-import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Zap, Users, BarChart3, Shield, GitBranch, Sparkles } from "lucide-react";
+import { useScrollReveal, staggerContainer, staggerItem } from "@/hooks/useScrollReveal";
 
 const ANALYTICS_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663105007581/WVMihHZALT4vcd5EzoqTpv/orbitly-feature-analytics-SuS6KiDruHVMKGSaee9zZ8.webp";
 const COLLAB_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663105007581/WVMihHZALT4vcd5EzoqTpv/orbitly-feature-collab-PEatSkP8M6puJTHWxG2HFt.webp";
 
-function useInView(threshold = 0.15) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true); }, { threshold });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, inView };
-}
-
 const smallFeatures = [
   {
     icon: <Zap className="w-5 h-5 text-indigo-400" />,
+    iconBg: "bg-indigo-500/10 border-indigo-500/20",
     title: "AI Sprint Planning",
     desc: "Let Orbitly's AI analyze your backlog and auto-generate sprint plans based on team velocity and deadlines.",
   },
   {
     icon: <Shield className="w-5 h-5 text-violet-400" />,
+    iconBg: "bg-violet-500/10 border-violet-500/20",
     title: "SOC 2 Type II",
     desc: "Enterprise-grade security with end-to-end encryption, SSO, and full audit logs out of the box.",
   },
   {
     icon: <GitBranch className="w-5 h-5 text-indigo-400" />,
+    iconBg: "bg-indigo-500/10 border-indigo-500/20",
     title: "GitHub & Jira Sync",
     desc: "Two-way sync with your existing tools. PRs, issues, and deployments reflected in real time.",
   },
   {
     icon: <Sparkles className="w-5 h-5 text-violet-400" />,
+    iconBg: "bg-violet-500/10 border-violet-500/20",
     title: "Smart Automations",
     desc: "Build no-code workflows that trigger on any event — status changes, due dates, or custom conditions.",
   },
 ];
 
 export default function Features() {
-  const { ref: sectionRef, inView } = useInView(0.1);
+  const { ref, inView } = useScrollReveal(0.08);
 
   return (
-    <section id="features" className="relative py-32 overflow-hidden" ref={sectionRef}>
-      {/* Subtle glow */}
+    <section id="features" className="relative py-36 overflow-hidden" ref={ref}>
+      {/* Section divider top */}
+      <div className="section-divider mb-0 absolute top-0 left-0 right-0" />
+
+      {/* Left glow */}
       <div
-        className="glow-orb w-[600px] h-[400px] -left-32 top-1/2 -translate-y-1/2 opacity-10"
+        className="glow-orb w-[500px] h-[500px] -left-48 top-1/2 -translate-y-1/2 opacity-[0.07]"
         style={{ background: "radial-gradient(ellipse, #6366F1, transparent)" }}
         aria-hidden="true"
       />
@@ -61,85 +55,105 @@ export default function Features() {
       <div className="container relative z-10">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          variants={staggerContainer}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="text-center mb-20"
         >
-          <span className="inline-block px-3 py-1 rounded-full text-xs font-medium text-indigo-300 border border-indigo-500/30 bg-indigo-500/10 mb-4">
-            Platform Features
-          </span>
-          <h2
-            className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight"
+          <motion.div variants={staggerItem}>
+            <span className="badge-pill mb-5">
+              Platform Features
+            </span>
+          </motion.div>
+          <motion.h2
+            variants={staggerItem}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5 tracking-tight"
             style={{ fontFamily: "'Outfit', sans-serif" }}
           >
             Everything your team needs,{" "}
+            <br className="hidden md:block" />
             <span className="gradient-text">nothing it doesn't</span>
-          </h2>
-          <p className="text-white/50 text-lg max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p variants={staggerItem} className="text-white/45 text-lg max-w-2xl mx-auto leading-relaxed">
             Orbitly combines the best of project management, AI automation, and
             real-time collaboration into a single, opinionated workspace.
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Bento grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
 
-          {/* Large card — Analytics */}
+          {/* Large card — Analytics (spans 2 cols) */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 36 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="lg:col-span-2 glass-card rounded-2xl overflow-hidden card-hover border border-white/8"
+            transition={{ duration: 0.65, delay: 0.1 }}
+            className="lg:col-span-2 gradient-border rounded-2xl overflow-hidden card-hover"
           >
-            <div className="p-6 pb-0">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-9 h-9 rounded-lg bg-indigo-500/15 border border-indigo-500/20 flex items-center justify-center">
+            <div className="p-7 pb-0">
+              <div className="flex items-start gap-4 mb-5">
+                <div className={`w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 bg-indigo-500/10 border-indigo-500/20`}>
                   <BarChart3 className="w-5 h-5 text-indigo-400" />
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold text-base" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                  <h3 className="text-white font-semibold text-lg mb-1" style={{ fontFamily: "'Outfit', sans-serif" }}>
                     Real-time Analytics
                   </h3>
-                  <p className="text-white/40 text-sm">Track velocity, burndown, and delivery health</p>
+                  <p className="text-white/40 text-sm leading-relaxed">
+                    Track velocity, burndown, and delivery health across every project and team.
+                  </p>
                 </div>
               </div>
             </div>
-            <div className="px-6 pb-6">
-              <img
-                src={ANALYTICS_IMG}
-                alt="Orbitly analytics dashboard showing performance metrics"
-                className="w-full rounded-xl border border-white/5 mt-4"
-                loading="lazy"
-              />
+            <div className="px-7 pb-7">
+              <div className="relative rounded-xl overflow-hidden border border-white/[0.06]">
+                <div
+                  className="absolute inset-0 pointer-events-none z-10"
+                  style={{ boxShadow: "inset 0 0 40px rgba(99,102,241,0.08)" }}
+                />
+                <img
+                  src={ANALYTICS_IMG}
+                  alt="Orbitly analytics dashboard showing performance metrics"
+                  className="w-full block"
+                  loading="lazy"
+                />
+              </div>
             </div>
           </motion.div>
 
           {/* Tall card — Collaboration */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 36 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="glass-card rounded-2xl overflow-hidden card-hover border border-white/8 flex flex-col"
+            transition={{ duration: 0.65, delay: 0.18 }}
+            className="gradient-border rounded-2xl overflow-hidden card-hover flex flex-col"
           >
-            <div className="p-6">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-9 h-9 rounded-lg bg-violet-500/15 border border-violet-500/20 flex items-center justify-center">
+            <div className="p-7 flex flex-col flex-1">
+              <div className="flex items-start gap-4 mb-5">
+                <div className="w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 bg-violet-500/10 border-violet-500/20">
                   <Users className="w-5 h-5 text-violet-400" />
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold text-base" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                  <h3 className="text-white font-semibold text-lg mb-1" style={{ fontFamily: "'Outfit', sans-serif" }}>
                     Live Collaboration
                   </h3>
-                  <p className="text-white/40 text-sm">Work together in real time</p>
+                  <p className="text-white/40 text-sm leading-relaxed">
+                    See your team's cursors in real time. Comment, assign, and resolve without leaving the board.
+                  </p>
                 </div>
               </div>
-              <img
-                src={COLLAB_IMG}
-                alt="Orbitly real-time collaboration with live cursors"
-                className="w-full rounded-xl border border-white/5 mt-2"
-                loading="lazy"
-              />
+              <div className="flex-1 relative rounded-xl overflow-hidden border border-white/[0.06]">
+                <div
+                  className="absolute inset-0 pointer-events-none z-10"
+                  style={{ boxShadow: "inset 0 0 40px rgba(139,92,246,0.08)" }}
+                />
+                <img
+                  src={COLLAB_IMG}
+                  alt="Orbitly real-time collaboration with live cursors"
+                  className="w-full h-full object-cover block"
+                  loading="lazy"
+                />
+              </div>
             </div>
           </motion.div>
 
@@ -147,16 +161,16 @@ export default function Features() {
           {smallFeatures.map((feat, i) => (
             <motion.div
               key={feat.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 36 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 + i * 0.08 }}
-              className="glass-card rounded-2xl p-6 card-hover border border-white/8"
+              transition={{ duration: 0.65, delay: 0.26 + i * 0.08 }}
+              className="gradient-border rounded-2xl p-7 card-hover group"
             >
-              <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/8 flex items-center justify-center mb-4">
+              <div className={`w-10 h-10 rounded-xl border flex items-center justify-center mb-5 transition-colors duration-300 ${feat.iconBg}`}>
                 {feat.icon}
               </div>
               <h3
-                className="text-white font-semibold text-base mb-2"
+                className="text-white font-semibold text-base mb-2.5"
                 style={{ fontFamily: "'Outfit', sans-serif" }}
               >
                 {feat.title}

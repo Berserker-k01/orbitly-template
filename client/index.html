@@ -3,22 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Orbitly — Ship Projects at the Speed of Thought</title>
-    <meta name="description" content="Orbitly is the AI-powered project management platform that helps modern teams plan, execute, and ship faster. Built for speed, designed for clarity." />
-    <meta property="og:title" content="Orbitly — Ship Projects at the Speed of Thought" />
-    <meta property="og:description" content="AI-powered project management for modern teams." />
-    <meta property="og:type" content="website" />
-    <!-- Fonts: Outfit (display) + DM Sans (body) + Fira Code (mono) -->
+    <title>Orbitly — Ship projects at the speed of thought</title>
+    <meta name="description" content="AI-powered project management for modern engineering teams. Sprint planning, real-time collaboration, and intelligent automation in one workspace." />
+    <meta name="theme-color" content="#030305" />
+
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+
+    <!-- Fonts: Outfit (display) + DM Sans (body) + Fira Code (mono) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Prevent flash of unstyled content -->
+    <style>
+      html { background-color: #030305; }
+      body { opacity: 0; transition: opacity 0.15s ease; }
+      body.loaded { opacity: 1; }
+    </style>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('loaded');
+      });
+    </script>
     <script
       defer
       src="%VITE_ANALYTICS_ENDPOINT%/umami"
-      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
+      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%">
+    </script>
   </body>
 </html>
