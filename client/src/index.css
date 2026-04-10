@@ -175,37 +175,32 @@
     overflow: hidden;
     background: linear-gradient(135deg, #6366F1 0%, #7C3AED 100%);
     border: 1px solid rgba(139, 92, 246, 0.4);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     will-change: transform;
+    isolation: isolate;
   }
-  .btn-primary::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, #818CF8 0%, #8B5CF6 100%);
-    opacity: 0;
-    transition: opacity 0.25s ease;
-  }
+  /* Shimmer sweep — sits BEHIND text via z-index */
   .btn-primary::after {
     content: '';
     position: absolute;
-    top: -60%;
-    left: -80%;
-    width: 60%;
-    height: 220%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
-    transform: skewX(-18deg);
-    transition: left 0.55s ease;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.14) 50%, transparent 100%);
+    transform: translateX(-100%) skewX(-18deg);
+    transition: transform 0.55s ease;
   }
-  .btn-primary:hover::before { opacity: 1; }
-  .btn-primary:hover::after { left: 130%; }
+  .btn-primary:hover::after {
+    transform: translateX(200%) skewX(-18deg);
+  }
   .btn-primary:hover {
     box-shadow: 0 0 0 1px rgba(139,92,246,0.5), 0 8px 32px rgba(99,102,241,0.35);
     transform: translateY(-2px);
-    filter: brightness(1.05);
+    background: linear-gradient(135deg, #7577F5 0%, #8B5CF6 100%);
   }
   .btn-primary:active { transform: translateY(0); }
+  /* All direct children sit above the shimmer */
   .btn-primary > * { position: relative; z-index: 1; }
+  .btn-primary span, .btn-primary svg { position: relative; z-index: 1; }
 
   /* ─── Ghost button ─── */
   .btn-ghost {
@@ -352,5 +347,28 @@
     opacity: 1;
     transform: translateY(0);
     transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* ─── Logo marquee ─── */
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .marquee-track {
+    animation: marquee 28s linear infinite;
+    display: flex;
+    align-items: center;
+    gap: 3.5rem;
+    width: max-content;
+  }
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  /* ─── Pricing popular card ─── */
+  .pricing-popular {
+    background: linear-gradient(145deg, rgba(99,102,241,0.12), rgba(139,92,246,0.06));
+    border: 1px solid rgba(99,102,241,0.35);
+    box-shadow: 0 0 40px rgba(99,102,241,0.12), inset 0 1px 0 rgba(255,255,255,0.06);
   }
 }

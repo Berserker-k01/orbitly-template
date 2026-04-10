@@ -1,11 +1,11 @@
 /*
- * Hero — Orbitly SaaS Template (Polish v2)
- * Design: Orbital Dark — centered hero with animated glow, staggered word reveal,
- * floating dashboard mockup, live stat ticker, and logo marquee.
+ * Hero — Orbitly SaaS Template (Polish v3)
+ * Design: Orbital Dark — tighter vertical rhythm, better spacing between
+ * headline/subhead/CTAs, floating stat cards, live activity ticker.
  */
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Star, TrendingUp, Users, Zap } from "lucide-react";
+import { ArrowRight, Star, TrendingUp, Zap } from "lucide-react";
 import { staggerContainer, staggerItem } from "@/hooks/useScrollReveal";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663105007581/WVMihHZALT4vcd5EzoqTpv/orbitly-hero-bg-5aSwiDzmJdebv5f88UeaWz.webp";
@@ -18,11 +18,10 @@ const logos = [
   "GitHub", "Slack", "Jira", "Confluence",
 ];
 
-// Rotating live activity ticker
 const activities = [
   { icon: <TrendingUp className="w-3 h-3 text-emerald-400" />, text: "Sprint velocity up 34% this week" },
-  { icon: <Users className="w-3 h-3 text-indigo-400" />, text: "12,847 teams shipped on time last month" },
-  { icon: <Zap className="w-3 h-3 text-violet-400" />, text: "AI planned 2.1M tasks this week" },
+  { icon: <Zap className="w-3 h-3 text-indigo-400" />, text: "AI planned 2.1M tasks this week" },
+  { icon: <Star className="w-3 h-3 text-violet-400" />, text: "12,847 teams shipped on time last month" },
 ];
 
 function ActivityTicker() {
@@ -32,15 +31,15 @@ function ActivityTicker() {
     return () => clearInterval(t);
   }, []);
   return (
-    <div className="flex items-center gap-2 overflow-hidden h-5">
+    <div className="flex items-center justify-center gap-2 h-5">
       <AnimatePresence mode="wait">
         <motion.div
           key={index}
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.35 }}
-          className="flex items-center gap-1.5 text-white/50 text-xs"
+          exit={{ opacity: 0, y: -6 }}
+          transition={{ duration: 0.3 }}
+          className="flex items-center gap-1.5 text-white/40 text-xs"
         >
           {activities[index].icon}
           <span>{activities[index].text}</span>
@@ -52,60 +51,58 @@ function ActivityTicker() {
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-16">
-      {/* Background glow image */}
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-20">
+      {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${HERO_BG})`, opacity: 0.55 }}
+        style={{ backgroundImage: `url(${HERO_BG})`, opacity: 0.5 }}
         aria-hidden="true"
       />
-      {/* Dot grid overlay */}
-      <div className="absolute inset-0 dot-grid opacity-25" aria-hidden="true" />
-      {/* Radial vignette */}
+      <div className="absolute inset-0 dot-grid opacity-20" aria-hidden="true" />
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 80% 60% at 50% 0%, transparent 40%, #030305 100%)" }}
+        style={{ background: "radial-gradient(ellipse 90% 55% at 50% 0%, transparent 30%, #030305 100%)" }}
         aria-hidden="true"
       />
-      {/* Bottom fade */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-56 pointer-events-none"
         style={{ background: "linear-gradient(to bottom, transparent, #030305)" }}
         aria-hidden="true"
       />
 
       <div className="relative z-10 container flex flex-col items-center text-center">
+
         {/* Badge */}
         <motion.div
-          initial={{ opacity: 0, y: -12, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.05 }}
-          className="badge-pill mb-8"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.05 }}
+          className="badge-pill mb-6"
         >
           <Star className="w-3 h-3 fill-indigo-400 text-indigo-400" />
           Trusted by 12,000+ teams worldwide
           <span className="w-px h-3 bg-indigo-500/40 mx-0.5" />
-          <span className="text-white/35">New: AI Sprint Planning</span>
-          <ArrowRight className="w-3 h-3 text-white/35" />
+          <span className="text-white/30">New: AI Sprint Planning</span>
+          <ArrowRight className="w-3 h-3 text-white/30" />
         </motion.div>
 
-        {/* Headline — staggered words */}
+        {/* Headline */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
-          className="mb-6"
+          className="mb-5"
         >
           <motion.h1
             variants={staggerItem}
-            className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold text-white leading-[1.04] tracking-tight"
+            className="text-5xl md:text-7xl lg:text-[5.25rem] font-bold text-white leading-[1.06] tracking-tight"
             style={{ fontFamily: "'Outfit', sans-serif" }}
           >
             Ship projects at the
           </motion.h1>
           <motion.h1
             variants={staggerItem}
-            className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold leading-[1.04] tracking-tight gradient-text"
+            className="text-5xl md:text-7xl lg:text-[5.25rem] font-bold leading-[1.06] tracking-tight gradient-text"
             style={{ fontFamily: "'Outfit', sans-serif" }}
           >
             speed of thought
@@ -114,11 +111,10 @@ export default function Hero() {
 
         {/* Subheadline */}
         <motion.p
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.45 }}
-          className="text-lg md:text-xl text-white/45 max-w-2xl mx-auto mb-3 leading-relaxed"
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
+          transition={{ duration: 0.55, delay: 0.42 }}
+          className="text-base md:text-lg text-white/45 max-w-xl mx-auto mb-4 leading-relaxed"
         >
           Orbitly brings AI-powered planning, real-time collaboration, and
           intelligent automation into one workspace. Stop managing work.
@@ -129,72 +125,70 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="mb-10"
+          transition={{ duration: 0.4, delay: 0.55 }}
+          className="mb-8"
         >
           <ActivityTicker />
         </motion.div>
 
         {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.55 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4"
+          transition={{ duration: 0.55, delay: 0.52 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-3"
         >
           <a
             href="#"
-            className="btn-primary inline-flex items-center gap-2.5 text-white font-semibold px-8 py-4 rounded-xl text-base"
+            className="btn-primary inline-flex items-center gap-2 text-white font-semibold px-7 py-3.5 rounded-xl text-sm"
           >
-            Start for free
+            <span>Start for free</span>
             <ArrowRight className="w-4 h-4" />
           </a>
           <a
             href="#"
-            className="btn-ghost inline-flex items-center gap-2.5 text-white/70 hover:text-white font-medium px-8 py-4 rounded-xl text-base"
+            className="btn-ghost inline-flex items-center gap-2 text-white/65 hover:text-white font-medium px-7 py-3.5 rounded-xl text-sm"
           >
             Watch demo
-            <span className="text-xs text-white/30 font-normal">2 min</span>
+            <span className="text-xs text-white/25 font-normal">2 min</span>
           </a>
         </motion.div>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.7 }}
-          className="text-sm text-white/25 tracking-wide"
+          transition={{ duration: 0.4, delay: 0.65 }}
+          className="text-xs text-white/22 tracking-wide mb-14"
         >
           Free 14-day trial · No credit card required · Cancel anytime
         </motion.p>
 
-        {/* Dashboard mockup — floating */}
+        {/* Dashboard mockup */}
         <motion.div
-          initial={{ opacity: 0, y: 70, scale: 0.95 }}
+          initial={{ opacity: 0, y: 60, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1.1, delay: 0.85 }}
-          className="relative mt-16 w-full max-w-5xl mx-auto animate-float"
+          transition={{ duration: 1.0, delay: 0.8 }}
+          className="relative w-full max-w-5xl mx-auto animate-float"
         >
-          {/* Glow behind mockup */}
           <div
             className="absolute -inset-8 rounded-3xl pointer-events-none"
             style={{
-              background: "radial-gradient(ellipse 70% 50% at 50% 100%, rgba(99,102,241,0.25), transparent)",
-              filter: "blur(20px)",
+              background: "radial-gradient(ellipse 70% 50% at 50% 100%, rgba(99,102,241,0.22), transparent)",
+              filter: "blur(24px)",
             }}
             aria-hidden="true"
           />
-          {/* Device frame */}
-          <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] shadow-[0_32px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.04)]">
+          <div className="relative rounded-2xl overflow-hidden border border-white/[0.07] shadow-[0_40px_100px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.04)]">
             {/* Browser chrome */}
-            <div className="bg-[#0C0C14] border-b border-white/[0.06] px-4 py-3 flex items-center gap-3">
+            <div className="bg-[#0C0C14] border-b border-white/[0.05] px-4 py-3 flex items-center gap-3">
               <div className="flex gap-1.5">
                 <span className="w-3 h-3 rounded-full bg-[#FF5F57]" />
                 <span className="w-3 h-3 rounded-full bg-[#FEBC2E]" />
                 <span className="w-3 h-3 rounded-full bg-[#28C840]" />
               </div>
               <div className="flex-1 flex justify-center">
-                <div className="bg-white/[0.06] rounded-md px-4 py-1.5 text-xs text-white/25 flex items-center gap-2 max-w-xs w-full justify-center">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 relative pulse-ring" />
+                <div className="bg-white/[0.05] rounded-md px-4 py-1.5 text-xs text-white/22 flex items-center gap-2 max-w-xs w-full justify-center">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0" />
                   app.orbitly.io/dashboard
                 </div>
               </div>
@@ -210,13 +204,13 @@ export default function Hero() {
 
           {/* Floating stat cards */}
           <motion.div
-            initial={{ opacity: 0, x: -20, y: 10 }}
-            animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.5 }}
-            className="absolute -left-4 top-1/3 hidden lg:block"
+            initial={{ opacity: 0, x: -16 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.55, delay: 1.4 }}
+            className="absolute -left-5 top-1/3 hidden lg:block"
           >
             <div className="glass-card gradient-border rounded-2xl px-4 py-3 shadow-xl">
-              <div className="text-xs text-white/40 mb-1">Sprint velocity</div>
+              <div className="text-xs text-white/35 mb-1">Sprint velocity</div>
               <div className="text-xl font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>+34%</div>
               <div className="flex items-center gap-1 mt-1">
                 <TrendingUp className="w-3 h-3 text-emerald-400" />
@@ -226,13 +220,13 @@ export default function Hero() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 20, y: 10 }}
-            animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.7 }}
-            className="absolute -right-4 top-1/4 hidden lg:block"
+            initial={{ opacity: 0, x: 16 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.55, delay: 1.6 }}
+            className="absolute -right-5 top-1/4 hidden lg:block"
           >
             <div className="glass-card gradient-border rounded-2xl px-4 py-3 shadow-xl">
-              <div className="text-xs text-white/40 mb-1">AI tasks planned</div>
+              <div className="text-xs text-white/35 mb-1">AI tasks planned</div>
               <div className="text-xl font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>2.1M</div>
               <div className="flex items-center gap-1 mt-1">
                 <Zap className="w-3 h-3 text-indigo-400" />
@@ -246,23 +240,23 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.6 }}
-          className="w-full mt-20 overflow-hidden"
+          transition={{ duration: 0.7, delay: 1.5 }}
+          className="w-full mt-16 overflow-hidden"
         >
-          <p className="text-xs text-white/20 uppercase tracking-[0.18em] text-center mb-7 font-medium">
+          <p className="text-xs text-white/18 uppercase tracking-[0.18em] text-center mb-6 font-medium">
             Trusted by teams at
           </p>
           <div className="relative">
-            <div className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
+            <div className="absolute left-0 top-0 bottom-0 w-28 z-10 pointer-events-none"
               style={{ background: "linear-gradient(to right, #030305, transparent)" }} />
-            <div className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
+            <div className="absolute right-0 top-0 bottom-0 w-28 z-10 pointer-events-none"
               style={{ background: "linear-gradient(to left, #030305, transparent)" }} />
             <div className="flex overflow-hidden">
               <div className="marquee-track flex items-center gap-14 whitespace-nowrap">
                 {logos.map((logo, i) => (
                   <span
                     key={i}
-                    className="text-white/18 font-semibold text-base tracking-tight hover:text-white/40 transition-colors duration-300 select-none"
+                    className="text-white/16 font-semibold text-sm tracking-tight hover:text-white/35 transition-colors duration-300 select-none"
                     style={{ fontFamily: "'Outfit', sans-serif" }}
                   >
                     {logo}
