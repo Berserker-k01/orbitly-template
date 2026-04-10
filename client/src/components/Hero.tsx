@@ -152,7 +152,7 @@ export default function Hero() {
           </motion.h1>
           <motion.h1
             variants={staggerItem}
-            className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold leading-[1.06] tracking-tight gradient-text"
+            className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold leading-[1.1] tracking-tight gradient-text pb-2"
             style={{ fontFamily: "'Outfit', sans-serif" }}
           >
             speed of thought

@@ -7,9 +7,16 @@ import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import { useScrollReveal, staggerContainer, staggerItem } from "@/hooks/useScrollReveal";
 
-// G2 and Product Hunt logos (CDN)
+// G2 logo (CDN)
 const G2_LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663105007581/WVMihHZALT4vcd5EzoqTpv/7B8yGCYFh0Zi_6ea7c1cc.png";
-const PH_LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663105007581/WVMihHZALT4vcd5EzoqTpv/FkPBru7zWwJp_df10082b.png";
+
+// Product Hunt — inline SVG with official orange brand color
+const ProductHuntLogo = () => (
+  <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Product Hunt">
+    <circle cx="20" cy="20" r="20" fill="#DA552F"/>
+    <path d="M22.667 20c1.473 0 2.666-1.194 2.666-2.667S24.14 14.667 22.667 14.667H17.333v10.666h2.667V22h2.667zm0-2.667h-2.667v-2.666h2.667a1.333 1.333 0 0 1 0 2.666z" fill="white"/>
+  </svg>
+);
 
 // Unsplash parametric headshots — diverse professional portraits
 const AVATARS = [
@@ -214,9 +221,7 @@ export default function Testimonials() {
             {/* Product Hunt */}
             <div className="flex flex-col items-center gap-3">
               <div className="flex items-center gap-3">
-                <div className="bg-white/10 rounded-lg p-1.5">
-                  <img src={PH_LOGO} alt="Product Hunt" className="h-5 w-auto" />
-                </div>
+                <ProductHuntLogo />
                 <div>
                   <div className="flex gap-0.5 mb-0.5">
                     {[...Array(5)].map((_, i) => (
