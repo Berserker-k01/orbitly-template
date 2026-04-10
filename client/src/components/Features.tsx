@@ -42,8 +42,7 @@ export default function Features() {
 
   return (
     <section id="features" className="relative py-36 overflow-hidden" ref={ref}>
-      {/* Section divider top */}
-      <div className="section-divider mb-0 absolute top-0 left-0 right-0" />
+      {/* No top divider — hero flows directly into features */}
 
       {/* Left glow */}
       <div
