@@ -10,14 +10,15 @@ import { useScrollReveal, staggerContainer, staggerItem } from "@/hooks/useScrol
 // G2 logo (CDN)
 const G2_LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663105007581/WVMihHZALT4vcd5EzoqTpv/7B8yGCYFh0Zi_6ea7c1cc.png";
 
-// Product Hunt — inline SVG with official orange brand color
+// Product Hunt — official logo uploaded to CDN
 const ProductHuntLogo = () => (
-  <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Product Hunt">
-    <circle cx="20" cy="20" r="20" fill="#DA552F"/>
-    {/* P letterform: stem + rounded bowl */}
-    <rect x="14" y="12" width="3" height="16" rx="1.5" fill="white"/>
-    <path d="M17 12h4a5 5 0 0 1 0 10h-4V12z" fill="white"/>
-  </svg>
+  <img
+    src="https://d2xsxph8kpxj0f.cloudfront.net/310519663105007581/WVMihHZALT4vcd5EzoqTpv/2111581_f2953c79.png"
+    alt="Product Hunt"
+    width="32"
+    height="32"
+    className="rounded-full"
+  />
 );
 
 // Unsplash parametric headshots — diverse professional portraits
