@@ -47,7 +47,7 @@ function StatCard({ stat, inView, delay }: { stat: typeof stats[0]; inView: bool
       >
         {display}{stat.suffix}
       </div>
-      <div className="text-white/35 text-xs leading-snug">{stat.label}</div>
+      <div className="text-white/55 text-xs leading-snug">{stat.label}</div>
     </motion.div>
   );
 }
@@ -114,7 +114,7 @@ export default function HowItWorks() {
               From chaos to clarity{" "}
               <span className="gradient-text">in three steps</span>
             </motion.h2>
-            <motion.p variants={staggerItem} className="text-white/45 text-lg leading-relaxed mb-10">
+            <motion.p variants={staggerItem} className="text-white/65 text-lg leading-relaxed mb-10">
               Most teams waste 30% of their time on coordination overhead.
               Orbitly eliminates that — so your team can focus on building.
             </motion.p>
@@ -157,7 +157,7 @@ export default function HowItWorks() {
                 <div className="flex-1 pt-1">
                   <div className="flex items-center gap-3 mb-3">
                     <span
-                      className="text-xs font-mono text-white/20 tracking-[0.15em]"
+                      className="text-xs font-mono text-white/50 tracking-[0.15em]"
                       style={{ fontFamily: "'Fira Code', monospace" }}
                     >
                       {step.number}
@@ -170,7 +170,7 @@ export default function HowItWorks() {
                   >
                     {step.title}
                   </h3>
-                  <p className="text-white/45 leading-relaxed mb-3 text-[0.95rem]">{step.desc}</p>
+                  <p className="text-white/65 leading-relaxed mb-3 text-[0.95rem]">{step.desc}</p>
                   <p className="text-sm text-indigo-300/60 italic leading-relaxed">{step.detail}</p>
                 </div>
               </motion.div>

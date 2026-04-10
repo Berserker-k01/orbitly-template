@@ -73,7 +73,7 @@ export default function Features() {
             <br className="hidden md:block" />
             <span className="gradient-text">nothing it doesn't</span>
           </motion.h2>
-          <motion.p variants={staggerItem} className="text-white/45 text-lg max-w-2xl mx-auto leading-relaxed">
+          <motion.p variants={staggerItem} className="text-white/65 text-lg max-w-2xl mx-auto leading-relaxed">
             Orbitly combines the best of project management, AI automation, and
             real-time collaboration into a single, opinionated workspace.
           </motion.p>
@@ -98,7 +98,7 @@ export default function Features() {
                   <h3 className="text-white font-semibold text-lg mb-1" style={{ fontFamily: "'Outfit', sans-serif" }}>
                     Real-time Analytics
                   </h3>
-                  <p className="text-white/40 text-sm leading-relaxed">
+                  <p className="text-white/65 text-sm leading-relaxed">
                     Track velocity, burndown, and delivery health across every project and team.
                   </p>
                 </div>
@@ -136,7 +136,7 @@ export default function Features() {
                   <h3 className="text-white font-semibold text-lg mb-1" style={{ fontFamily: "'Outfit', sans-serif" }}>
                     Live Collaboration
                   </h3>
-                  <p className="text-white/40 text-sm leading-relaxed">
+                  <p className="text-white/65 text-sm leading-relaxed">
                     See your team's cursors in real time. Comment, assign, and resolve without leaving the board.
                   </p>
                 </div>
@@ -174,7 +174,7 @@ export default function Features() {
               >
                 {feat.title}
               </h3>
-              <p className="text-white/40 text-sm leading-relaxed">{feat.desc}</p>
+              <p className="text-white/65 text-sm leading-relaxed">{feat.desc}</p>
             </motion.div>
           ))}
         </div>

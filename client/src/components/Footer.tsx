@@ -64,7 +64,7 @@ export default function Footer() {
                   Your team deserves better{" "}
                   <span className="gradient-text">than spreadsheets</span>
                 </motion.h2>
-                <motion.p variants={staggerItem} className="text-white/45 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
+                <motion.p variants={staggerItem} className="text-white/65 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
                   Join 12,000+ teams who replaced their patchwork of tools with
                   Orbitly. Free to start, no credit card required.
                 </motion.p>
@@ -109,7 +109,7 @@ export default function Footer() {
                   Orbitly
                 </span>
               </a>
-              <p className="text-white/30 text-sm leading-relaxed max-w-xs mb-7">
+              <p className="text-white/50 text-sm leading-relaxed max-w-xs mb-7">
                 AI-powered project management for modern engineering teams. Ship
                 faster, stress less.
               </p>
@@ -140,7 +140,7 @@ export default function Footer() {
                     <li key={link}>
                       <a
                         href="#"
-                        className="text-white/30 text-sm hover:text-white/65 transition-colors duration-200"
+                        className="text-white/50 text-sm hover:text-white/65 transition-colors duration-200"
                       >
                         {link}
                       </a>
@@ -154,7 +154,7 @@ export default function Footer() {
           {/* Bottom bar */}
           <div className="section-divider mb-8" />
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-white/20 text-sm">
+            <p className="text-white/50 text-sm">
               © 2025 Orbitly, Inc. All rights reserved.
             </p>
             <div className="flex items-center gap-5">
@@ -166,14 +166,14 @@ export default function Footer() {
                 <a
                   key={label}
                   href="#"
-                  className="text-white/20 hover:text-white/55 transition-colors duration-200"
+                  className="text-white/50 hover:text-white/55 transition-colors duration-200"
                   aria-label={label}
                 >
                   {icon}
                 </a>
               ))}
             </div>
-            <p className="text-white/15 text-xs">
+            <p className="text-white/50 text-xs">
               Built with{" "}
               <a
                 href="https://antimatterai.com"

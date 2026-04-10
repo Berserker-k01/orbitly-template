@@ -44,14 +44,7 @@ const CompanyLogos = [
       </svg>
     ),
   },
-  {
-    name: "Linear",
-    svg: (
-      <svg viewBox="0 0 24 24" className="h-7 w-auto fill-white opacity-45 hover:opacity-75 transition-opacity duration-300" aria-label="Linear">
-        <path d="M.228 14.126c-.301-1.044-.228-2.166.228-3.16l8.578 8.578c-1.044.456-2.166.529-3.16.228L.228 14.126zM.01 11.25C.348 5.049 5.349.048 11.55.01L.01 11.55v-.3zM12.75.01c6.201.338 11.202 5.339 11.24 11.54L11.55.01h1.2zM24 12.45c-.338 6.201-5.339 11.202-11.54 11.24L24 12.45v-.3-.3zm-.228 1.424c-.301 1.044-.228 2.166.228 3.16l-5.646 5.646c-1.044-.456-2.166-.529-3.16-.228l8.578-8.578z"/>
-      </svg>
-    ),
-  },
+  // Linear removed — icon-only mark not recognizable enough at small sizes
   {
     name: "GitHub",
     svg: (
@@ -96,7 +89,7 @@ function ActivityTicker() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -6 }}
           transition={{ duration: 0.3 }}
-          className="flex items-center gap-1.5 text-white/40 text-xs"
+          className="flex items-center gap-1.5 text-white/60 text-xs"
         >
           {activities[index].icon}
           <span>{activities[index].text}</span>
@@ -134,13 +127,13 @@ export default function Hero() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.05 }}
-          className="badge-pill mb-8"
+          className="badge-pill mb-8 max-w-[90vw] flex-wrap justify-center"
         >
-          <Star className="w-3 h-3 fill-indigo-400 text-indigo-400" />
-          Trusted by 12,000+ teams worldwide
-          <span className="w-px h-3 bg-indigo-500/40 mx-0.5" />
-          <span className="text-white/30">New: AI Sprint Planning</span>
-          <ArrowRight className="w-3 h-3 text-white/30" />
+          <Star className="w-3 h-3 fill-indigo-400 text-indigo-400 flex-shrink-0" />
+          <span className="whitespace-nowrap">Trusted by 12,000+ teams worldwide</span>
+          <span className="w-px h-3 bg-indigo-500/40 mx-0.5 hidden sm:block" />
+          <span className="text-white/55 whitespace-nowrap hidden sm:inline">New: AI Sprint Planning</span>
+          <ArrowRight className="w-3 h-3 text-white/55 hidden sm:block" />
         </motion.div>
 
         {/* Headline */}
@@ -171,7 +164,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.42 }}
-          className="text-base md:text-lg text-white/45 max-w-xl mx-auto mb-5 leading-relaxed"
+          className="text-base md:text-lg text-white/70 max-w-xl mx-auto mb-5 leading-relaxed px-4 sm:px-0"
         >
           Orbitly brings AI-powered planning, real-time collaboration, and
           intelligent automation into one workspace. Stop managing work.
@@ -193,21 +186,21 @@ export default function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.52 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4 w-full sm:w-auto px-4 sm:px-0"
         >
           <a
             href="#"
-            className="btn-primary inline-flex items-center gap-2 text-white font-semibold px-7 py-3.5 rounded-xl text-sm"
+            className="btn-primary inline-flex items-center justify-center gap-2 text-white font-semibold px-8 py-4 rounded-xl text-sm whitespace-nowrap w-full sm:w-auto"
           >
             <span>Start for free</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 flex-shrink-0" />
           </a>
           <a
             href="#"
-            className="btn-ghost inline-flex items-center gap-2 text-white/65 hover:text-white font-medium px-7 py-3.5 rounded-xl text-sm"
+            className="btn-ghost inline-flex items-center justify-center gap-2 text-white/75 hover:text-white font-medium px-8 py-4 rounded-xl text-sm whitespace-nowrap w-full sm:w-auto"
           >
             Watch demo
-            <span className="text-xs text-white/25 font-normal">2 min</span>
+            <span className="text-xs text-white/45 font-normal">2 min</span>
           </a>
         </motion.div>
 
@@ -215,7 +208,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.65 }}
-          className="text-xs text-white/22 tracking-wide mb-16"
+          className="text-xs text-white/50 tracking-wide mb-16"
         >
           Free 14-day trial · No credit card required · Cancel anytime
         </motion.p>
@@ -244,7 +237,7 @@ export default function Hero() {
                 <span className="w-3 h-3 rounded-full bg-[#28C840]" />
               </div>
               <div className="flex-1 flex justify-center">
-                <div className="bg-white/[0.05] rounded-md px-4 py-1.5 text-xs text-white/22 flex items-center gap-2 max-w-xs w-full justify-center">
+                <div className="bg-white/[0.05] rounded-md px-4 py-1.5 text-xs text-white/45 flex items-center gap-2 max-w-xs w-full justify-center">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0" />
                   app.orbitly.io/dashboard
                 </div>
@@ -267,7 +260,7 @@ export default function Hero() {
             className="absolute -left-5 top-1/3 hidden lg:block"
           >
             <div className="glass-card gradient-border rounded-2xl px-4 py-3 shadow-xl">
-              <div className="text-xs text-white/35 mb-1">Sprint velocity</div>
+              <div className="text-xs text-white/55 mb-1">Sprint velocity</div>
               <div className="text-xl font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>+34%</div>
               <div className="flex items-center gap-1 mt-1">
                 <TrendingUp className="w-3 h-3 text-emerald-400" />
@@ -283,7 +276,7 @@ export default function Hero() {
             className="absolute -right-5 top-1/4 hidden lg:block"
           >
             <div className="glass-card gradient-border rounded-2xl px-4 py-3 shadow-xl">
-              <div className="text-xs text-white/35 mb-1">AI tasks planned</div>
+              <div className="text-xs text-white/55 mb-1">AI tasks planned</div>
               <div className="text-xl font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>2.1M</div>
               <div className="flex items-center gap-1 mt-1">
                 <Zap className="w-3 h-3 text-indigo-400" />
@@ -300,7 +293,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 1.5 }}
           className="w-full mt-20 overflow-hidden"
         >
-          <p className="text-xs text-white/18 uppercase tracking-[0.18em] text-center mb-8 font-medium">
+          <p className="text-xs text-white/45 uppercase tracking-[0.18em] text-center mb-8 font-medium">
             Trusted by teams at
           </p>
           <div className="relative">

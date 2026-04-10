@@ -112,7 +112,7 @@ function TestimonialCard({
           >
             {t.name}
           </div>
-          <div className="text-white/28 text-xs mt-0.5">
+          <div className="text-white/50 text-xs mt-0.5">
             {t.role} · {t.company}
           </div>
         </div>
@@ -157,7 +157,7 @@ export default function Testimonials() {
             Loved by engineering teams{" "}
             <span className="gradient-text">at every scale</span>
           </motion.h2>
-          <motion.p variants={staggerItem} className="text-white/45 text-lg max-w-xl mx-auto">
+          <motion.p variants={staggerItem} className="text-white/65 text-lg max-w-xl mx-auto">
             From 5-person startups to 500-person engineering orgs — Orbitly
             adapts to how your team works.
           </motion.p>
@@ -206,7 +206,7 @@ export default function Testimonials() {
                   </div>
                 </div>
               </div>
-              <p className="text-white/30 text-xs">from 1,200+ reviews</p>
+              <p className="text-white/50 text-xs">from 1,200+ reviews</p>
             </div>
 
             <div className="w-px h-12 bg-white/[0.07] hidden sm:block" />
@@ -228,7 +228,7 @@ export default function Testimonials() {
                   </div>
                 </div>
               </div>
-              <p className="text-white/30 text-xs">#1 Product of the Day</p>
+              <p className="text-white/50 text-xs">#1 Product of the Day</p>
             </div>
 
             <div className="w-px h-12 bg-white/[0.07] hidden sm:block" />
@@ -239,7 +239,7 @@ export default function Testimonials() {
                 98%
               </div>
               <div className="text-white/50 text-sm font-medium">Customer retention</div>
-              <p className="text-white/25 text-xs">year over year</p>
+              <p className="text-white/50 text-xs">year over year</p>
             </div>
           </div>
         </motion.div>

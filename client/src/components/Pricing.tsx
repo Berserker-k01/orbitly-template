@@ -98,7 +98,7 @@ export default function Pricing() {
           >
             Simple, transparent pricing
           </motion.h2>
-          <motion.p variants={staggerItem} className="text-white/45 text-lg max-w-xl mx-auto mb-10">
+          <motion.p variants={staggerItem} className="text-white/65 text-lg max-w-xl mx-auto mb-10">
             No hidden fees. No per-seat surprises. One price that scales with your team.
           </motion.p>
 
@@ -107,7 +107,7 @@ export default function Pricing() {
             <button
               onClick={() => setAnnual(false)}
               className={`relative px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
-                !annual ? "text-white" : "text-white/40 hover:text-white/65"
+                !annual ? "text-white" : "text-white/65 hover:text-white/65"
               }`}
             >
               {!annual && (
@@ -122,7 +122,7 @@ export default function Pricing() {
             <button
               onClick={() => setAnnual(true)}
               className={`relative px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-2 ${
-                annual ? "text-white" : "text-white/40 hover:text-white/65"
+                annual ? "text-white" : "text-white/65 hover:text-white/65"
               }`}
             >
               {annual && (
@@ -170,7 +170,7 @@ export default function Pricing() {
                 >
                   {plan.name}
                 </h3>
-                <p className="text-white/40 text-sm leading-relaxed">{plan.description}</p>
+                <p className="text-white/65 text-sm leading-relaxed">{plan.description}</p>
               </div>
 
               {/* Price */}
@@ -191,12 +191,12 @@ export default function Pricing() {
                       ${annual ? plan.annualPrice : plan.monthlyPrice}
                     </span>
                     {(annual ? plan.annualPrice : plan.monthlyPrice) > 0 && (
-                      <span className="text-white/35 text-sm mb-1.5">/user/mo</span>
+                      <span className="text-white/55 text-sm mb-1.5">/user/mo</span>
                     )}
                   </motion.div>
                 </AnimatePresence>
                 {annual && plan.annualPrice > 0 && (
-                  <p className="text-white/25 text-xs mt-1.5">Billed annually</p>
+                  <p className="text-white/50 text-xs mt-1.5">Billed annually</p>
                 )}
               </div>
 
@@ -231,7 +231,7 @@ export default function Pricing() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.55 }}
-          className="text-center text-white/25 text-sm mt-10"
+          className="text-center text-white/50 text-sm mt-10"
         >
           All plans include a 14-day free trial · No credit card required · Cancel anytime
         </motion.p>
