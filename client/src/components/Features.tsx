@@ -4,7 +4,7 @@
  * scroll-triggered stagger, product screenshot inserts with inner glow.
  */
 import { motion } from "framer-motion";
-import { Zap, Users, BarChart3, Shield, GitBranch, Sparkles } from "lucide-react";
+import { Zap, Users, BarChart3, Shield, GitBranch } from "lucide-react";
 import { useScrollReveal, staggerContainer, staggerItem } from "@/hooks/useScrollReveal";
 
 const ANALYTICS_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663105007581/WVMihHZALT4vcd5EzoqTpv/orbitly-feature-analytics-SuS6KiDruHVMKGSaee9zZ8.webp";
@@ -29,12 +29,7 @@ const smallFeatures = [
     title: "GitHub & Jira Sync",
     desc: "Two-way sync with your existing tools. PRs, issues, and deployments reflected in real time.",
   },
-  {
-    icon: <Sparkles className="w-5 h-5 text-violet-400" />,
-    iconBg: "bg-violet-500/10 border-violet-500/20",
-    title: "Smart Automations",
-    desc: "Build no-code workflows that trigger on any event — status changes, due dates, or custom conditions.",
-  },
+
 ];
 
 export default function Features() {

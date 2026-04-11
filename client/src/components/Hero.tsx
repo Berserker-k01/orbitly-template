@@ -116,7 +116,6 @@ export default function Hero() {
         style={{ backgroundImage: `url(${HERO_BG})`, opacity: 0.5 }}
         aria-hidden="true"
       />
-      <div className="absolute inset-0 dot-grid opacity-20" aria-hidden="true" />
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse 90% 55% at 50% 0%, transparent 30%, #030305 100%)" }}
@@ -260,38 +259,7 @@ export default function Hero() {
             />
           </div>
 
-          {/* Floating stat cards */}
-          <motion.div
-            initial={{ opacity: 0, x: -16 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.55, delay: 1.4 }}
-            className="absolute -left-5 top-1/3 hidden lg:block"
-          >
-            <div className="glass-card gradient-border rounded-2xl px-4 py-3 shadow-xl">
-              <div className="text-xs text-white/55 mb-1">Sprint velocity</div>
-              <div className="text-xl font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>+34%</div>
-              <div className="flex items-center gap-1 mt-1">
-                <TrendingUp className="w-3 h-3 text-emerald-400" />
-                <span className="text-xs text-emerald-400">vs last sprint</span>
-              </div>
-            </div>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 16 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.55, delay: 1.6 }}
-            className="absolute -right-5 top-1/4 hidden lg:block"
-          >
-            <div className="glass-card gradient-border rounded-2xl px-4 py-3 shadow-xl">
-              <div className="text-xs text-white/55 mb-1">AI tasks planned</div>
-              <div className="text-xl font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>2.1M</div>
-              <div className="flex items-center gap-1 mt-1">
-                <Zap className="w-3 h-3 text-indigo-400" />
-                <span className="text-xs text-indigo-300">this week</span>
-              </div>
-            </div>
-          </motion.div>
         </motion.div>
 
         {/* Logo marquee — react-fast-marquee for guaranteed seamless infinite scroll */}
