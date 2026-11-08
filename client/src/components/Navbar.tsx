@@ -1,126 +1,153 @@
-/*
- * Navbar — Orbitly SaaS Template (Polish v2)
- * Design: Orbital Dark — scroll-aware glass blur, animated active indicator,
- * mobile hamburger menu with slide-down reveal.
- */
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Zap, Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X, ChevronDown, Globe } from "lucide-react";
+import { useLocation } from "wouter";
+import { useI18n } from "@/contexts/I18nContext";
+import type { Lang } from "@/i18n/translations";
 
-const navLinks = [
-  { label: "Features", href: "#features" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Testimonials", href: "#testimonials" },
-];
+const LANG_LABELS: Record<Lang, string> = { fr: 'FR', en: 'EN', de: 'DE' };
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+  const [langOpen, setLangOpen] = useState(false);
+  const { t, lang, langPath, switchLang } = useI18n();
+  const [, setLocation] = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Intersection observer for active section
-  useEffect(() => {
-    const ids = navLinks.map((l) => l.href.replace("#", ""));
-    const observers = ids.map((id) => {
-      const el = document.getElementById(id);
-      if (!el) return null;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { threshold: 0.4 }
-      );
-      obs.observe(el);
-      return obs;
-    });
-    return () => observers.forEach((o) => o?.disconnect());
-  }, []);
+  const navLinks = [
+    { label: t.nav.approach, href: langPath('/approche') },
+    { label: t.nav.technology, href: langPath('/technologie') },
+    { label: t.nav.performance, href: langPath('/performances') },
+  ];
+
+  function handleNav(href: string) {
+    setMobileOpen(false);
+    setLocation(href);
+  }
+
+  function handleLangSwitch(newLang: Lang) {
+    try { localStorage.setItem('summit-lang', newLang); } catch {}
+    setLangOpen(false);
+    setMobileOpen(false);
+    setLocation(switchLang(newLang));
+  }
 
   return (
     <>
       <motion.header
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
+        transition={{ duration: 0.5, delay: 0.05 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "py-3 border-b border-white/[0.06]"
-            : "py-5"
+          scrolled ? "py-3" : "py-5"
         }`}
         style={{
-          background: scrolled
-            ? "rgba(3,3,5,0.85)"
-            : "transparent",
-          backdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
-          WebkitBackdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
+          background: scrolled ? "rgba(6,8,17,0.92)" : "transparent",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "none",
+          backdropFilter: scrolled ? "blur(20px) saturate(160%)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(20px) saturate(160%)" : "none",
         }}
       >
         <div className="container flex items-center justify-between">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40 transition-shadow duration-300">
-              <Zap className="w-4 h-4 text-white" fill="white" />
-            </div>
-            <span
-              className="text-white font-bold text-lg tracking-tight"
-              style={{ fontFamily: "'Outfit', sans-serif" }}
-            >
-              Orbitly
-            </span>
+          <a
+            href={langPath('/')}
+            onClick={(e) => { e.preventDefault(); handleNav(langPath('/')); }}
+            className="flex items-center group"
+            aria-label="Summit One — Accueil"
+          >
+            <img
+              src="/logo-full.png"
+              alt="Summit One — Quantitative Trading"
+              style={{
+                height: '50px',
+                width: 'auto',
+                objectFit: 'contain',
+                display: 'block',
+              }}
+            />
           </a>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.href.replace("#", "");
-              return (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
-                    isActive ? "text-white" : "text-white/50 hover:text-white/80"
-                  }`}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId="nav-indicator"
-                      className="absolute inset-0 bg-white/[0.07] rounded-lg"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10">{link.label}</span>
-                </a>
-              );
-            })}
+          <nav className="hidden md:flex items-center gap-1" role="navigation">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={(e) => { e.preventDefault(); handleNav(link.href); }}
+                className="relative px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-white/55 hover:text-white/90"
+              >
+                {link.label}
+              </a>
+            ))}
           </nav>
 
-          {/* Desktop CTAs */}
+          {/* Desktop right */}
           <div className="hidden md:flex items-center gap-3">
+            {/* Language switcher */}
+            <div className="relative">
+              <button
+                onClick={() => setLangOpen((v) => !v)}
+                className="flex items-center gap-1.5 text-white/50 hover:text-white/80 text-sm font-medium px-3 py-2 rounded-md transition-colors duration-200"
+                aria-label="Changer de langue"
+              >
+                <Globe className="w-3.5 h-3.5" />
+                <span>{LANG_LABELS[lang]}</span>
+                <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
+              </button>
+              <AnimatePresence>
+                {langOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -6, scale: 0.97 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 top-full mt-1 rounded-lg overflow-hidden min-w-[80px]"
+                    style={{
+                      background: "rgba(10,14,26,0.97)",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      backdropFilter: "blur(16px)",
+                    }}
+                  >
+                    {(['fr', 'en', 'de'] as Lang[]).map((l) => (
+                      <button
+                        key={l}
+                        onClick={() => handleLangSwitch(l)}
+                        className={`w-full text-left px-4 py-2.5 text-sm transition-colors duration-150 ${
+                          l === lang
+                            ? 'text-[#C9A96E] bg-[rgba(201,169,110,0.08)]'
+                            : 'text-white/60 hover:text-white/90 hover:bg-white/[0.04]'
+                        }`}
+                      >
+                        {LANG_LABELS[l]}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Contact CTA */}
             <a
-              href="#"
-              className="text-white/50 hover:text-white/80 text-sm font-medium px-4 py-2 transition-colors duration-200"
+              href={langPath('/contact')}
+              onClick={(e) => { e.preventDefault(); handleNav(langPath('/contact')); }}
+              className="btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold"
             >
-              Sign in
-            </a>
-            <a
-              href="#"
-              className="btn-primary inline-flex items-center gap-2 text-white font-semibold px-5 py-2.5 rounded-xl text-sm"
-            >
-              Start free
-              <ArrowRight className="w-3.5 h-3.5" />
+              {t.nav.contact_cta}
             </a>
           </div>
 
-          {/* Mobile menu toggle */}
+          {/* Mobile toggle */}
           <button
             className="md:hidden text-white/60 hover:text-white transition-colors p-2"
             onClick={() => setMobileOpen((v) => !v)}
-            aria-label="Toggle menu"
+            aria-label="Ouvrir le menu"
           >
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -131,40 +158,72 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -12 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.25 }}
-            className="fixed top-16 left-4 right-4 z-40 rounded-2xl overflow-hidden"
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.22 }}
+            className="fixed top-16 left-3 right-3 z-40 rounded-xl overflow-hidden"
             style={{
-              background: "rgba(10,10,18,0.96)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              backdropFilter: "blur(20px)",
+              background: "rgba(10,14,26,0.97)",
+              border: "1px solid rgba(255,255,255,0.09)",
+              backdropFilter: "blur(24px)",
             }}
           >
             <div className="p-4 flex flex-col gap-1">
+              <a
+                href={langPath('/')}
+                onClick={(e) => { e.preventDefault(); handleNav(langPath('/')); }}
+                className="px-4 py-3 rounded-lg text-white/60 hover:text-white hover:bg-white/[0.05] text-sm font-medium transition-all duration-200"
+              >
+                {t.nav.home}
+              </a>
               {navLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="px-4 py-3 rounded-xl text-white/60 hover:text-white hover:bg-white/[0.06] text-sm font-medium transition-all duration-200"
+                  onClick={(e) => { e.preventDefault(); handleNav(link.href); }}
+                  className="px-4 py-3 rounded-lg text-white/60 hover:text-white hover:bg-white/[0.05] text-sm font-medium transition-all duration-200"
                 >
                   {link.label}
                 </a>
               ))}
               <div className="section-divider my-2" />
+              {/* Language row */}
+              <div className="flex items-center gap-2 px-4 py-2">
+                <Globe className="w-3.5 h-3.5 text-white/40" />
+                {(['fr', 'en', 'de'] as Lang[]).map((l) => (
+                  <button
+                    key={l}
+                    onClick={() => handleLangSwitch(l)}
+                    className={`text-xs font-semibold tracking-wider px-2.5 py-1.5 rounded transition-colors ${
+                      l === lang
+                        ? 'text-[#C9A96E] bg-[rgba(201,169,110,0.1)] border border-[rgba(201,169,110,0.25)]'
+                        : 'text-white/50 hover:text-white/80'
+                    }`}
+                  >
+                    {LANG_LABELS[l]}
+                  </button>
+                ))}
+              </div>
               <a
-                href="#"
-                className="btn-primary flex items-center justify-center gap-2 text-white font-semibold px-5 py-3 rounded-xl text-sm mt-1"
+                href={langPath('/contact')}
+                onClick={(e) => { e.preventDefault(); handleNav(langPath('/contact')); }}
+                className="btn-primary flex items-center justify-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold mt-1"
               >
-                Start for free
-                <ArrowRight className="w-3.5 h-3.5" />
+                {t.nav.contact_cta}
               </a>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Close lang dropdown on outside click */}
+      {langOpen && (
+        <div
+          className="fixed inset-0 z-30"
+          onClick={() => setLangOpen(false)}
+        />
+      )}
     </>
   );
 }

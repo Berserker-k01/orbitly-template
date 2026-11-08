@@ -1,31 +1,31 @@
-/*
- * Home — Orbitly SaaS Landing Page
- * Design: Orbital Dark — full single-page layout assembling all sections
- * Template: Part of Open Antimatter by Antimatter AI
- */
 import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import Features from "@/components/Features";
-import HowItWorks from "@/components/HowItWorks";
-import Testimonials from "@/components/Testimonials";
-import Pricing from "@/components/Pricing";
 import Footer from "@/components/Footer";
+import Aneto from "@/components/Aneto";
+import RiskBanner from "@/components/RiskBanner";
+import Hero from "@/components/summit/Hero";
+import Stats from "@/components/summit/Stats";
+import PhilosophySection from "@/components/summit/PhilosophySection";
+import ProcessSection from "@/components/summit/ProcessSection";
+import TechOverview from "@/components/summit/TechOverview";
+import EcosystemSection from "@/components/summit/EcosystemSection";
+import FAQSection from "@/components/summit/FAQSection";
 
 export default function Home() {
   return (
-    <div
-      className="min-h-screen"
-      style={{ backgroundColor: "#030305", color: "#FAFAFA" }}
-    >
+    <div className="min-h-screen" style={{ backgroundColor: "#060811", color: "#EDE9E3" }}>
       <Navbar />
       <main>
         <Hero />
-        <Features />
-        <HowItWorks />
-        <Testimonials />
-        <Pricing />
+        <Stats />
+        <PhilosophySection />
+        <ProcessSection />
+        <TechOverview />
+        <EcosystemSection />
+        <FAQSection />
       </main>
       <Footer />
+      <Aneto />
+      <RiskBanner />
     </div>
   );
 }
