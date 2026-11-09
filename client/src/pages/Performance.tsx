@@ -9,20 +9,14 @@ import { useScrollReveal, staggerContainer, staggerItem } from "@/hooks/useScrol
 import { useI18n } from "@/contexts/I18nContext";
 
 // ── 2025 monthly data (communicated by client, exact values) ─────────────────
-const MONTHS_2025 = [
-  { label: "Janvier",   value: "+5,24 %",  raw:  5.24 },
-  { label: "Février",   value: "+4,04 %",  raw:  4.04 },
-  { label: "Mars",      value: "+2,81 %",  raw:  2.81 },
-  { label: "Avril",     value: "+0,16 %",  raw:  0.16 },
-  { label: "Mai",       value: "+2,51 %",  raw:  2.51 },
-  { label: "Juin",      value: "+0,69 %",  raw:  0.69 },
-  { label: "Juillet",   value: "+3,16 %",  raw:  3.16 },
-  { label: "Août",      value: "+1,34 %",  raw:  1.34 },
-  { label: "Septembre", value: "+3,69 %",  raw:  3.69 },
-  { label: "Octobre",   value: "+10,21 %", raw: 10.21 },
-  { label: "Novembre",  value: "−0,65 %",  raw: -0.65 },
-  { label: "Décembre",  value: "+0,08 %",  raw:  0.08 },
-];
+// Labels are localized at render time via t.performance.month_labels
+const RETURNS_2025 = [5.24, 4.04, 2.81, 0.16, 2.51, 0.69, 3.16, 1.34, 3.69, 10.21, -0.65, 0.08];
+
+function formatReturn(raw: number, lang: string): string {
+  const sign = raw >= 0 ? "+" : "";
+  const dec = lang === "en" ? "." : ",";
+  return `${sign}${raw.toFixed(2).replace(".", dec)} %`;
+}
 
 const YEARS = ["2022", "2023", "2024", "2025", "2026"] as const;
 type Year = typeof YEARS[number];
@@ -34,8 +28,8 @@ const KPI_STYLES = [
   { accent: "#C0665A", border: "rgba(192,102,90,0.2)",   bg: "rgba(192,102,90,0.04)"  },
 ];
 
-function MonthCell({ month, inView }: { month: typeof MONTHS_2025[number]; inView: boolean }) {
-  const isPositive = month.raw >= 0;
+function MonthCell({ label, raw, formattedValue, inView }: { label: string; raw: number; formattedValue: string; inView: boolean }) {
+  const isPositive = raw >= 0;
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -49,31 +43,32 @@ function MonthCell({ month, inView }: { month: typeof MONTHS_2025[number]; inVie
       }}
     >
       <span className="text-white/35 text-[10px] tracking-wider uppercase mb-1.5 font-medium">
-        {month.label}
+        {label}
       </span>
       <span
         className="font-data text-sm font-bold tracking-tight"
         style={{ color: isPositive ? "#5BAF8A" : "#C0665A" }}
       >
-        {month.value}
+        {formattedValue}
       </span>
     </motion.div>
   );
 }
 
 export default function Performance() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [activeYear, setActiveYear] = useState<Year>("2025");
   const { ref: heroRef, inView: heroInView } = useScrollReveal(0.1);
   const { ref: statsRef, inView: statsInView } = useScrollReveal(0.08);
   const { ref: gridRef, inView: gridInView } = useScrollReveal(0.06);
   const { ref: defsRef, inView: defsInView } = useScrollReveal(0.08);
 
+  const pt = t.performance;
   const KPI_ITEMS = [
-    { value: "+8,76 %", label: "Rendement mensuel moyen", description: "Moyenne déclarée depuis 2022" },
-    { value: "3,40",    label: "Profit Factor",           description: "Gains bruts / pertes brutes" },
-    { value: "71 %",    label: "Taux de réussite",        description: "Positions longues en profit" },
-    { value: "11,28 %", label: "Drawdown maximal",        description: "Recul maximal depuis un pic" },
+    { value: "+8,76 %", label: pt.kpi_avg_return_label, description: pt.kpi_avg_return_desc },
+    { value: "3,40",    label: pt.kpi_pf_label,          description: pt.kpi_pf_desc },
+    { value: "71 %",    label: pt.kpi_wr_label,          description: pt.kpi_wr_desc },
+    { value: "11,28 %", label: pt.kpi_dd_label,          description: pt.kpi_dd_desc },
   ];
 
   return (
@@ -158,7 +153,7 @@ export default function Performance() {
               animate={gridInView ? { opacity: 1, y: 0 } : {}}
               className="flex flex-wrap items-center gap-2 mb-10"
             >
-              <span className="text-white/30 text-xs tracking-[0.1em] uppercase mr-2">Année</span>
+              <span className="text-white/30 text-xs tracking-[0.1em] uppercase mr-2">{pt.year_label}</span>
               {YEARS.map((year) => (
                 <button
                   key={year}
@@ -184,8 +179,14 @@ export default function Performance() {
                   transition={{ duration: 0.4 }}
                   className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 mb-8"
                 >
-                  {MONTHS_2025.map((month) => (
-                    <MonthCell key={month.label} month={month} inView={gridInView} />
+                  {RETURNS_2025.map((raw, i) => (
+                    <MonthCell
+                      key={i}
+                      label={pt.month_labels[i]}
+                      raw={raw}
+                      formattedValue={formatReturn(raw, lang)}
+                      inView={gridInView}
+                    />
                   ))}
                 </motion.div>
 
@@ -204,13 +205,8 @@ export default function Performance() {
                     Myfxbook
                   </div>
                   <div>
-                    <p className="text-white/70 text-sm font-medium mb-1">
-                      Compte en direct vérifié par Myfxbook
-                    </p>
-                    <p className="text-white/40 text-xs leading-relaxed">
-                      Dernière mise à jour des données : novembre 2026 —{" "}
-                      Les données mensuelles sont mises à jour manuellement après validation.
-                    </p>
+                    <p className="text-white/70 text-sm font-medium mb-1">{pt.myfxbook_verified}</p>
+                    <p className="text-white/40 text-xs leading-relaxed">{pt.myfxbook_updated}</p>
                   </div>
                 </motion.div>
               </>
@@ -231,9 +227,7 @@ export default function Performance() {
                   </svg>
                 </div>
                 <p className="text-white/50 text-sm font-medium mb-2">{activeYear}</p>
-                <p className="text-white/30 text-sm max-w-xs leading-relaxed">
-                  Données en cours de validation documentaire. Elles seront publiées dès leur confirmation.
-                </p>
+                <p className="text-white/30 text-sm max-w-xs leading-relaxed">{pt.data_pending}</p>
               </motion.div>
             )}
 
