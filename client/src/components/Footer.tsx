@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MapPin, Mail, Phone, Linkedin } from "lucide-react";
+import { Mail, Phone, Linkedin } from "lucide-react";
 import { useLocation } from "wouter";
 import { useI18n } from "@/contexts/I18nContext";
 import { useScrollReveal, staggerContainer, staggerItem } from "@/hooks/useScrollReveal";
@@ -150,9 +150,8 @@ export default function Footer() {
                   <Phone className="w-3.5 h-3.5 flex-shrink-0" />
                   <span>+41 78 441 54 20</span>
                 </a>
-                <div className="flex items-start gap-2.5 text-white/40 text-xs">
-                  <MapPin className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
-                  <span>Route de Châtel 23<br />1803 Chardonne, Suisse</span>
+                <div className="flex items-center gap-2.5 text-white/40 text-xs">
+                  <span>Vaud, Suisse</span>
                 </div>
               </div>
             </div>

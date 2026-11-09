@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Calendar, CheckCircle, AlertCircle } from "lucide-react";
+import { Mail, Phone, Calendar, CheckCircle, AlertCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -135,15 +135,14 @@ export default function Contact() {
                         className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
                         style={{ background: "rgba(201,169,110,0.08)", border: "1px solid rgba(201,169,110,0.2)" }}
                       >
-                        <MapPin className="w-4 h-4" style={{ color: "#C9A96E" }} />
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                          <path d="M8 1.5C5.51 1.5 3.5 3.51 3.5 6c0 3.75 4.5 8.5 4.5 8.5s4.5-4.75 4.5-8.5c0-2.49-2.01-4.5-4.5-4.5z" stroke="#C9A96E" strokeWidth="1.3" strokeLinejoin="round"/>
+                          <circle cx="8" cy="6" r="1.5" stroke="#C9A96E" strokeWidth="1.3"/>
+                        </svg>
                       </div>
                       <div>
-                        <div className="text-white/35 text-xs mb-0.5 tracking-wide uppercase">Adresse</div>
-                        <div className="text-white/70 text-sm leading-relaxed">
-                          Route de Châtel 23<br />
-                          1803 Chardonne<br />
-                          Suisse
-                        </div>
+                        <div className="text-white/35 text-xs mb-0.5 tracking-wide uppercase">Localisation</div>
+                        <div className="text-white/70 text-sm">Vaud, Suisse</div>
                       </div>
                     </div>
                   </div>
@@ -154,11 +153,19 @@ export default function Contact() {
                   className="p-5 rounded-xl"
                   style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)" }}
                 >
-                  <div className="flex items-center gap-2 mb-3">
+                  <div className="flex items-center gap-2 mb-4">
                     <Calendar className="w-4 h-4" style={{ color: "#C9A96E" }} />
                     <h3 className="text-white font-semibold text-sm">{t.contact.appointment_title}</h3>
                   </div>
-                  <p className="text-white/45 text-sm leading-relaxed">
+                  <div className="flex flex-col gap-2.5 mb-4">
+                    {["À distance (visioconférence)", "En présentiel en Suisse"].map((opt) => (
+                      <div key={opt} className="flex items-center gap-2.5">
+                        <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#C9A96E" }} />
+                        <span className="text-white/60 text-sm">{opt}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-white/35 text-xs leading-relaxed">
                     {t.contact.appointment_body}
                   </p>
                 </div>

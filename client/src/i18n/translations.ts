@@ -27,14 +27,14 @@ export const translations = {
     // ── Stats / KPIs ──
     stats: {
       title: 'Résultats déclarés',
-      subtitle: '45 mois de track record réel et vérifié sur EUR/USD',
+      subtitle: 'Track record réel et vérifié sur EUR/USD depuis 2022',
       disclaimer:
         'Les performances passées ne préjugent pas des performances futures et ne constituent pas un indicateur fiable des résultats futurs. Ces chiffres sont déclarés par Summit One Capital et soumis à validation documentaire indépendante.',
       items: [
         {
           value: '+8,76 %',
           label: 'Rendement mensuel moyen',
-          description: 'Moyenne déclarée sur 45 mois',
+          description: 'Moyenne déclarée depuis 2022',
         },
         {
           value: '3,40',
@@ -123,7 +123,7 @@ export const translations = {
         { label: 'Marché', value: 'EUR/USD' },
         { label: 'Infrastructure', value: 'Vantage Markets' },
         { label: 'Origine', value: 'Suisse' },
-        { label: 'Track record', value: '45 mois' },
+        { label: 'Track record', value: 'Depuis 2022' },
       ],
     },
 
@@ -132,7 +132,7 @@ export const translations = {
       badge: 'Écosystème',
       title: 'Acteurs et responsabilités',
       subtitle:
-        'Summit One opère au sein d\'un écosystème structuré, distinguant clairement les rôles de chaque intervenant.',
+        'Summit One s\'inscrit au sein d\'un écosystème structuré, distinguant clairement les rôles de chaque intervenant.',
       entities: [
         {
           name: 'Summit One Capital',
@@ -170,7 +170,7 @@ export const translations = {
         },
         {
           q: "Sur quel marché intervient Summit One ?",
-          a: "Summit One opère exclusivement sur la paire de devises EUR/USD, l\'une des paires les plus liquides au monde, via l\'infrastructure Vantage Markets.",
+          a: "Summit One intervient exclusivement sur la paire de devises EUR/USD, l\'une des paires les plus liquides au monde, via l\'infrastructure Vantage Markets.",
         },
         {
           q: "Qu\'est-ce qu\'un backtesting ?",
@@ -198,7 +198,7 @@ export const translations = {
         },
         {
           q: "Quel est le rôle de Summit One Capital ?",
-          a: "Summit One Capital est l\'éditeur et développeur de la stratégie algorithmique. Il développe, maintient et opère les algorithmes de trading. Son activité est celle d\'un éditeur de solutions logicielles financières, distincte d\'un gestionnaire de fonds ou d\'un conseiller financier.",
+          a: "Summit One Capital est l\'éditeur et développeur de la stratégie algorithmique. Il conçoit, maintient et déploie les algorithmes de trading. Son activité est celle d\'un éditeur de solutions logicielles financières, distincte d\'un gestionnaire de fonds ou d\'un conseiller financier.",
         },
       ],
     },
@@ -229,7 +229,7 @@ export const translations = {
         },
         {
           title: 'Discipline algorithmique',
-          body: 'Une fois les règles de la stratégie définies et validées, leur implémentation algorithmique garantit une exécution parfaitement fidèle, sans interprétation ni adaptation.\n\nLes algorithmes de Summit One Capital opèrent selon des règles strictes : conditions d\'entrée précises, paramètres de stop-loss définis, cibles de profit déterminées. L\'absence d\'intervention humaine pendant l\'exécution est une condition de cohérence.',
+          body: 'Une fois les règles de la stratégie définies et validées, leur implémentation algorithmique garantit une exécution parfaitement fidèle, sans interprétation ni adaptation.\n\nLes algorithmes de Summit One Capital s\'exécutent selon des règles strictes : conditions d\'entrée précises, paramètres de stop-loss définis, cibles de profit déterminées. L\'absence d\'intervention humaine pendant l\'exécution est une condition de cohérence.',
         },
         {
           title: 'Gestion du risque',
@@ -278,19 +278,16 @@ export const translations = {
     // ── Performance page ──
     performance: {
       hero_title: 'Performances',
-      hero_subtitle: 'Résultats déclarés sur 45 mois de track record réel sur EUR/USD.',
+      hero_subtitle: 'Résultats déclarés — Track record réel sur EUR/USD depuis 2022.',
       table_title: 'Indicateurs de performance déclarés',
       table_note: 'Ces chiffres sont communiqués par Summit One Capital. Leur publication définitive est conditionnée à la validation documentaire indépendante et à l\'autorisation de publication.',
       definitions_title: 'Définitions et méthodologie',
       methodology_title: 'Note méthodologique',
       methodology: [
-        { label: 'Période d\'observation', value: '45 mois de track record réel' },
+        { label: 'Période d\'observation', value: 'Track record depuis 2022 (EUR/USD)' },
         { label: 'Instrument', value: 'EUR/USD (Forex)' },
         { label: 'Infrastructure', value: 'Vantage Markets' },
-        { label: 'Origine', value: 'Suisse' },
-        { label: 'Méthode de calcul', value: 'À confirmer lors de la validation documentaire' },
-        { label: 'Vérification indépendante', value: 'En cours — publication conditionnée à la validation' },
-      ],
+        { label: 'Origine', value: 'Suisse' },      ],
       risk_note: 'AVERTISSEMENT IMPORTANT — Les performances passées ne préjugent pas des performances futures et ne constituent pas un indicateur fiable des résultats futurs. Le trading Forex avec effet de levier implique un risque élevé de perte. Il est possible de perdre tout ou partie du capital. Ces informations sont fournies à titre indicatif uniquement et ne constituent pas un conseil financier.',
       definitions: [
         {
@@ -303,7 +300,7 @@ export const translations = {
         },
         {
           term: 'Taux de réussite (Win Rate)',
-          def: 'Proportion de positions clôturées en profit. Le taux de 71 % communiqué concerne spécifiquement les positions longues. Le taux de réussite global peut différer et sera précisé lors de la validation documentaire.',
+          def: 'Proportion de positions clôturées en profit. Le taux de 71 % communiqué concerne spécifiquement les positions longues. Le taux de réussite global peut différer.',
         },
         {
           term: 'Drawdown maximal',
@@ -340,7 +337,7 @@ export const translations = {
         'Autre',
       ],
       appointment_title: 'Prendre rendez-vous',
-      appointment_body: 'Nous proposons des rendez-vous téléphoniques et en présentiel depuis Chardonne (Suisse). Fuso horaire européen. Contactez-nous pour convenir d\'un rendez-vous adapté à votre situation.',
+      appointment_body: 'Nous proposons des rendez-vous à distance (visioconférence) et en présentiel en Suisse. Fuseau horaire européen. Contactez-nous pour convenir d\'un rendez-vous adapté à votre situation.',
     },
 
     // ── Legal ──
@@ -376,9 +373,9 @@ export const translations = {
       send: 'Envoyer',
       disclaimer: 'Aneto est un assistant automatisé. Il ne fournit aucun conseil financier.',
       responses: {
-        approach: 'Summit One conçoit et opère des stratégies de trading systématique quantitatif sur le marché des changes (EUR/USD). Nous exploitons des patterns statistiques récurrents via des algorithmes d\'exécution automatisée.',
+        approach: 'Summit One conçoit et déploie des stratégies de trading systématique quantitatif sur le marché des changes (EUR/USD). Nous exploitons des patterns statistiques récurrents via des algorithmes d\'exécution automatisée.',
         performance: 'Sur 45 mois de track record : +8,76 % de rendement mensuel moyen déclaré, Profit Factor 3,40, taux de réussite 71 % (positions longues), drawdown maximal 11,28 %. Ces chiffres sont déclarés et soumis à validation. Les performances passées ne garantissent pas les résultats futurs.',
-        contact: 'Pour nous contacter : summit.one.contact@gmail.com | +41 78 441 54 20 | Route de Châtel 23, 1803 Chardonne, Suisse. Vous pouvez aussi utiliser le formulaire de contact sur notre site.',
+        contact: 'Pour nous contacter : summit.one.contact@gmail.com | +41 78 441 54 20 | Vaud, Suisse. Vous pouvez aussi utiliser le formulaire de contact sur notre site.',
         default: 'Je peux vous renseigner sur l\'approche de Summit One, nos indicateurs de performance, ou vous orienter vers notre équipe. Que souhaitez-vous savoir ?',
       },
     },
@@ -399,18 +396,18 @@ export const translations = {
       title1: 'Algorithmic precision.',
       title2: 'Market discipline.',
       subtitle:
-        'We design and operate systematic quantitative strategies that exploit statistical patterns in the foreign exchange market through automated algorithmic execution.',
+        'We design systematic quantitative strategies that exploit statistical regularities observed in the foreign exchange market, through automated algorithmic execution.',
       cta_primary: 'Discover our approach',
       cta_secondary: 'View performance',
       scroll_indicator: 'Scroll to explore',
     },
     stats: {
       title: 'Declared results',
-      subtitle: '45 months of real, verified track record on EUR/USD',
+      subtitle: 'Real, verified track record on EUR/USD since 2022',
       disclaimer:
         'Past performance is not indicative of future results. These figures are declared by Summit One Capital and subject to independent documentary validation.',
       items: [
-        { value: '+8.76%', label: 'Avg. monthly return', description: 'Declared average over 45 months' },
+        { value: '+8.76%', label: 'Avg. monthly return', description: 'Declared average since 2022' },
         { value: '3.40', label: 'Profit Factor', description: 'Gross gains / gross losses ratio' },
         { value: '71%', label: 'Win rate', description: 'Long positions closed in profit' },
         { value: '11.28%', label: 'Max drawdown', description: 'Maximum decline from a peak' },
@@ -447,13 +444,13 @@ export const translations = {
         { label: 'Market', value: 'EUR/USD' },
         { label: 'Infrastructure', value: 'Vantage Markets' },
         { label: 'Origin', value: 'Switzerland' },
-        { label: 'Track record', value: '45 months' },
+        { label: 'Track record', value: 'Since 2022' },
       ],
     },
     ecosystem: {
       badge: 'Ecosystem',
       title: 'Actors and responsibilities',
-      subtitle: 'Summit One operates within a structured ecosystem, clearly distinguishing the roles of each participant.',
+      subtitle: 'Summit One is part of a structured ecosystem, clearly distinguishing the roles of each participant.',
       entities: [
         { name: 'Summit One Capital', role: 'Publisher & Developer', description: 'Publisher and developer of the algorithmic strategy. Responsible for quantitative research, algorithm development, and operational monitoring.' },
         { name: 'Distribution network', role: 'Selected distributors', description: 'Network of selected third-party distributors enabling qualified investors to access the strategy.' },
@@ -466,7 +463,7 @@ export const translations = {
       items: [
         { q: 'What is systematic quantitative trading?', a: 'Systematic quantitative trading uses mathematical and statistical models to make trading decisions according to predefined rules, without emotional intervention. Decisions are fully automated.' },
         { q: 'How does an algorithmic strategy work?', a: 'A trading algorithm continuously analyzes market data, identifies conditions matching the strategy rules, and automatically executes buy or sell orders according to defined parameters.' },
-        { q: 'Which market does Summit One operate on?', a: 'Summit One operates exclusively on the EUR/USD currency pair, one of the most liquid in the world, via the Vantage Markets infrastructure.' },
+        { q: 'Which market does Summit One operate on?', a: 'Summit One focuses exclusively on the EUR/USD currency pair, one of the most liquid in the world, via the Vantage Markets infrastructure.' },
         { q: 'What is backtesting?', a: 'Backtesting is a simulation process of a strategy on historical data, allowing evaluation of past performance and robustness before any real deployment.' },
         { q: 'What is a Profit Factor?', a: 'The Profit Factor is the ratio between total gross gains and total gross losses over a given period. A Profit Factor of 3.40 means that for every unit of currency lost, 3.40 units were gained.' },
         { q: 'How should a win rate be interpreted?', a: 'The win rate indicates the proportion of positions closed in profit. The figure communicated (71%) specifically concerns long positions. This rate alone is insufficient to evaluate a strategy.' },
@@ -510,24 +507,21 @@ export const translations = {
     },
     performance: {
       hero_title: 'Performance',
-      hero_subtitle: 'Declared results over 45 months of real track record on EUR/USD.',
+      hero_subtitle: 'Declared results — Real track record on EUR/USD since 2022.',
       table_title: 'Declared performance indicators',
-      table_note: 'These figures are communicated by Summit One Capital. Their definitive publication is conditional on independent documentary validation and publication authorization.',
+      table_note: 'These figures are communicated by Summit One Capital. Data communicated by Summit One Capital, updated manually.',
       definitions_title: 'Definitions and methodology',
       methodology_title: 'Methodological note',
       methodology: [
-        { label: 'Observation period', value: '45 months of real track record' },
+        { label: 'Observation period', value: 'Track record since 2022 (EUR/USD)' },
         { label: 'Instrument', value: 'EUR/USD (Forex)' },
         { label: 'Infrastructure', value: 'Vantage Markets' },
-        { label: 'Origin', value: 'Switzerland' },
-        { label: 'Calculation method', value: 'To be confirmed during documentary validation' },
-        { label: 'Independent verification', value: 'In progress — publication conditional on validation' },
-      ],
+        { label: 'Origin', value: 'Switzerland' },      ],
       risk_note: 'IMPORTANT WARNING — Past performance is not indicative of future results. Leveraged Forex trading involves a high risk of loss. It is possible to lose all or part of the invested capital. This information is provided for indicative purposes only and does not constitute financial advice.',
       definitions: [
-        { term: 'Average monthly return', def: 'Arithmetic average of monthly returns over the observation period. The precise calculation method will be specified during documentary validation.' },
+        { term: 'Average monthly return', def: 'Arithmetic average of monthly returns over the observation period. ' },
         { term: 'Profit Factor', def: 'Ratio between the sum of gross gains and the sum of gross losses over the observation period. A Profit Factor above 1 indicates gains exceed losses.' },
-        { term: 'Win Rate', def: 'Proportion of positions closed in profit. The 71% figure specifically concerns long positions. The overall win rate may differ and will be specified during documentary validation.' },
+        { term: 'Win Rate', def: 'Proportion of positions closed in profit. The 71% figure specifically concerns long positions. The overall win rate may differ.' },
         { term: 'Maximum Drawdown', def: 'Maximum decline in valuation from a previous peak over the observation period. Expressed as a percentage of the peak valuation.' },
       ],
     },
@@ -552,7 +546,7 @@ export const translations = {
       },
       types: ['Strategy presentation', 'Technical information', 'Distribution partnership', 'Professional inquiry', 'Other'],
       appointment_title: 'Schedule an appointment',
-      appointment_body: 'We offer phone and in-person appointments from Chardonne (Switzerland). European time zone. Contact us to arrange an appointment suited to your situation.',
+      appointment_body: 'We offer remote (video conference) and in-person appointments in Switzerland. European time zone. Contact us to arrange an appointment suited to your situation.',
     },
     legal: { title: 'Legal notices', risk_title: 'Risk warnings', privacy_title: 'Privacy policy' },
     footer: {
@@ -572,9 +566,9 @@ export const translations = {
       send: 'Send',
       disclaimer: 'Aneto is an automated assistant. It provides no financial advice.',
       responses: {
-        approach: 'Summit One designs and operates systematic quantitative trading strategies on the foreign exchange market (EUR/USD), exploiting recurring statistical patterns through automated algorithmic execution.',
+        approach: 'Summit One designs and deploys systematic quantitative trading strategies on the foreign exchange market (EUR/USD), exploiting recurring statistical patterns through automated algorithmic execution.',
         performance: 'Over 45 months of track record: +8.76% average monthly return declared, Profit Factor 3.40, 71% win rate (long positions), 11.28% max drawdown. These figures are declared and subject to validation. Past performance does not guarantee future results.',
-        contact: 'Contact us: summit.one.contact@gmail.com | +41 78 441 54 20 | Route de Châtel 23, 1803 Chardonne, Switzerland. You can also use the contact form on our site.',
+        contact: 'Contact us: summit.one.contact@gmail.com | +41 78 441 54 20 | Vaud, Switzerland. You can also use the contact form on our site.',
         default: "I can tell you about Summit One\'s approach, our performance indicators, or direct you to our team. What would you like to know?",
       },
     },
@@ -595,18 +589,18 @@ export const translations = {
       title1: 'Algorithmische Präzision.',
       title2: 'Disziplin der Märkte.',
       subtitle:
-        'Wir entwickeln und betreiben systematische quantitative Strategien, die statistische Muster auf dem Devisenmarkt durch automatisierte algorithmische Ausführung ausnutzen.',
+        'Wir entwickeln systematische quantitative Strategien, die statistische Regelmäßigkeiten auf dem Devisenmarkt durch automatisierte algorithmische Ausführung nutzen.',
       cta_primary: 'Unseren Ansatz entdecken',
       cta_secondary: 'Performance ansehen',
       scroll_indicator: 'Scrollen zum Erkunden',
     },
     stats: {
       title: 'Deklarierte Ergebnisse',
-      subtitle: '45 Monate reale, verifizierte Track-Record auf EUR/USD',
+      subtitle: 'Realer, verifizierter Track-Record auf EUR/USD seit 2022',
       disclaimer:
         'Vergangene Wertentwicklungen sind kein verlässlicher Indikator für künftige Ergebnisse. Diese Zahlen werden von Summit One Capital deklariert und unterliegen einer unabhängigen dokumentarischen Validierung.',
       items: [
-        { value: '+8,76 %', label: 'Ø monatliche Rendite', description: 'Deklarierter Durchschnitt über 45 Monate' },
+        { value: '+8,76 %', label: 'Ø monatliche Rendite', description: 'Deklarierter Durchschnitt seit 2022' },
         { value: '3,40', label: 'Profit Factor', description: 'Bruttogenwinne / Bruttoverluste' },
         { value: '71 %', label: 'Trefferquote', description: 'Long-Positionen mit Gewinn geschlossen' },
         { value: '11,28 %', label: 'Maximaler Drawdown', description: 'Maximaler Rückgang vom Höchststand' },
@@ -643,13 +637,13 @@ export const translations = {
         { label: 'Markt', value: 'EUR/USD' },
         { label: 'Infrastruktur', value: 'Vantage Markets' },
         { label: 'Herkunft', value: 'Schweiz' },
-        { label: 'Track Record', value: '45 Monate' },
+        { label: 'Track Record', value: 'Seit 2022' },
       ],
     },
     ecosystem: {
       badge: 'Ökosystem',
       title: 'Akteure und Verantwortlichkeiten',
-      subtitle: 'Summit One operiert in einem strukturierten Ökosystem mit klar definierten Rollen.',
+      subtitle: 'Summit One ist Teil eines strukturierten Ökosystems mit klar definierten Rollen.',
       entities: [
         { name: 'Summit One Capital', role: 'Herausgeber & Entwickler', description: 'Herausgeber und Entwickler der algorithmischen Strategie. Verantwortlich für quantitative Forschung, Algorithmusentwicklung und operatives Monitoring.' },
         { name: 'Vertriebsnetzwerk', role: 'Ausgewählte Vertriebspartner', description: 'Netzwerk ausgewählter Drittvertriebspartner, die qualifizierten Investoren den Zugang zur Strategie ermöglichen.' },
@@ -662,7 +656,7 @@ export const translations = {
       items: [
         { q: 'Was ist systematischer quantitativer Handel?', a: 'Systematischer quantitativer Handel verwendet mathematische und statistische Modelle, um Handelsentscheidungen nach vordefinierten Regeln ohne emotionale Eingriffe zu treffen.' },
         { q: 'Wie funktioniert eine algorithmische Strategie?', a: 'Ein Handelsalgorithmus analysiert kontinuierlich Marktdaten, identifiziert Bedingungen entsprechend den Strategieregeln und führt automatisch Kauf- oder Verkaufsaufträge aus.' },
-        { q: 'Auf welchem Markt operiert Summit One?', a: 'Summit One operiert ausschließlich auf dem Währungspaar EUR/USD, einem der liquidesten der Welt, über die Vantage Markets Infrastruktur.' },
+        { q: 'Auf welchem Markt operiert Summit One?', a: 'Summit One ist ausschließlich auf dem Währungspaar EUR/USD tätig, einem der liquidesten der Welt, über die Vantage Markets Infrastruktur.' },
         { q: 'Was ist Backtesting?', a: 'Backtesting ist ein Simulationsprozess einer Strategie auf historischen Daten, der die Bewertung vergangener Leistungen und Robustheit vor dem realen Einsatz ermöglicht.' },
         { q: 'Was ist ein Profit Factor?', a: 'Der Profit Factor ist das Verhältnis zwischen Brutto-Gesamtgewinnen und Brutto-Gesamtverlusten. Ein Profit Factor von 3,40 bedeutet, dass für jede verlorene Einheit 3,40 Einheiten gewonnen wurden.' },
         { q: 'Wie ist eine Trefferquote zu interpretieren?', a: 'Die Trefferquote gibt den Anteil der mit Gewinn geschlossenen Positionen an. Der kommunizierte Wert (71 %) betrifft speziell Long-Positionen.' },
@@ -706,18 +700,16 @@ export const translations = {
     },
     performance: {
       hero_title: 'Performance',
-      hero_subtitle: 'Deklarierte Ergebnisse über 45 Monate realer Track-Record auf EUR/USD.',
+      hero_subtitle: 'Deklarierte Ergebnisse — Realer Track-Record auf EUR/USD seit 2022.',
       table_title: 'Deklarierte Performance-Indikatoren',
-      table_note: 'Diese Zahlen werden von Summit One Capital kommuniziert. Ihre endgültige Veröffentlichung ist von einer unabhängigen dokumentarischen Validierung abhängig.',
+      table_note: 'Diese Zahlen werden von Summit One Capital kommuniziert. Daten kommuniziert von Summit One Capital, manuell aktualisiert.',
       definitions_title: 'Definitionen und Methodik',
       methodology_title: 'Methodischer Hinweis',
       methodology: [
-        { label: 'Beobachtungszeitraum', value: '45 Monate realer Track-Record' },
+        { label: 'Beobachtungszeitraum', value: 'Track-Record seit 2022 (EUR/USD)' },
         { label: 'Instrument', value: 'EUR/USD (Forex)' },
         { label: 'Infrastruktur', value: 'Vantage Markets' },
-        { label: 'Herkunft', value: 'Schweiz' },
-        { label: 'Berechnungsmethode', value: 'Bei dokumentarischer Validierung zu bestätigen' },
-        { label: 'Unabhängige Verifikation', value: 'Laufend — Veröffentlichung von Validierung abhängig' },
+        { label: 'Herkunft', value: 'Schweiz' },        { label: 'Unabhängige Verifikation', value: 'Laufend — Veröffentlichung von Validierung abhängig' },
       ],
       risk_note: 'WICHTIGER HINWEIS — Vergangene Wertentwicklungen sind kein zuverlässiger Indikator für zukünftige Ergebnisse. Der gehebelte Forex-Handel birgt ein hohes Verlustrisiko. Es ist möglich, das gesamte investierte Kapital zu verlieren.',
       definitions: [
@@ -748,7 +740,7 @@ export const translations = {
       },
       types: ['Strategiepräsentation', 'Technische Informationen', 'Vertriebspartnerschaft', 'Professionelle Anfrage', 'Sonstiges'],
       appointment_title: 'Termin vereinbaren',
-      appointment_body: 'Wir bieten Telefon- und persönliche Termine aus Chardonne (Schweiz) an. Europäische Zeitzone. Kontaktieren Sie uns für einen auf Ihre Situation zugeschnittenen Termin.',
+      appointment_body: 'Wir bieten Remote-Termine (Videokonferenz) und persönliche Termine in der Schweiz an. Europäische Zeitzone. Kontaktieren Sie uns für einen auf Ihre Situation zugeschnittenen Termin.',
     },
     legal: { title: 'Impressum', risk_title: 'Risikohinweise', privacy_title: 'Datenschutzrichtlinie' },
     footer: {
@@ -768,9 +760,9 @@ export const translations = {
       send: 'Senden',
       disclaimer: 'Aneto ist ein automatisierter Assistent. Keine Finanzberatung.',
       responses: {
-        approach: 'Summit One entwickelt und betreibt systematische quantitative Handelsstrategien auf dem Devisenmarkt (EUR/USD).',
+        approach: 'Summit One entwickelt und setzt systematische quantitative Handelsstrategien auf dem Devisenmarkt (EUR/USD) ein.',
         performance: '45 Monate Track-Record: +8,76 % monatliche Rendite, Profit Factor 3,40, Trefferquote 71 %, maximaler Drawdown 11,28 %. Vergangene Ergebnisse garantieren keine zukünftigen.',
-        contact: 'Kontakt: summit.one.contact@gmail.com | +41 78 441 54 20 | Route de Châtel 23, 1803 Chardonne, Schweiz.',
+        contact: 'Kontakt: summit.one.contact@gmail.com | +41 78 441 54 20 | Waadt, Schweiz.',
         default: 'Ich kann Ihnen über den Ansatz von Summit One, unsere Performance-Indikatoren oder eine Weiterleitung an unser Team helfen.',
       },
     },

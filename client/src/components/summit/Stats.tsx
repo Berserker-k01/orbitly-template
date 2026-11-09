@@ -11,16 +11,13 @@ function useCountUp(target: string, inView: boolean) {
   useEffect(() => {
     if (!inView || hasRun.current) return;
     hasRun.current = true;
-
-    // Extract numeric value
     const num = parseFloat(target.replace(/[^0-9.,]/g, '').replace(',', '.'));
     if (isNaN(num)) { setDisplay(target); return; }
-
-    const prefix = target.match(/^[^0-9]*/)?.[0] || '';
-    const suffix = target.match(/[^0-9.,\s]*$/)?.[0] || '';
+    const prefix = target.match(/^[+\-]?/)?.[0] || '';
     const isPercent = target.includes('%');
+    const hasComma = target.includes(',');
     const steps = 50;
-    const duration = 1200;
+    const duration = 1400;
     const interval = duration / steps;
     let step = 0;
 
@@ -29,10 +26,10 @@ function useCountUp(target: string, inView: boolean) {
       const progress = step / steps;
       const eased = 1 - Math.pow(1 - progress, 3);
       const current = num * eased;
-      const formatted = current % 1 === 0
-        ? current.toFixed(0)
-        : current.toFixed(2).replace('.', ',');
-      setDisplay(`${prefix}${formatted}${isPercent ? ' %' : suffix}`);
+      const formatted = hasComma
+        ? current.toFixed(2).replace('.', ',')
+        : current % 1 === 0 ? current.toFixed(0) : current.toFixed(2);
+      setDisplay(`${prefix}${formatted}${isPercent ? ' %' : ''}`);
       if (step >= steps) { clearInterval(timer); setDisplay(target); }
     }, interval);
 
@@ -42,41 +39,59 @@ function useCountUp(target: string, inView: boolean) {
   return display;
 }
 
-function StatCard({ item, index, inView }: { item: { value: string; label: string; description: string }; index: number; inView: boolean }) {
+// Hero stat — larger, featured
+function HeroStat({ item, inView }: { item: { value: string; label: string; description: string }; inView: boolean }) {
   const display = useCountUp(item.value, inView);
-
   return (
     <motion.div
       variants={staggerItem}
-      className="relative p-7 rounded-xl card-hover"
+      className="col-span-2 relative p-8 md:p-10 rounded-2xl overflow-hidden"
       style={{
-        background: "rgba(255,255,255,0.025)",
-        border: "1px solid rgba(255,255,255,0.08)",
+        background: "rgba(201,169,110,0.04)",
+        border: "1px solid rgba(201,169,110,0.18)",
       }}
     >
-      {/* Top gold line */}
-      <div
-        className="absolute top-0 left-6 right-6 h-px"
-        style={{ background: "linear-gradient(to right, transparent, rgba(201,169,110,0.4), transparent)" }}
-        aria-hidden="true"
-      />
-      <div className="font-data text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">
+      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(to right, transparent, rgba(201,169,110,0.5), transparent)" }} aria-hidden="true" />
+      <div className="font-data text-5xl md:text-6xl font-bold tracking-tight mb-3" style={{ color: "#C9A96E" }}>
         {display}
       </div>
-      <div className="text-sm font-medium text-white/80 mb-1">
-        {item.label}
+      <div className="text-white/85 text-base font-medium mb-1.5">{item.label}</div>
+      <div className="text-white/35 text-sm">{item.description}</div>
+    </motion.div>
+  );
+}
+
+// Supporting stats — compact
+function MiniStat({ item, inView, accent }: { item: { value: string; label: string; description: string }; inView: boolean; accent: string }) {
+  const display = useCountUp(item.value, inView);
+  return (
+    <motion.div
+      variants={staggerItem}
+      className="relative flex flex-col justify-between p-6 rounded-xl"
+      style={{
+        background: "rgba(255,255,255,0.025)",
+        border: "1px solid rgba(255,255,255,0.07)",
+      }}
+    >
+      <div className="font-data text-3xl md:text-4xl font-bold tracking-tight mb-3" style={{ color: accent }}>
+        {display}
       </div>
-      <div className="text-xs text-white/40">
-        {item.description}
+      <div>
+        <div className="text-white/75 text-sm font-medium mb-1">{item.label}</div>
+        <div className="text-white/35 text-xs">{item.description}</div>
       </div>
     </motion.div>
   );
 }
 
+const ACCENTS = ["#3A80CC", "#5BAF8A", "#C0665A"];
+
 export default function Stats() {
   const { t } = useI18n();
   const { ref, inView } = useScrollReveal(0.1);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
+
+  const [hero, ...rest] = t.stats.items;
 
   return (
     <section
@@ -86,19 +101,12 @@ export default function Stats() {
     >
       <div className="section-divider absolute top-0 left-0 right-0" />
 
-      {/* Ambient gold glow */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, rgba(201,169,110,0.05), transparent)", filter: "blur(60px)" }}
-        aria-hidden="true"
-      />
-
       <div className="container relative z-10">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="text-center mb-12"
+          className="mb-10"
         >
           <motion.span variants={staggerItem} className="badge-pill mb-6 inline-flex">
             {t.stats.title}
@@ -106,29 +114,30 @@ export default function Stats() {
           <motion.h2
             variants={staggerItem}
             id="stats-heading"
-            className="text-2xl md:text-4xl font-semibold text-white mb-3"
+            className="font-display text-2xl md:text-4xl font-medium text-white max-w-xl"
           >
             {t.stats.subtitle}
           </motion.h2>
         </motion.div>
 
-        {/* KPI grid */}
+        {/* Asymmetric grid: hero stat spans 2 cols on left, 3 mini stats on right */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6"
         >
-          {t.stats.items.map((item, i) => (
-            <StatCard key={i} item={item} index={i} inView={inView} />
+          <HeroStat item={hero} inView={inView} />
+          {rest.map((item, i) => (
+            <MiniStat key={i} item={item} inView={inView} accent={ACCENTS[i % ACCENTS.length]} />
           ))}
         </motion.div>
 
-        {/* Disclaimer toggle */}
-        <div className="flex items-start gap-2 max-w-2xl mx-auto">
+        {/* Disclaimer */}
+        <div className="flex items-start gap-2">
           <button
             onClick={() => setShowDisclaimer((v) => !v)}
-            className="flex items-center gap-1.5 text-white/35 hover:text-white/55 text-xs transition-colors duration-200 mt-0.5 flex-shrink-0"
+            className="flex items-center gap-1.5 text-white/30 hover:text-white/50 text-xs transition-colors duration-200 mt-0.5 flex-shrink-0"
             aria-expanded={showDisclaimer}
             aria-label="Afficher la note de performance"
           >
@@ -142,7 +151,7 @@ export default function Stats() {
           <motion.p
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-white/30 text-xs leading-relaxed max-w-2xl mx-auto mt-3 p-4 rounded-lg"
+            className="text-white/30 text-xs leading-relaxed max-w-2xl mt-3 p-4 rounded-lg"
             style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}
           >
             {t.stats.disclaimer}

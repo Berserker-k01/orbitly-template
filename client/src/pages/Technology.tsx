@@ -41,7 +41,7 @@ export default function Technology() {
   const { t } = useI18n();
   const { ref: heroRef, inView: heroInView } = useScrollReveal(0.1);
   const { ref: contentRef, inView: contentInView } = useScrollReveal(0.06);
-  const { ref: flowRef, inView: _flowInView } = useScrollReveal(0.06);
+  const { ref: flowRef } = useScrollReveal(0.06);
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#060811", color: "#EDE9E3" }}>
@@ -82,8 +82,9 @@ export default function Technology() {
 
         {/* Sections grid */}
         <section className="py-10 md:py-16" ref={contentRef}>
+          <div className="section-divider mb-12" />
           <div className="container">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
               {t.technology.sections.map((section, i) => (
                 <TechSection
                   key={i}
@@ -95,12 +96,12 @@ export default function Technology() {
               ))}
             </div>
 
-            {/* Infrastructure visual */}
+            {/* Infrastructure summary */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={contentInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.4 }}
-              className="rounded-xl p-8 md:p-12"
+              className="rounded-xl p-8 md:p-12 mb-10"
               style={{
                 background: "linear-gradient(145deg, rgba(29,95,168,0.08), rgba(201,169,110,0.04))",
                 border: "1px solid rgba(201,169,110,0.15)",
@@ -108,30 +109,31 @@ export default function Technology() {
             >
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {[
-                  { label: "Marché", value: "EUR/USD" },
-                  { label: "Exécution", value: "Automatisée" },
+                  { label: "Marché",         value: "EUR/USD" },
+                  { label: "Exécution",      value: "Automatisée" },
                   { label: "Infrastructure", value: "Vantage Markets" },
-                  { label: "Origine", value: "Suisse" },
+                  { label: "Origine",        value: "Suisse" },
                 ].map((item, i) => (
                   <div key={i} className="text-center">
-                    <div className="font-data text-lg md:text-xl font-bold text-white mb-1">
-                      {item.value}
-                    </div>
-                    <div className="text-white/35 text-xs tracking-[0.1em] uppercase">
-                      {item.label}
-                    </div>
+                    <div className="font-data text-lg md:text-xl font-bold text-white mb-1">{item.value}</div>
+                    <div className="text-white/35 text-xs tracking-[0.1em] uppercase">{item.label}</div>
                   </div>
                 ))}
               </div>
-              <p className="text-white/25 text-xs text-center mt-6">
-                {t.technology.illustration_note}
-              </p>
             </motion.div>
           </div>
         </section>
 
+        {/* Algo flow visualization */}
+        <section className="py-8 pb-10" ref={flowRef}>
+          <div className="section-divider mb-12" />
+          <div className="container">
+            <AlgoFlowViz />
+          </div>
+        </section>
+
         {/* Risk note */}
-        <section className="py-8 pb-16">
+        <section className="py-8 pb-20">
           <div className="container max-w-3xl">
             <div
               className="p-5 rounded-xl"
@@ -139,7 +141,7 @@ export default function Technology() {
             >
               <p className="text-white/30 text-xs leading-relaxed">
                 <span className="text-white/45 font-medium">Note — </span>
-                Les détails techniques de l'implémentation (langages, modèles mathématiques, architecture exacte) ne sont pas publiés publiquement. Les informations présentées correspondent aux informations communiquées par Summit One Capital.
+                {t.technology.illustration_note}
               </p>
             </div>
           </div>
