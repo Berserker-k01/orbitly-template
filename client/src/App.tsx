@@ -5,6 +5,7 @@ import { useLocation, Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { I18nProvider } from "./contexts/I18nContext";
+import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import Approach from "./pages/Approach";
 import Technology from "./pages/Technology";
@@ -30,6 +31,8 @@ function RootRedirect() {
 
 function Router() {
   return (
+    <>
+    <ScrollToTop />
     <Switch>
       {/* FR */}
       <Route path="/fr/" component={Home} />
@@ -62,6 +65,7 @@ function Router() {
       <Route path="/" component={RootRedirect} />
       <Route component={NotFound} />
     </Switch>
+    </>
   );
 }
 
