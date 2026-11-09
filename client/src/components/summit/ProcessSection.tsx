@@ -1,86 +1,111 @@
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { useScrollReveal, staggerContainer, staggerItem } from "@/hooks/useScrollReveal";
 import { useI18n } from "@/contexts/I18nContext";
+import { useLocation } from "wouter";
 
 export default function ProcessSection() {
-  const { t } = useI18n();
+  const { t, langPath } = useI18n();
   const { ref, inView } = useScrollReveal(0.08);
+  const [, setLocation] = useLocation();
 
   return (
     <section
       className="relative py-20 md:py-28 overflow-hidden"
       ref={ref}
       aria-labelledby="process-heading"
-      style={{ background: "rgba(10,14,26,0.6)" }}
     >
       <div className="section-divider absolute top-0 left-0 right-0" />
-      <div className="section-divider absolute bottom-0 left-0 right-0" />
 
       <div className="container relative z-10">
-        {/* Header */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="text-center mb-16"
-        >
-          <motion.span variants={staggerItem} className="badge-pill mb-6 inline-flex">
-            {t.process.badge}
-          </motion.span>
-          <motion.h2
-            variants={staggerItem}
-            id="process-heading"
-            className="text-3xl md:text-5xl font-semibold text-white mb-4"
+        {/* Header — left-aligned, editorial */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end mb-16">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
           >
-            {t.process.title}
-          </motion.h2>
-          <motion.p variants={staggerItem} className="text-white/50 max-w-lg mx-auto text-sm md:text-base leading-relaxed">
-            {t.process.subtitle}
-          </motion.p>
-        </motion.div>
+            <motion.span variants={staggerItem} className="badge-pill mb-6 inline-flex">
+              {t.process.badge}
+            </motion.span>
+            <motion.h2
+              variants={staggerItem}
+              id="process-heading"
+              className="font-display text-4xl md:text-5xl lg:text-6xl font-medium text-white leading-tight mb-5"
+            >
+              {t.process.title}
+            </motion.h2>
+            <motion.p variants={staggerItem} className="text-white/50 text-sm md:text-base leading-relaxed mb-8 max-w-sm">
+              {t.process.subtitle}
+            </motion.p>
+            <motion.div variants={staggerItem}>
+              <a
+                href={langPath("/approche")}
+                onClick={(e) => { e.preventDefault(); setLocation(langPath("/approche")); }}
+                className="inline-flex items-center gap-2 text-sm font-medium transition-colors duration-200 hover:opacity-80"
+                style={{ color: "#C9A96E" }}
+              >
+                {"Découvrir notre approche"}
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+            </motion.div>
+          </motion.div>
 
-        {/* Steps */}
-        <div className="max-w-3xl mx-auto">
+          {/* Decorative right */}
+          <div className="hidden lg:flex items-center justify-end">
+            <div
+              className="w-32 h-32 rounded-full opacity-15 pointer-events-none"
+              style={{ background: "radial-gradient(ellipse, #C9A96E, transparent)" }}
+            />
+          </div>
+        </div>
+
+        {/* 4-step horizontal flow */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 relative">
+          {/* Connecting line (desktop only) */}
+          <div
+            className="hidden lg:block absolute top-7 left-[12.5%] right-[12.5%] h-px pointer-events-none"
+            aria-hidden="true"
+            style={{ background: "linear-gradient(to right, rgba(201,169,110,0.1), rgba(201,169,110,0.3), rgba(201,169,110,0.1))" }}
+          />
+
           {t.process.steps.map((step, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: -20 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 + i * 0.12 }}
-              className="flex gap-6 md:gap-10 mb-10 last:mb-0"
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}
+              className="relative flex flex-col px-6 py-8 lg:px-8"
+              style={{
+                borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.05)" : "none",
+              }}
             >
-              {/* Step number + line */}
-              <div className="flex flex-col items-center flex-shrink-0">
-                <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center font-data text-sm font-bold flex-shrink-0"
-                  style={{
-                    background: "rgba(201,169,110,0.1)",
-                    border: "1px solid rgba(201,169,110,0.3)",
-                    color: "#C9A96E",
-                  }}
-                >
-                  {step.number}
-                </div>
-                {i < t.process.steps.length - 1 && (
-                  <div
-                    className="w-px flex-1 mt-3"
-                    style={{
-                      background: "linear-gradient(to bottom, rgba(201,169,110,0.3), rgba(201,169,110,0.05))",
-                      minHeight: "2.5rem",
-                    }}
-                  />
-                )}
+              {/* Step number circle */}
+              <div
+                className="w-14 h-14 rounded-full flex items-center justify-center mb-6 font-data text-base font-bold flex-shrink-0 relative z-10"
+                style={{
+                  background: "rgba(201,169,110,0.08)",
+                  border: "1px solid rgba(201,169,110,0.25)",
+                  color: "#C9A96E",
+                  boxShadow: "0 0 24px rgba(201,169,110,0.06)",
+                }}
+              >
+                {step.number}
               </div>
 
-              {/* Content */}
-              <div className="pb-10 last:pb-0">
-                <h3 className="text-white font-semibold text-lg mb-3 leading-tight">
-                  {step.title}
-                </h3>
-                <p className="text-white/50 text-sm leading-relaxed">
-                  {step.body}
-                </p>
-              </div>
+              <h3 className="text-white font-semibold text-lg mb-3 leading-tight">
+                {step.title}
+              </h3>
+              <p className="text-white/45 text-sm leading-relaxed">
+                {step.body}
+              </p>
+
+              {/* Mobile connector */}
+              {i < t.process.steps.length - 1 && (
+                <div className="lg:hidden mt-6 self-start" aria-hidden="true">
+                  <div className="w-px h-6" style={{ background: "rgba(201,169,110,0.2)" }} />
+                </div>
+              )}
             </motion.div>
           ))}
         </div>

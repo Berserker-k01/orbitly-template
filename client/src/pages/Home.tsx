@@ -4,6 +4,7 @@ import Aneto from "@/components/Aneto";
 import RiskBanner from "@/components/RiskBanner";
 import Hero from "@/components/summit/Hero";
 import Stats from "@/components/summit/Stats";
+import HomePerformance from "@/components/summit/HomePerformance";
 import PhilosophySection from "@/components/summit/PhilosophySection";
 import ProcessSection from "@/components/summit/ProcessSection";
 import TechOverview from "@/components/summit/TechOverview";
@@ -17,6 +18,7 @@ export default function Home() {
       <main>
         <Hero />
         <Stats />
+        <HomePerformance />
         <PhilosophySection />
         <ProcessSection />
         <TechOverview />
