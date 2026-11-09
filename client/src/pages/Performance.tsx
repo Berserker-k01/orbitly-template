@@ -108,8 +108,20 @@ export default function Performance() {
         </section>
 
         {/* ── KPI Cards ── */}
-        <section className="py-10 md:py-14 overflow-hidden" ref={statsRef}>
+        <section className="relative py-10 md:py-14 overflow-hidden" ref={statsRef}>
           <div className="section-divider mb-12" />
+          {/* Ambient */}
+          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <div
+              className="absolute top-0 left-0 w-[600px] h-[400px] ambient-breathe"
+              style={{ background: "radial-gradient(ellipse at 5% 10%, rgba(201,169,110,0.08) 0%, transparent 60%)", filter: "blur(50px)" }}
+            />
+            <div
+              className="absolute bottom-0 right-0 w-[500px] h-[350px] ambient-drift"
+              style={{ background: "radial-gradient(ellipse at 95% 90%, rgba(29,95,168,0.06) 0%, transparent 60%)", filter: "blur(60px)", animationDelay: "3s" }}
+            />
+            <div className="absolute inset-0 dot-grid opacity-20" />
+          </div>
           <div className="container">
             <motion.div
               variants={staggerContainer}
@@ -140,8 +152,20 @@ export default function Performance() {
         </section>
 
         {/* ── Year selector + monthly grid ── */}
-        <section className="py-10 md:py-14 overflow-hidden" ref={gridRef}>
+        <section className="relative py-10 md:py-14 overflow-hidden" ref={gridRef}>
           <div className="section-divider mb-12" />
+          {/* Ambient */}
+          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <div
+              className="absolute top-1/2 right-0 w-[500px] h-[500px] -translate-y-1/2 ambient-breathe"
+              style={{ background: "radial-gradient(ellipse at 100% 50%, rgba(91,175,138,0.06) 0%, transparent 60%)", filter: "blur(60px)", animationDelay: "2s" }}
+            />
+            <div
+              className="absolute bottom-0 left-1/4 w-[400px] h-[300px] ambient-drift"
+              style={{ background: "radial-gradient(ellipse at 20% 100%, rgba(201,169,110,0.05) 0%, transparent 55%)", filter: "blur(50px)", animationDelay: "5s" }}
+            />
+            <div className="absolute inset-0 dot-grid opacity-15" />
+          </div>
           <div className="container">
 
             {/* Year tabs */}

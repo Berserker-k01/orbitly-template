@@ -17,6 +17,19 @@ export default function ProcessSection() {
     >
       <div className="section-divider absolute top-0 left-0 right-0" />
 
+      {/* Ambient background */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute top-0 right-1/4 w-[600px] h-[400px] ambient-breathe"
+          style={{ background: "radial-gradient(ellipse at 60% 0%, rgba(29,95,168,0.07) 0%, transparent 60%)", filter: "blur(55px)", animationDelay: "1.5s" }}
+        />
+        <div
+          className="absolute bottom-0 left-0 w-[400px] h-[300px] ambient-drift"
+          style={{ background: "radial-gradient(ellipse at 0% 100%, rgba(201,169,110,0.05) 0%, transparent 60%)", filter: "blur(50px)", animationDelay: "4s" }}
+        />
+        <div className="absolute inset-0 line-grid opacity-10" />
+      </div>
+
       <div className="container relative z-10">
         {/* Header — left-aligned, editorial */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end mb-16">

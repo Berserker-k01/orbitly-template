@@ -450,4 +450,33 @@
     border-radius: 50%;
     position: absolute;
   }
+
+  /* ── Ambient glow breathe ── */
+  @keyframes ambient-breathe {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50%       { opacity: 1;   transform: scale(1.08); }
+  }
+  .ambient-breathe {
+    animation: ambient-breathe 7s ease-in-out infinite;
+    will-change: opacity, transform;
+  }
+
+  /* ── Slow ambient drift ── */
+  @keyframes ambient-drift {
+    0%, 100% { transform: translate(0px, 0px); }
+    33%      { transform: translate(18px, -12px); }
+    66%      { transform: translate(-12px, 10px); }
+  }
+  .ambient-drift {
+    animation: ambient-drift 14s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  /* ── Scan line sweep ── */
+  @keyframes scan-sweep {
+    0%   { transform: translateX(-100%); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { transform: translateX(100vw); opacity: 0; }
+  }
 }

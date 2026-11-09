@@ -16,6 +16,19 @@ export default function PhilosophySection() {
     >
       <div className="section-divider absolute top-0 left-0 right-0" />
 
+      {/* Ambient background */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute -top-20 right-0 w-[700px] h-[600px] ambient-breathe"
+          style={{ background: "radial-gradient(ellipse at 90% 10%, rgba(201,169,110,0.06) 0%, transparent 55%)", filter: "blur(60px)", animationDelay: "1s" }}
+        />
+        <div
+          className="absolute bottom-0 left-1/4 w-[400px] h-[300px] ambient-drift"
+          style={{ background: "radial-gradient(ellipse at 20% 100%, rgba(29,95,168,0.04) 0%, transparent 60%)", filter: "blur(50px)", animationDelay: "5s" }}
+        />
+        <div className="absolute inset-0 hero-grid opacity-10" />
+      </div>
+
       <div className="container relative z-10">
         {/* Two-column layout: editorial left, content right */}
         <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-start">
@@ -57,6 +70,28 @@ export default function PhilosophySection() {
                 <p className="text-white/45 text-sm leading-relaxed">{primary.body}</p>
               </motion.div>
             )}
+
+            {/* Alpine photo — precision / mastery */}
+            <motion.div
+              variants={staggerItem}
+              className="relative mt-10 rounded-2xl overflow-hidden"
+              style={{ height: "220px" }}
+            >
+              <img
+                src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&auto=format&fit=crop&q=80"
+                alt=""
+                aria-hidden="true"
+                className="w-full h-full object-cover"
+                style={{ objectPosition: "50% 35%" }}
+              />
+              <div
+                className="absolute inset-0"
+                style={{ background: "linear-gradient(135deg, rgba(6,8,17,0.5) 0%, rgba(6,8,17,0.15) 50%, rgba(6,8,17,0.6) 100%)" }}
+              />
+              <div className="absolute bottom-4 left-4">
+                <span className="text-white/35 text-[10px] tracking-[0.2em] uppercase">Vaud · Suisse</span>
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* Right — numbered principles */}

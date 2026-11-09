@@ -14,10 +14,20 @@ export default function EcosystemSection() {
       className="relative py-20 md:py-28 overflow-hidden"
       ref={ref}
       aria-labelledby="ecosystem-heading"
-      style={{ background: "rgba(10,14,26,0.4)" }}
     >
       <div className="section-divider absolute top-0 left-0 right-0" />
       <div className="section-divider absolute bottom-0 left-0 right-0" />
+
+      {/* Background architectural photo */}
+      <div className="absolute inset-0 z-0" aria-hidden="true">
+        <img
+          src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1920&auto=format&fit=crop&q=70"
+          alt=""
+          className="w-full h-full object-cover"
+          style={{ objectPosition: "50% 60%" }}
+        />
+        <div className="absolute inset-0" style={{ background: "rgba(6,8,17,0.90)" }} />
+      </div>
 
       <div className="container relative z-10">
         <motion.div

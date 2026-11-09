@@ -101,6 +101,19 @@ export default function Stats() {
     >
       <div className="section-divider absolute top-0 left-0 right-0" />
 
+      {/* Ambient background layer */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute top-0 left-0 w-[600px] h-[400px] ambient-breathe"
+          style={{ background: "radial-gradient(ellipse at 10% 20%, rgba(201,169,110,0.08) 0%, transparent 65%)", filter: "blur(40px)" }}
+        />
+        <div
+          className="absolute bottom-0 right-0 w-[500px] h-[350px] ambient-drift"
+          style={{ background: "radial-gradient(ellipse at 90% 80%, rgba(29,95,168,0.06) 0%, transparent 60%)", filter: "blur(60px)", animationDelay: "3s" }}
+        />
+        <div className="absolute inset-0 dot-grid opacity-20" />
+      </div>
+
       <div className="container relative z-10">
         <motion.div
           variants={staggerContainer}

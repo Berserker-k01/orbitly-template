@@ -34,6 +34,19 @@ export default function HomePerformance() {
     >
       <div className="section-divider absolute top-0 left-0 right-0" />
 
+      {/* Ambient background layer */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute top-1/2 left-0 w-[500px] h-[500px] -translate-y-1/2 ambient-breathe"
+          style={{ background: "radial-gradient(ellipse at 0% 50%, rgba(201,169,110,0.07) 0%, transparent 65%)", filter: "blur(50px)" }}
+        />
+        <div
+          className="absolute top-1/3 right-0 w-[480px] h-[400px] ambient-drift"
+          style={{ background: "radial-gradient(ellipse at 100% 30%, rgba(91,175,138,0.06) 0%, transparent 60%)", filter: "blur(60px)", animationDelay: "4s" }}
+        />
+        <div className="absolute inset-0 dot-grid opacity-25" />
+      </div>
+
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16 items-start">
 
