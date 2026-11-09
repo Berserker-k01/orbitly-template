@@ -49,12 +49,17 @@ export default function Technology() {
       <main>
         {/* Hero */}
         <section className="relative pt-32 pb-20 overflow-hidden">
-          <div className="absolute inset-0 hero-grid opacity-40" aria-hidden="true" />
-          <div
-            className="absolute right-0 top-0 w-[600px] h-[600px] pointer-events-none"
-            style={{ background: "radial-gradient(ellipse at 90% 10%, rgba(29,95,168,0.08), transparent)" }}
-            aria-hidden="true"
-          />
+          <div className="absolute inset-0 z-0" aria-hidden="true">
+            <img
+              src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&auto=format&fit=crop&q=70"
+              alt=""
+              className="w-full h-full object-cover"
+              style={{ objectPosition: "60% 30%" }}
+            />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(6,8,17,0.80) 0%, rgba(6,8,17,0.72) 55%, rgba(6,8,17,1) 100%)" }} />
+            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 80% 30%, rgba(29,95,168,0.08) 0%, transparent 55%)" }} />
+          </div>
+          <div className="absolute inset-0 hero-grid opacity-20 z-1" aria-hidden="true" />
           <div className="container relative z-10" ref={heroRef}>
             <motion.div
               variants={staggerContainer}

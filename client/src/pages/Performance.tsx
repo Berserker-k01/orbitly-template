@@ -78,20 +78,17 @@ export default function Performance() {
 
         {/* ── Hero ── */}
         <section className="relative pt-32 pb-16 overflow-hidden">
-          <div
-            className="absolute inset-0"
-            aria-hidden="true"
-            style={{
-              backgroundImage: "linear-gradient(rgba(201,169,110,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(201,169,110,0.045) 1px, transparent 1px)",
-              backgroundSize: "80px 80px",
-              opacity: 0.5,
-            }}
-          />
-          <div
-            className="absolute left-0 top-0 w-[600px] h-[500px] pointer-events-none"
-            style={{ background: "radial-gradient(ellipse at 10% 20%, rgba(201,169,110,0.07), transparent)" }}
-            aria-hidden="true"
-          />
+          <div className="absolute inset-0 z-0" aria-hidden="true">
+            <img
+              src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&auto=format&fit=crop&q=70"
+              alt=""
+              className="w-full h-full object-cover"
+              style={{ objectPosition: "40% 15%" }}
+            />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(6,8,17,0.82) 0%, rgba(6,8,17,0.74) 50%, rgba(6,8,17,1) 100%)" }} />
+            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 10% 60%, rgba(201,169,110,0.06) 0%, transparent 50%)" }} />
+          </div>
+          <div className="absolute inset-0 hero-grid opacity-20 z-1" aria-hidden="true" />
           <div className="container relative z-10" ref={heroRef}>
             <motion.div variants={staggerContainer} initial="hidden" animate={heroInView ? "visible" : "hidden"}>
               <motion.span variants={staggerItem} className="badge-pill mb-8 inline-flex">

@@ -129,7 +129,7 @@ export default function Footer() {
                 <img
                   src="/logo-full.png"
                   alt="Summit One"
-                  style={{ height: '44px', width: 'auto', objectFit: 'contain', display: 'block' }}
+                  style={{ height: '58px', width: 'auto', objectFit: 'contain', display: 'block' }}
                 />
               </a>
               <p className="text-white/45 text-sm leading-relaxed mb-6 max-w-xs">

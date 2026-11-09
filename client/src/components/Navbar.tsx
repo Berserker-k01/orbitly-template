@@ -66,7 +66,7 @@ export default function Navbar() {
               src="/logo-full.png"
               alt="Summit One — Quantitative Trading"
               style={{
-                height: '50px',
+                height: '64px',
                 width: 'auto',
                 objectFit: 'contain',
                 display: 'block',
