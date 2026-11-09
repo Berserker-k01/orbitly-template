@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Aneto from "@/components/Aneto";
 import AlgoFlowViz from "@/components/summit/AlgoFlowViz";
+import CandlestickViz from "@/components/summit/CandlestickViz";
 import { useScrollReveal, staggerContainer, staggerItem } from "@/hooks/useScrollReveal";
 import { useI18n } from "@/contexts/I18nContext";
 
@@ -126,6 +127,34 @@ export default function Technology() {
                 ))}
               </div>
             </motion.div>
+          </div>
+        </section>
+
+        {/* Candlestick chart section */}
+        <section className="relative py-10 md:py-16 overflow-hidden">
+          <div className="section-divider mb-12" />
+          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <div
+              className="absolute top-0 left-1/2 w-[700px] h-[400px] -translate-x-1/2 ambient-breathe"
+              style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(29,95,168,0.08) 0%, transparent 60%)", filter: "blur(60px)" }}
+            />
+          </div>
+          <div className="container relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-8"
+            >
+              <span className="badge-pill inline-flex mb-4">EUR/USD · Analyse de marché</span>
+              <h2 className="text-xl md:text-2xl font-semibold text-white mb-2">
+                Chandeliers japonais et signaux algorithmiques
+              </h2>
+              <p className="text-white/40 text-sm max-w-xl">
+                La stratégie analyse les configurations de prix en temps réel et génère des signaux d'entrée selon des critères statistiquement validés.
+              </p>
+            </motion.div>
+            <CandlestickViz />
           </div>
         </section>
 
