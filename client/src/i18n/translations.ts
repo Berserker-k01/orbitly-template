@@ -23,10 +23,10 @@ export const translations = {
       title1: 'La précision des algorithmes.',
       title2: 'La rigueur des marchés.',
       subtitle:
-        'Nous concevons et opérons des stratégies quantitatives systématiques qui exploitent les patterns statistiques du marché des changes grâce à l\'exécution algorithmique automatisée.',
-      cta_primary: 'Découvrir notre approche',
-      cta_secondary: 'Consulter nos performances',
-      scroll_indicator: 'Défiler pour découvrir',
+        'Depuis la Suisse, nous développons des stratégies automatisées sur le Forex — des règles claires, une exécution sans improvisation, un historique que vous pouvez vérifier.',
+      cta_primary: 'Notre approche',
+      cta_secondary: 'Nos performances',
+      scroll_indicator: 'Continuer',
     },
 
     // ── Stats / KPIs ──
@@ -137,7 +137,7 @@ export const translations = {
       badge: 'Différenciation',
       title: 'Ce qu\'est Summit One et ce qui ne l\'est pas',
       intro:
-        'Summit One est une plateforme de copy trading avec des bots programmés par IA pour le trading automatisé.',
+        'Summit One est un logiciel informatique algorithmique de trading : des règles mathématiques programmées, exécutées automatiquement, sans improvisation.',
       not_label: 'Summit One n\'est expressément PAS :',
       not_items: [
         {
@@ -150,23 +150,23 @@ export const translations = {
         },
         {
           title: 'Pas un service de trading manuel',
-          body: 'Summit One repose sur des algorithmes de trading entièrement automatisés, et non sur le trading manuel.',
+          body: 'Summit One repose sur une exécution algorithmique automatisée, fondée sur des règles définies à l\'avance — pas sur le jugement d\'un opérateur.',
         },
         {
           title: 'Aucun conseil financier',
           body: 'Summit One ne propose pas de conseils d\'investissement individuels.',
         },
         {
-          title: 'Aucune garantie de victoire',
-          body: 'Les rendements ciblés mentionnés ne sont pas garantis. Le trading comporte un risque de perte.',
+          title: 'Aucune garantie de résultat',
+          body: 'Les rendements mentionnés ne sont pas garantis. Le trading comporte un risque de perte.',
         },
         {
           title: 'Pas un service de signal pur',
-          body: 'Summit One copie les transactions automatiquement au lieu d\'envoyer seulement des signaux.',
+          body: 'Les transactions sont répliquées automatiquement sur votre compte, au lieu de simples alertes à interpréter.',
         },
       ],
       distinction:
-        'Summit One se distingue des autres fournisseurs de bots de trading par : des algorithmes d\'IA développés en Suisse, un modèle de frais de performance sans coûts fixes, un historique en temps réel de plus de 4 ans.',
+        'Ce qui nous distingue : une approche quantitative développée en Suisse — programmation, rigueur mathématique et discipline systématique —, un modèle de frais de performance sans coûts fixes, et un historique vérifiable en temps réel.',
     },
 
     // ── FAQ ──
@@ -277,12 +277,12 @@ export const translations = {
     // ── CTA Section ──
     cta: {
       badge: 'Prise de contact',
-      title: 'Découvrez une approche quantitative des marchés.',
+      title: 'Une question ? Écrivons-nous.',
       subtitle:
-        'Notre équipe est disponible pour présenter notre méthodologie, répondre à vos questions et évaluer la pertinence de notre approche pour votre situation.',
-      btn: 'Prendre contact',
-      secondary: 'Consulter les performances',
-      disclaimer: 'Les informations transmises restent strictement confidentielles.',
+        'On vous explique comment ça fonctionne, sans jargon inutile — et on regarde ensemble si cela a du sens pour vous.',
+      btn: 'Nous écrire',
+      secondary: 'Voir les performances',
+      disclaimer: 'Les échanges restent confidentiels.',
     },
 
     // ── Approach page ──
@@ -540,17 +540,17 @@ export const translations = {
     ecosystem: {
       badge: 'Differentiation',
       title: 'What Summit One is — and what it is not',
-      intro: 'Summit One is a copy trading platform with AI-programmed bots for automated trading.',
+      intro: 'Summit One is algorithmic trading software: mathematical rules, programmed in advance and executed automatically — without improvisation.',
       not_label: 'Summit One is expressly NOT:',
       not_items: [
         { title: 'Not a broker', body: 'Summit One is neither a bank nor a broker. Users open their own accounts with partner brokers.' },
         { title: 'No asset management', body: 'Summit One has no direct access to client funds.' },
-        { title: 'Not a manual trading service', body: 'Summit One relies on fully automated trading algorithms, not manual trading.' },
+        { title: 'Not a manual trading service', body: 'Summit One relies on automated algorithmic execution based on predefined rules — not an operator\'s judgment.' },
         { title: 'No financial advice', body: 'Summit One does not provide individual investment advice.' },
-        { title: 'No guaranteed returns', body: 'Targeted returns mentioned are not guaranteed. Trading involves a risk of loss.' },
-        { title: 'Not a pure signal service', body: 'Summit One copies trades automatically instead of only sending signals.' },
+        { title: 'No guaranteed returns', body: 'Returns mentioned are not guaranteed. Trading involves a risk of loss.' },
+        { title: 'Not a pure signal service', body: 'Trades are replicated automatically on your account, instead of alerts left for you to interpret.' },
       ],
-      distinction: 'Summit One stands out from other trading bot providers through: AI algorithms developed in Switzerland, a performance-fee model with no fixed costs, and a real-time track record of more than 4 years.',
+      distinction: 'What sets us apart: a quantitative approach developed in Switzerland — programming, mathematical rigor and systematic discipline —, a performance-fee model with no fixed costs, and a verifiable real-time track record.',
     },
     faq: {
       badge: 'FAQ',
@@ -786,17 +786,17 @@ export const translations = {
     ecosystem: {
       badge: 'Differenzierung',
       title: 'Was Summit One ist — und was nicht',
-      intro: 'Summit One ist eine Copy-Trading-Plattform mit KI-programmierten Bots für automatisierten Handel.',
+      intro: 'Summit One ist algorithmische Trading-Software: mathematische Regeln, im Voraus programmiert und automatisch ausgeführt — ohne Improvisation.',
       not_label: 'Summit One ist ausdrücklich KEIN:',
       not_items: [
         { title: 'Kein Broker', body: 'Summit One ist weder eine Bank noch ein Broker. Nutzer eröffnen eigene Konten bei Partnerbrokern.' },
         { title: 'Keine Vermögensverwaltung', body: 'Summit One hat keinen direkten Zugriff auf Kundengelder.' },
-        { title: 'Kein manueller Trading-Service', body: 'Summit One basiert auf vollständig automatisierten Handelsalgorithmen, nicht auf manuellem Trading.' },
+        { title: 'Kein manueller Trading-Service', body: 'Summit One beruht auf automatisierter algorithmischer Ausführung nach vordefinierten Regeln — nicht auf dem Urteil eines Operators.' },
         { title: 'Keine Finanzberatung', body: 'Summit One bietet keine individuellen Anlageberatungen.' },
-        { title: 'Keine Gewinngarantie', body: 'Genannte Zielrenditen sind nicht garantiert. Trading birgt ein Verlustrisiko.' },
-        { title: 'Kein reiner Signalservice', body: 'Summit One kopiert Trades automatisch, statt nur Signale zu senden.' },
+        { title: 'Keine Ergebnisgarantie', body: 'Genannte Renditen sind nicht garantiert. Trading birgt ein Verlustrisiko.' },
+        { title: 'Kein reiner Signalservice', body: 'Trades werden automatisch auf Ihr Konto repliziert, statt nur Alerts zur Interpretation zu senden.' },
       ],
-      distinction: 'Summit One unterscheidet sich durch: in der Schweiz entwickelte KI-Algorithmen, ein Performance-Gebührenmodell ohne Fixkosten und einen Echtzeit-Track-Record von mehr als 4 Jahren.',
+      distinction: 'Was uns unterscheidet: ein in der Schweiz entwickelter quantitativer Ansatz — Programmierung, mathematische Strenge und systematische Disziplin —, ein Performance-Gebührenmodell ohne Fixkosten und ein überprüfbarer Echtzeit-Track-Record.',
     },
     faq: {
       badge: 'Häufige Fragen',

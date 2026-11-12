@@ -8,45 +8,33 @@ export default function PhilosophySection() {
 
   return (
     <section
-      className="relative py-20 md:py-32 overflow-hidden"
+      className="relative pt-10 md:pt-16 pb-20 md:pb-28 overflow-hidden"
       ref={ref}
       aria-labelledby="philosophy-heading"
     >
       <div className="section-divider absolute top-0 left-0 right-0" />
 
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div
-          className="absolute -top-20 right-0 w-[700px] h-[600px] ambient-breathe"
-          style={{ background: "radial-gradient(ellipse at 90% 10%, rgba(201,169,110,0.06) 0%, transparent 55%)", filter: "blur(60px)", animationDelay: "1s" }}
-        />
-        <div
-          className="absolute bottom-0 left-1/4 w-[400px] h-[300px] ambient-drift"
-          style={{ background: "radial-gradient(ellipse at 20% 100%, rgba(29,95,168,0.04) 0%, transparent 60%)", filter: "blur(50px)", animationDelay: "5s" }}
-        />
-        <div className="absolute inset-0 hero-grid opacity-10" />
-      </div>
-
       <div className="container relative z-10">
         <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-start">
 
-          {/* Left — editorial statement */}
+          {/* Left — editorial statement (remonté) */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
-            className="md:col-span-5 md:sticky md:top-32"
+            className="md:col-span-5 md:sticky md:top-20 -mt-4 md:-mt-8"
           >
             <motion.h2
               variants={staggerItem}
               id="philosophy-heading"
-              className="font-display text-3xl md:text-5xl lg:text-6xl font-medium text-white mb-8 leading-[1.1] tracking-tight"
+              className="font-display text-3xl md:text-5xl lg:text-6xl font-medium text-white mb-5 leading-[1.1] tracking-tight"
             >
               {t.philosophy.title}
             </motion.h2>
 
             <motion.div
               variants={staggerItem}
-              className="relative pl-5 border-l mb-8"
+              className="relative pl-5 border-l mb-6"
               style={{ borderColor: "rgba(201,169,110,0.4)" }}
             >
               <p className="font-display text-lg md:text-xl text-white/70 italic leading-relaxed">
@@ -56,8 +44,8 @@ export default function PhilosophySection() {
 
             <motion.div
               variants={staggerItem}
-              className="relative mt-10 rounded-2xl overflow-hidden"
-              style={{ height: "220px" }}
+              className="relative mt-6 rounded-md overflow-hidden"
+              style={{ height: "200px" }}
             >
               <img
                 src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&auto=format&fit=crop&q=80"

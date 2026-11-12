@@ -126,8 +126,9 @@ export default function HomePerformance() {
             {/* Monthly grid */}
             <div className="grid grid-cols-6 gap-2 mb-6">
               {months.map((raw, i) => {
-                const isEmpty = raw == null;
-                const isPositive = !isEmpty && raw >= 0;
+                const isAccountChange = activeYear === "2025" && i === 9;
+                const isEmpty = raw == null && !isAccountChange;
+                const isPositive = raw != null && raw >= 0;
                 return (
                   <motion.div
                     key={`${activeYear}-${i}`}
@@ -136,37 +137,57 @@ export default function HomePerformance() {
                     transition={{ duration: 0.25, delay: 0.15 + i * 0.02 }}
                     className="flex flex-col items-center justify-center rounded-lg py-2.5 px-1 text-center"
                     style={{
-                      background: isEmpty
-                        ? "rgba(255,255,255,0.02)"
-                        : isPositive
-                          ? "rgba(91,175,138,0.07)"
-                          : "rgba(192,102,90,0.07)",
-                      border: `1px solid ${
-                        isEmpty
-                          ? "rgba(255,255,255,0.06)"
+                      background: isAccountChange
+                        ? "rgba(201,169,110,0.18)"
+                        : isEmpty
+                          ? "rgba(255,255,255,0.02)"
                           : isPositive
-                            ? "rgba(91,175,138,0.18)"
-                            : "rgba(192,102,90,0.18)"
+                            ? "rgba(91,175,138,0.07)"
+                            : "rgba(192,102,90,0.07)",
+                      border: `1px solid ${
+                        isAccountChange
+                          ? "rgba(201,169,110,0.65)"
+                          : isEmpty
+                            ? "rgba(255,255,255,0.06)"
+                            : isPositive
+                              ? "rgba(91,175,138,0.18)"
+                              : "rgba(192,102,90,0.18)"
                       }`,
+                      minHeight: isAccountChange ? "64px" : undefined,
+                      boxShadow: isAccountChange
+                        ? "0 0 0 1px rgba(201,169,110,0.25), 0 0 14px rgba(201,169,110,0.12)"
+                        : "none",
                     }}
                   >
-                    <span className="text-white/30 text-[9px] mb-1 leading-none font-medium uppercase tracking-wide">
+                    <span
+                      className="text-[9px] mb-1 leading-none font-medium uppercase tracking-wide"
+                      style={{ color: isAccountChange ? "rgba(201,169,110,0.75)" : "rgba(255,255,255,0.3)" }}
+                    >
                       {pt.month_labels[i]}
                     </span>
-                    <span
-                      className="font-data text-[11px] font-bold leading-none"
-                      style={{
-                        color: isEmpty
-                          ? "rgba(237,233,227,0.25)"
-                          : isPositive
-                            ? "#5BAF8A"
-                            : "#C0665A",
-                      }}
-                    >
-                      {raw == null
-                        ? "—"
-                        : formatReturn(raw, lang).replace(" %", "%")}
-                    </span>
+                    {isAccountChange ? (
+                      <span className="flex flex-col items-center gap-0.5 leading-tight px-0.5">
+                        <span className="font-data text-[9px] font-bold" style={{ color: "#C9A96E" }}>Compte maître</span>
+                        <span className="text-[8px] font-semibold tracking-wide uppercase" style={{ color: "rgba(201,169,110,0.7)" }}>
+                          Changement
+                        </span>
+                      </span>
+                    ) : (
+                      <span
+                        className="font-data text-[11px] font-bold leading-none"
+                        style={{
+                          color: isEmpty
+                            ? "rgba(237,233,227,0.25)"
+                            : isPositive
+                              ? "#5BAF8A"
+                              : "#C0665A",
+                        }}
+                      >
+                        {raw == null
+                          ? "—"
+                          : formatReturn(raw, lang).replace(" %", "%")}
+                      </span>
+                    )}
                   </motion.div>
                 );
               })}
@@ -177,33 +198,47 @@ export default function HomePerformance() {
               initial={{ opacity: 0, y: 8 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.6 }}
-              className="flex items-center justify-between gap-4 p-4 rounded-xl"
+              className="flex flex-col gap-3 p-4 rounded-xl"
               style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
             >
-              <div className="flex items-center gap-3">
-                <div
-                  className="px-2.5 py-1 rounded text-xs font-bold tracking-widest"
-                  style={{ background: "rgba(58,128,204,0.1)", border: "1px solid rgba(58,128,204,0.2)", color: "#3A80CC" }}
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div
+                    className="px-2.5 py-1 rounded text-xs font-bold tracking-widest"
+                    style={{ background: "rgba(58,128,204,0.1)", border: "1px solid rgba(58,128,204,0.2)", color: "#3A80CC" }}
+                  >
+                    myfxbook
+                  </div>
+                  <div>
+                    <p className="text-white/60 text-xs font-medium">{pt.myfxbook_verified}</p>
+                    <p className="text-white/25 text-[10px] mt-0.5">Mise à jour : novembre 2026</p>
+                  </div>
+                </div>
+                <a
+                  href="https://www.myfxbook.com/members/cstmhelvetius/helvora-trader/12121444"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors duration-200"
+                  style={{ background: "rgba(58,128,204,0.1)", border: "1px solid rgba(58,128,204,0.25)", color: "#3A80CC" }}
                 >
-                  myfxbook
-                </div>
-                <div>
-                  <p className="text-white/60 text-xs font-medium">{pt.myfxbook_verified}</p>
-                  <p className="text-white/25 text-[10px] mt-0.5">Mise à jour : novembre 2026</p>
-                </div>
+                  <span className="hidden sm:inline">Voir</span>
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                    <path d="M2 8L8 2M8 2H3.5M8 2v4.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
               </div>
-              <a
-                href="https://www.myfxbook.com/members/cstmhelvetius/helvora-trader/12121444"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors duration-200"
-                style={{ background: "rgba(58,128,204,0.1)", border: "1px solid rgba(58,128,204,0.25)", color: "#3A80CC" }}
-              >
-                <span className="hidden sm:inline">Voir</span>
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                  <path d="M2 8L8 2M8 2H3.5M8 2v4.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
+              {activeYear === "2025" && (
+                <p
+                  className="text-[10px] leading-relaxed"
+                  style={{
+                    color: "rgba(201,169,110,0.75)",
+                    borderTop: "1px solid rgba(255,255,255,0.05)",
+                    paddingTop: "0.65rem",
+                  }}
+                >
+                  Octobre 2025 — changement de compte maître Myfxbook. Le lien public suit le nouveau compte : l&apos;historique antérieur n&apos;y figure pas.
+                </p>
+              )}
             </motion.div>
           </motion.div>
 

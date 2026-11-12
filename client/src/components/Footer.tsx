@@ -52,71 +52,47 @@ export default function Footer() {
         aria-labelledby="cta-heading"
       >
         <div className="section-divider absolute top-0 left-0 right-0" />
-        <div
-          className="glow-orb w-[600px] h-[400px] left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 opacity-[0.08]"
-          style={{ background: "radial-gradient(ellipse, #C9A96E, transparent)" }}
-          aria-hidden="true"
-        />
-        <div className="container relative z-10">
+        <div className="container relative z-10 max-w-2xl text-center">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="relative rounded-2xl overflow-hidden max-w-4xl mx-auto"
-            style={{
-              background: "linear-gradient(145deg, rgba(201,169,110,0.06), rgba(255,255,255,0.025))",
-              border: "1px solid rgba(201,169,110,0.2)",
-              boxShadow: "0 0 80px rgba(201,169,110,0.06), inset 0 1px 0 rgba(255,255,255,0.05)",
-            }}
+            variants={staggerContainer}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
           >
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{ background: "radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201,169,110,0.08), transparent)" }}
-              aria-hidden="true"
-            />
-            <div className="relative z-10 p-10 md:p-20 text-center">
-              <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                animate={inView ? "visible" : "hidden"}
+            <motion.h2
+              variants={staggerItem}
+              id="cta-heading"
+              className="font-display text-3xl md:text-5xl font-medium text-white mb-5 leading-tight"
+            >
+              {t.cta.title}
+            </motion.h2>
+            <motion.p
+              variants={staggerItem}
+              className="text-white/50 text-sm md:text-base max-w-lg mx-auto mb-9 leading-relaxed"
+            >
+              {t.cta.subtitle}
+            </motion.p>
+            <motion.div
+              variants={staggerItem}
+              className="flex flex-col sm:flex-row items-center justify-center gap-3"
+            >
+              <a
+                href={langPath('/contact')}
+                onClick={(e) => { e.preventDefault(); nav(langPath('/contact')); }}
+                className="btn-primary inline-flex items-center justify-center gap-2 px-9 py-4 rounded-md text-sm font-semibold w-full sm:w-auto"
               >
-                <motion.h2
-                  variants={staggerItem}
-                  id="cta-heading"
-                  className="text-3xl md:text-5xl font-semibold text-white mb-6 leading-tight"
-                >
-                  {t.cta.title}
-                </motion.h2>
-                <motion.p
-                  variants={staggerItem}
-                  className="text-white/55 text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed"
-                >
-                  {t.cta.subtitle}
-                </motion.p>
-                <motion.div
-                  variants={staggerItem}
-                  className="flex flex-col sm:flex-row items-center justify-center gap-3"
-                >
-                  <a
-                    href={langPath('/contact')}
-                    onClick={(e) => { e.preventDefault(); nav(langPath('/contact')); }}
-                    className="btn-primary inline-flex items-center justify-center gap-2 px-9 py-4 rounded-xl text-sm font-semibold w-full sm:w-auto"
-                  >
-                    {t.cta.btn}
-                  </a>
-                  <a
-                    href={langPath('/performances')}
-                    onClick={(e) => { e.preventDefault(); nav(langPath('/performances')); }}
-                    className="btn-ghost inline-flex items-center justify-center gap-2 px-9 py-4 rounded-xl text-sm font-medium w-full sm:w-auto"
-                  >
-                    {t.cta.secondary}
-                  </a>
-                </motion.div>
-                <motion.p variants={staggerItem} className="text-white/30 text-xs mt-6">
-                  {t.cta.disclaimer}
-                </motion.p>
-              </motion.div>
-            </div>
+                {t.cta.btn}
+              </a>
+              <a
+                href={langPath('/performances')}
+                onClick={(e) => { e.preventDefault(); nav(langPath('/performances')); }}
+                className="btn-ghost inline-flex items-center justify-center gap-2 px-9 py-4 rounded-md text-sm font-medium w-full sm:w-auto"
+              >
+                {t.cta.secondary}
+              </a>
+            </motion.div>
+            <motion.p variants={staggerItem} className="text-white/25 text-xs mt-6">
+              {t.cta.disclaimer}
+            </motion.p>
           </motion.div>
         </div>
       </section>

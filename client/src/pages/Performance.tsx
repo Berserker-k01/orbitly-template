@@ -25,6 +25,7 @@ function MonthCell({
   onSelect,
   inView,
   index,
+  accountChange,
 }: {
   label: string;
   raw: number | null;
@@ -33,6 +34,7 @@ function MonthCell({
   onSelect: () => void;
   inView: boolean;
   index: number;
+  accountChange?: boolean;
 }) {
   const isEmpty = raw == null;
   const isPositive = !isEmpty && raw >= 0;
@@ -50,41 +52,63 @@ function MonthCell({
       style={{
         background: selected
           ? "rgba(201,169,110,0.14)"
-          : isEmpty
-            ? "rgba(255,255,255,0.02)"
-            : isPositive
-              ? "rgba(91,175,138,0.08)"
-              : "rgba(192,102,90,0.08)",
+          : accountChange
+            ? "rgba(201,169,110,0.18)"
+            : isEmpty
+              ? "rgba(255,255,255,0.02)"
+              : isPositive
+                ? "rgba(91,175,138,0.08)"
+                : "rgba(192,102,90,0.08)",
         border: selected
           ? "1px solid rgba(201,169,110,0.45)"
-          : `1px solid ${
-              isEmpty
-                ? "rgba(255,255,255,0.06)"
-                : isPositive
-                  ? "rgba(91,175,138,0.2)"
-                  : "rgba(192,102,90,0.2)"
-            }`,
-        minHeight: "72px",
-        boxShadow: selected ? "0 0 0 1px rgba(201,169,110,0.2)" : "none",
+          : accountChange
+            ? "1px solid rgba(201,169,110,0.65)"
+            : `1px solid ${
+                isEmpty
+                  ? "rgba(255,255,255,0.06)"
+                  : isPositive
+                    ? "rgba(91,175,138,0.2)"
+                    : "rgba(192,102,90,0.2)"
+              }`,
+        minHeight: accountChange ? "84px" : "72px",
+        boxShadow: accountChange
+          ? "0 0 0 1px rgba(201,169,110,0.25), 0 0 18px rgba(201,169,110,0.12)"
+          : selected
+            ? "0 0 0 1px rgba(201,169,110,0.15)"
+            : "none",
       }}
     >
-      <span className="text-white/35 text-[10px] tracking-wider uppercase mb-1.5 font-medium">
+      <span
+        className="text-[10px] tracking-wider uppercase mb-1 font-medium"
+        style={{ color: accountChange ? "rgba(201,169,110,0.75)" : "rgba(255,255,255,0.35)" }}
+      >
         {label}
       </span>
-      <span
-        className="font-data text-sm font-bold tracking-tight"
-        style={{
-          color: isEmpty
-            ? "rgba(237,233,227,0.25)"
-            : isNegative
-              ? "#C0665A"
-              : isPositive
-                ? "#5BAF8A"
-                : "#C9A96E",
-        }}
-      >
-        {formattedValue}
-      </span>
+      {accountChange ? (
+        <span className="flex flex-col items-center gap-0.5 leading-tight px-0.5">
+          <span className="font-data text-[11px] font-bold tracking-tight" style={{ color: "#C9A96E" }}>
+            Compte maître
+          </span>
+          <span className="text-[9px] font-semibold tracking-wide uppercase" style={{ color: "rgba(201,169,110,0.7)" }}>
+            Changement
+          </span>
+        </span>
+      ) : (
+        <span
+          className="font-data text-sm font-bold tracking-tight"
+          style={{
+            color: isEmpty
+              ? "rgba(237,233,227,0.25)"
+              : isNegative
+                ? "#C0665A"
+                : isPositive
+                  ? "#5BAF8A"
+                  : "#C9A96E",
+          }}
+        >
+          {formattedValue}
+        </span>
+      )}
     </motion.button>
   );
 }
@@ -189,24 +213,22 @@ export default function Performance() {
               className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 mb-6"
               role="tabpanel"
             >
-              {months.map((raw, i) => (
-                <MonthCell
-                  key={`${activeYear}-${i}`}
-                  index={i}
-                  label={pt.month_labels[i]}
-                  raw={raw}
-                  formattedValue={
-                    raw == null
-                      ? activeYear === "2025" && i === 9
-                        ? "Maint."
-                        : "—"
-                      : formatReturn(raw, lang)
-                  }
-                  selected={selectedMonth === i}
-                  onSelect={() => setSelectedMonth(selectedMonth === i ? null : i)}
-                  inView={gridInView}
-                />
-              ))}
+              {months.map((raw, i) => {
+                const isAccountChange = activeYear === "2025" && i === 9;
+                return (
+                  <MonthCell
+                    key={`${activeYear}-${i}`}
+                    index={i}
+                    label={pt.month_labels[i]}
+                    raw={raw}
+                    formattedValue={raw == null ? "—" : formatReturn(raw, lang)}
+                    accountChange={isAccountChange}
+                    selected={selectedMonth === i}
+                    onSelect={() => setSelectedMonth(selectedMonth === i ? null : i)}
+                    inView={gridInView}
+                  />
+                );
+              })}
             </motion.div>
 
             {/* Selection detail + year compound */}
@@ -222,9 +244,17 @@ export default function Performance() {
                       {pt.month_labels[selectedMonth]} {activeYear}
                     </span>
                     {selectedRaw == null ? (
-                      <span className="text-white/35">
+                      <span
+                        className="text-sm leading-relaxed max-w-xl inline-block"
+                        style={{
+                          color:
+                            activeYear === "2025" && selectedMonth === 9
+                              ? "rgba(201,169,110,0.85)"
+                              : "rgba(255,255,255,0.4)",
+                        }}
+                      >
                         {activeYear === "2025" && selectedMonth === 9
-                          ? "Maintenance — changement de compte maître"
+                          ? "Changement de compte maître Myfxbook. Le lien public suit le nouveau compte : l'historique antérieur n'y figure pas."
                           : "Donnée non disponible"}
                       </span>
                     ) : (
@@ -250,37 +280,51 @@ export default function Performance() {
               )}
             </motion.div>
 
-            {/* Myfxbook mention */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={gridInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 }}
-              className="flex items-start gap-4 p-5 rounded-xl mb-6"
-              style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)" }}
-            >
-              <div
-                className="flex-shrink-0 px-3 py-1.5 rounded-md text-xs font-semibold tracking-wider"
-                style={{ background: "rgba(58,128,204,0.1)", border: "1px solid rgba(58,128,204,0.25)", color: "#3A80CC" }}
-              >
-                Myfxbook
-              </div>
-              <div className="flex-1">
-                <p className="text-white/70 text-sm font-medium mb-1">{pt.myfxbook_verified}</p>
-                <p className="text-white/40 text-xs leading-relaxed">{pt.myfxbook_updated}</p>
-              </div>
-              <a
-                href={MYFXBOOK_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors duration-200"
-                style={{ background: "rgba(58,128,204,0.1)", border: "1px solid rgba(58,128,204,0.25)", color: "#3A80CC" }}
-              >
-                <span>Voir sur Myfxbook</span>
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                  <path d="M2 8L8 2M8 2H3.5M8 2v4.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
-            </motion.div>
+                {/* Myfxbook mention */}
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={gridInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.2 }}
+                  className="flex flex-col gap-3 p-5 rounded-xl mb-6"
+                  style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)" }}
+                >
+                  <div className="flex items-start gap-4">
+                    <div
+                      className="flex-shrink-0 px-3 py-1.5 rounded-md text-xs font-semibold tracking-wider"
+                      style={{ background: "rgba(58,128,204,0.1)", border: "1px solid rgba(58,128,204,0.25)", color: "#3A80CC" }}
+                    >
+                      Myfxbook
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-white/70 text-sm font-medium mb-1">{pt.myfxbook_verified}</p>
+                      <p className="text-white/40 text-xs leading-relaxed">{pt.myfxbook_updated}</p>
+                    </div>
+                    <a
+                      href={MYFXBOOK_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors duration-200"
+                      style={{ background: "rgba(58,128,204,0.1)", border: "1px solid rgba(58,128,204,0.25)", color: "#3A80CC" }}
+                    >
+                      <span>Voir sur Myfxbook</span>
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                        <path d="M2 8L8 2M8 2H3.5M8 2v4.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </a>
+                  </div>
+                  {activeYear === "2025" && (
+                    <p
+                      className="text-xs leading-relaxed"
+                      style={{
+                        color: "rgba(201,169,110,0.75)",
+                        borderTop: "1px solid rgba(255,255,255,0.06)",
+                        paddingTop: "0.75rem",
+                      }}
+                    >
+                      Octobre 2025 — changement de compte maître Myfxbook. Le lien public suit le nouveau compte : l&apos;historique antérieur n&apos;y figure pas.
+                    </p>
+                  )}
+                </motion.div>
 
             {/* Risk warning */}
             <div
@@ -299,7 +343,7 @@ export default function Performance() {
           <div className="container">
             <div className="mb-4">
               <span className="text-white/30 text-xs tracking-[0.12em] uppercase">
-                Évolution {activeYear} — rapport de performance (base 100)
+                Évolution du capital — base 10&nbsp;000 CHF
               </span>
             </div>
             <PerformanceCharts year={activeYear} />

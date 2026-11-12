@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
   AlertTriangle, TrendingDown, Cpu, FlaskConical,
-  Shield, Globe, ChevronRight, BookOpen,
+  Shield, Globe, BookOpen,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -10,24 +10,24 @@ import { useScrollReveal, staggerContainer, staggerItem } from "@/hooks/useScrol
 import { useI18n } from "@/contexts/I18nContext";
 
 const SECTIONS = [
-  { id: "marche",     label: "Risques Forex",        Icon: TrendingDown },
-  { id: "levier",     label: "Effet de levier",       Icon: AlertTriangle },
-  { id: "auto",       label: "Systèmes automatisés",  Icon: Cpu },
-  { id: "backtest",   label: "Backtesting",           Icon: FlaskConical },
-  { id: "garantie",   label: "Absence de garantie",   Icon: Shield },
-  { id: "reglementaire", label: "Réglementation",    Icon: Globe },
-  { id: "acces",      label: "Accès",                 Icon: BookOpen },
+  { id: "positionnement", label: "Notre rôle",           Icon: Shield },
+  { id: "marche",         label: "Risques Forex",        Icon: TrendingDown },
+  { id: "levier",         label: "Effet de levier",      Icon: AlertTriangle },
+  { id: "auto",           label: "Systèmes automatisés", Icon: Cpu },
+  { id: "backtest",       label: "Backtesting",          Icon: FlaskConical },
+  { id: "garantie",       label: "Absence de garantie",  Icon: Shield },
+  { id: "reglementaire",  label: "Réglementation",       Icon: Globe },
+  { id: "acces",          label: "Accès",                Icon: BookOpen },
 ];
 
 function RiskSection({
   id,
   title,
-  Icon,
   children,
 }: {
   id: string;
   title: string;
-  Icon: React.ElementType;
+  Icon?: React.ElementType;
   children: React.ReactNode;
 }) {
   const { ref, inView } = useScrollReveal(0.08);
@@ -35,30 +35,18 @@ function RiskSection({
     <motion.div
       id={id}
       ref={ref}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5 }}
-      className="mb-10 scroll-mt-28"
+      transition={{ duration: 0.45 }}
+      className="mb-12 scroll-mt-28"
     >
-      <div className="flex items-center gap-3 mb-5">
-        <div
-          className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-          style={{ background: "rgba(201,169,110,0.08)", border: "1px solid rgba(201,169,110,0.2)" }}
-        >
-          <Icon className="w-4 h-4" style={{ color: "#C9A96E" }} />
-        </div>
-        <h2
-          className="text-base font-semibold text-white pb-0"
-        >
-          {title}
-        </h2>
-      </div>
-      <div
-        className="rounded-xl p-5"
-        style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
+      <h2
+        className="font-display text-2xl md:text-3xl font-medium text-white mb-5 pb-3"
+        style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
       >
-        <div className="text-white/55 text-sm leading-relaxed space-y-3">{children}</div>
-      </div>
+        {title}
+      </h2>
+      <div className="text-white/55 text-sm leading-relaxed space-y-3 pl-0 md:pl-1">{children}</div>
     </motion.div>
   );
 }
@@ -129,7 +117,7 @@ function TOC({ activeId }: { activeId: string }) {
 export default function RiskWarnings() {
   const { t } = useI18n();
   const { ref, inView } = useScrollReveal(0.1);
-  const [activeId, setActiveId] = useState("marche");
+  const [activeId, setActiveId] = useState("positionnement");
 
   // Intersection observer for TOC
   useEffect(() => {
@@ -193,18 +181,13 @@ export default function RiskWarnings() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="p-6 rounded-xl"
-              style={{
-                background: "linear-gradient(135deg, rgba(201,169,110,0.07) 0%, rgba(201,169,110,0.03) 100%)",
-                border: "1px solid rgba(201,169,110,0.25)",
-              }}
+              className="py-5 px-1"
+              style={{ borderTop: "1px solid rgba(201,169,110,0.35)", borderBottom: "1px solid rgba(201,169,110,0.35)" }}
             >
-              <div className="flex items-start gap-4">
-                <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: "#C9A96E" }} />
-                <p className="text-white/70 text-sm font-medium leading-relaxed">
-                  AVERTISSEMENT IMPORTANT — Les performances passées ne préjugent pas des performances futures et ne constituent pas un indicateur fiable des résultats futurs. Le trading sur le marché des changes (Forex) avec effet de levier implique un risque élevé de perte. Vous pourriez perdre tout ou partie du capital que vous investissez.
-                </p>
-              </div>
+              <p className="text-white/65 text-sm leading-relaxed">
+                <span className="text-[#C9A96E] font-medium">Avertissement — </span>
+                Les performances passées ne préjugent pas des performances futures. Le trading Forex avec effet de levier implique un risque élevé de perte. Vous pourriez perdre tout ou partie du capital investi.
+              </p>
             </motion.div>
           </div>
         </section>
@@ -218,17 +201,46 @@ export default function RiskWarnings() {
               <TOC activeId={activeId} />
 
               <div>
-                <RiskSection id="marche" title="Risques du marché des changes (Forex)" Icon={TrendingDown}>
+                <RiskSection id="positionnement" title="Ce que Summit One fait — et ce qu'il ne fait pas">
+                  <p>
+                    Avant d'aborder les risques de marché, il est utile de rappeler le périmètre exact de Summit One.
+                    Il s'agit d'un logiciel informatique algorithmique de trading : des règles mathématiques programmées,
+                    exécutées automatiquement. Vos fonds restent sur un compte ouvert à votre nom auprès d'un courtier partenaire.
+                  </p>
+                  <p>En pratique, cela signifie aussi ce que Summit One n'est pas :</p>
+                  <ul className="list-none space-y-2.5 mt-2">
+                    {[
+                      "Ni une banque, ni un courtier — vous ouvrez et gérez votre propre compte chez un partenaire.",
+                      "Ni un gestionnaire d'actifs — nous n'avons pas d'accès direct à votre argent.",
+                      "Ni un trading manuel — l'exécution suit des règles définies à l'avance, pas le jugement d'un opérateur.",
+                      "Ni un conseil financier personnalisé — aucune recommandation d'investissement individuelle.",
+                      "Ni une promesse de gain — les performances passées n'annoncent pas l'avenir.",
+                      "Ni un simple service de signaux — les ordres sont répliqués automatiquement, pas seulement envoyés.",
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-2.5">
+                        <span className="text-white/25 mt-0.5 select-none">—</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-white/40 text-xs mt-4 leading-relaxed">
+                    Notre approche repose sur la programmation, la rigueur mathématique et la discipline quantitative —
+                    pas sur une promesse technologique miraculeuse. Cette distinction n'élimine pas le risque de perte ;
+                    elle précise qui détient les fonds, qui exécute les ordres, et ce que Summit One ne peut vous garantir.
+                  </p>
+                </RiskSection>
+
+                <RiskSection id="marche" title="Risques du marché des changes (Forex)">
                   <p>Le marché des changes est l'un des marchés les plus liquides au monde, mais il est également soumis à des fluctuations significatives pouvant survenir rapidement et de manière imprévisible.</p>
                   <p>Les facteurs pouvant influencer les cours incluent notamment : les événements macroéconomiques, les décisions de politique monétaire, les événements géopolitiques, les publications économiques et les comportements des participants de marché.</p>
                 </RiskSection>
 
-                <RiskSection id="levier" title="Risques liés à l'effet de levier" Icon={AlertTriangle}>
+                <RiskSection id="levier" title="Risques liés à l'effet de levier">
                   <p>Le trading Forex utilise généralement un effet de levier, qui permet d'amplifier les positions par rapport au capital initial. Si l'effet de levier peut amplifier les gains potentiels, il amplifie également les pertes.</p>
                   <p>Une variation défavorable du marché peut entraîner des pertes supérieures au dépôt initial. Dans certaines conditions de marché, les pertes peuvent dépasser les fonds engagés.</p>
                 </RiskSection>
 
-                <RiskSection id="auto" title="Risques des systèmes automatisés" Icon={Cpu}>
+                <RiskSection id="auto" title="Risques des systèmes automatisés">
                   <p>Les systèmes de trading algorithmique présentent des risques spécifiques, notamment :</p>
                   <ul className="list-none space-y-2 mt-2">
                     {[
@@ -238,29 +250,29 @@ export default function RiskWarnings() {
                       "Décalages entre résultats de backtesting et performances en conditions réelles",
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2.5">
-                        <ChevronRight className="w-3 h-3 flex-shrink-0 mt-0.5" style={{ color: "#C9A96E" }} />
+                        <span className="text-white/25 mt-0.5 select-none">—</span>
                         <span>{item}</span>
                       </li>
                     ))}
                   </ul>
                 </RiskSection>
 
-                <RiskSection id="backtest" title="Risques liés au backtesting" Icon={FlaskConical}>
+                <RiskSection id="backtest" title="Risques liés au backtesting">
                   <p>Les résultats de backtesting présentés sont calculés sur des données historiques. Ces résultats ne garantissent en aucun cas des performances futures comparables.</p>
                   <p>Le backtesting présente des limites inhérentes, notamment le risque de sur-optimisation (overfitting) et l'impossibilité de reproduire exactement les conditions d'exécution réelles.</p>
                 </RiskSection>
 
-                <RiskSection id="garantie" title="Absence de garantie" Icon={Shield}>
-                  <p>Aucune performance future n'est garantie. Les indicateurs communiqués par Summit One sont déclarés sur la base d'un track record passé et sont soumis à validation documentaire indépendante.</p>
+                <RiskSection id="garantie" title="Absence de garantie">
+                  <p>Aucune performance future n'est garantie. Les indicateurs communiqués par Summit One reposent sur un track record passé et restent soumis à validation.</p>
                   <p>Ces informations ne constituent pas une garantie, une promesse ou une projection de résultats futurs.</p>
                 </RiskSection>
 
-                <RiskSection id="reglementaire" title="Information réglementaire" Icon={Globe}>
+                <RiskSection id="reglementaire" title="Information réglementaire">
                   <p>Summit One se présente comme un éditeur de solutions logicielles financières. Les informations présentées sur ce site ne constituent pas un conseil financier, une recommandation d'investissement ou une offre de services d'investissement réglementés.</p>
                   <p className="text-white/35 text-xs mt-2">La nature précise de l'activité réglementée éventuellement exercée par Summit One et les autorisations détenues seront précisées dès leur confirmation officielle. Toute décision d'investissement doit être prise après avoir pris connaissance des risques.</p>
                 </RiskSection>
 
-                <RiskSection id="acces" title="Pays d'accès" Icon={BookOpen}>
+                <RiskSection id="acces" title="Pays d'accès">
                   <p>Les informations contenues sur ce site s'adressent à des professionnels ou à des personnes suffisamment informées pour en comprendre les enjeux et les risques.</p>
                   <p>L'accès à ce site et à ses informations peut être restreint dans certains pays. Il est de la responsabilité des visiteurs de s'assurer que leur accès est légalement autorisé dans leur pays de résidence.</p>
                 </RiskSection>

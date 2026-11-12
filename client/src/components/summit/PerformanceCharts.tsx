@@ -1,69 +1,86 @@
 import { useMemo, useState } from "react";
 import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, ReferenceLine
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  ReferenceLine,
+  ReferenceDot,
 } from "recharts";
 import { motion } from "framer-motion";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { YEARLY_RETURNS, type PerformanceYear } from "@/lib/performanceData";
+import {
+  CHART_RANGES,
+  EQUITY_BASE_CHF,
+  buildEquitySeries,
+  chartRangeLabel,
+  formatChf,
+  type ChartRange,
+  type PerformanceYear,
+} from "@/lib/performanceData";
 
-const MONTH_LABELS = ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Déc"];
-
-function buildChartData(year: PerformanceYear) {
-  const returns = YEARLY_RETURNS[year];
-  let equity = 100;
-  let runMax = 100;
-  const points: { m: number; label: string; equity: number; dd: number }[] = [];
-
-  returns.forEach((gain, i) => {
-    if (gain == null) return;
-    equity = equity * (1 + gain / 100);
-    if (equity > runMax) runMax = equity;
-    const dd = ((equity - runMax) / runMax) * 100;
-    points.push({
-      m: i + 1,
-      label: MONTH_LABELS[i],
-      equity: Math.round(equity * 100) / 100,
-      dd: Math.round(dd * 100) / 100,
-    });
-  });
-
-  return points;
+function axisChf(v: number): string {
+  if (v >= 1_000_000) return `${(v / 1_000_000).toFixed(1)}M`;
+  if (v >= 10_000) return `${Math.round(v / 1000)}k`;
+  if (v >= 1000) return `${(v / 1000).toFixed(1)}k`;
+  return String(Math.round(v));
 }
 
-function CustomTooltip({ active, payload, year }: any) {
+function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<{ payload: { label: string; equity: number; dd: number; accountChange?: boolean; daily?: boolean } }> }) {
   if (!active || !payload?.length) return null;
   const row = payload[0]?.payload;
+  if (!row) return null;
   return (
     <div
-      className="rounded-lg px-3 py-2 text-xs"
+      className="rounded-lg px-3 py-2 text-xs min-w-[140px]"
       style={{ background: "rgba(10,14,26,0.95)", border: "1px solid rgba(201,169,110,0.25)", color: "#EDE9E3" }}
     >
-      <div className="font-medium mb-1" style={{ color: "rgba(237,233,227,0.5)" }}>{row?.label} {year}</div>
-      {payload[0] && <div style={{ color: "#C9A96E" }}>Base 100 → {payload[0].value}</div>}
+      <div className="font-medium mb-1.5" style={{ color: "rgba(237,233,227,0.5)" }}>
+        {row.accountChange ? "Oct 2025 — compte maître" : row.label}
+      </div>
+      {row.accountChange ? (
+        <div style={{ color: "#C9A96E" }}>Changement de compte Myfxbook</div>
+      ) : (
+        <>
+          <div style={{ color: "#C9A96E" }}>{formatChf(row.equity)}</div>
+          <div className="mt-0.5" style={{ color: "rgba(237,233,227,0.4)" }}>
+            Drawdown : {row.dd.toFixed(2)} %
+          </div>
+        </>
+      )}
     </div>
   );
 }
 
-function DDTooltip({ active, payload, year }: any) {
+function DDTooltip({ active, payload }: { active?: boolean; payload?: Array<{ payload: { label: string; dd: number } }> }) {
   if (!active || !payload?.length) return null;
   const row = payload[0]?.payload;
+  if (!row) return null;
   return (
     <div
       className="rounded-lg px-3 py-2 text-xs"
       style={{ background: "rgba(10,14,26,0.95)", border: "1px solid rgba(192,102,90,0.25)", color: "#EDE9E3" }}
     >
-      <div className="font-medium mb-1" style={{ color: "rgba(237,233,227,0.5)" }}>{row?.label} {year}</div>
-      {payload[0] && <div style={{ color: "#C0665A" }}>Drawdown : {payload[0].value?.toFixed(2)} %</div>}
+      <div className="font-medium mb-1" style={{ color: "rgba(237,233,227,0.5)" }}>{row.label}</div>
+      <div style={{ color: "#C0665A" }}>Drawdown : {row.dd.toFixed(2)} %</div>
     </div>
   );
 }
 
 export default function PerformanceCharts({ year = "2025" }: { year?: PerformanceYear }) {
+  const [range, setRange] = useState<ChartRange>("global");
   const [showDD, setShowDD] = useState(false);
   const { ref, inView } = useScrollReveal(0.08);
-  const DATA = useMemo(() => buildChartData(year), [year]);
-  const MAX_DD = DATA.length ? Math.min(...DATA.map(d => d.dd)) : 0;
+
+  const DATA = useMemo(() => buildEquitySeries(range), [range]);
+  const MAX_DD = DATA.length ? Math.min(...DATA.map((d) => d.dd)) : 0;
+  const last = DATA[DATA.length - 1];
+  const gainPct = last ? ((last.equity / EQUITY_BASE_CHF) - 1) * 100 : 0;
+  const accountChangePoint = DATA.find((d) => d.accountChange);
+  const tickInterval = Math.max(1, Math.floor(DATA.length / (range === "global" ? 8 : 6)) - 1);
 
   return (
     <motion.div
@@ -75,15 +92,43 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
       style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)" }}
     >
       <div
-        className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-4 border-b"
+        className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 px-5 py-4 border-b"
         style={{ borderColor: "rgba(255,255,255,0.06)" }}
       >
-        <div>
-          <div className="text-white/80 text-sm font-semibold">Courbe de valorisation {year}</div>
-          <div className="text-white/35 text-xs mt-0.5">Base 100 — Rapport de performance Summit One</div>
+        <div className="min-w-0">
+          <div className="text-white/80 text-sm font-semibold">
+            Évolution du capital — {chartRangeLabel(range)}
+          </div>
+          <div className="text-white/35 text-xs mt-0.5">
+            Base {formatChf(EQUITY_BASE_CHF)} · composé ·{" "}
+            {range === "global" || range === "2025" || range === "2026"
+              ? "précision journalière depuis nov. 2025"
+              : "points mensuels"}
+          </div>
         </div>
-        <div className="flex items-center gap-2">
+
+        <div className="flex flex-wrap items-center gap-2">
+          <label className="sr-only" htmlFor="perf-chart-range">Période</label>
+          <select
+            id="perf-chart-range"
+            value={range}
+            onChange={(e) => setRange(e.target.value as ChartRange)}
+            className="px-3 py-1.5 rounded-md text-xs font-medium outline-none cursor-pointer"
+            style={{
+              background: "rgba(201,169,110,0.1)",
+              border: "1px solid rgba(201,169,110,0.35)",
+              color: "#C9A96E",
+            }}
+          >
+            {CHART_RANGES.map((r) => (
+              <option key={r} value={r} style={{ background: "#0A0E1A", color: "#EDE9E3" }}>
+                {chartRangeLabel(r)}
+              </option>
+            ))}
+          </select>
+
           <button
+            type="button"
             onClick={() => setShowDD(false)}
             className="px-3 py-1.5 rounded-md text-xs font-medium transition-colors duration-150"
             style={{
@@ -92,9 +137,10 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
               border: `1px solid ${!showDD ? "rgba(201,169,110,0.3)" : "rgba(255,255,255,0.08)"}`,
             }}
           >
-            Performance
+            Capital
           </button>
           <button
+            type="button"
             onClick={() => setShowDD(true)}
             className="px-3 py-1.5 rounded-md text-xs font-medium transition-colors duration-150"
             style={{
@@ -108,12 +154,37 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
         </div>
       </div>
 
-      <div className="px-2 pt-4 pb-2" style={{ height: 260 }}>
+      {last && !showDD && (
+        <div className="flex flex-wrap gap-6 px-5 pt-4">
+          <div>
+            <div className="text-white/30 text-[10px] tracking-wider uppercase">Capital final</div>
+            <div className="font-data text-sm font-bold" style={{ color: "#C9A96E" }}>
+              {formatChf(last.equity)}
+            </div>
+          </div>
+          <div>
+            <div className="text-white/30 text-[10px] tracking-wider uppercase">Performance</div>
+            <div className="font-data text-sm font-bold" style={{ color: "#5BAF8A" }}>
+              +{gainPct.toFixed(1).replace(".", ",")} %
+            </div>
+          </div>
+          <div>
+            <div className="text-white/30 text-[10px] tracking-wider uppercase">Max drawdown</div>
+            <div className="font-data text-sm font-bold" style={{ color: "#C0665A" }}>
+              {MAX_DD.toFixed(2).replace(".", ",")} %
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="px-2 pt-4 pb-2" style={{ height: 300 }}>
         {DATA.length === 0 ? (
-          <div className="h-full flex items-center justify-center text-white/30 text-sm">Pas de données pour {year}</div>
+          <div className="h-full flex items-center justify-center text-white/30 text-sm">
+            Pas de données pour {chartRangeLabel(range)}
+          </div>
         ) : !showDD ? (
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={DATA} margin={{ top: 8, right: 20, left: 0, bottom: 0 }}>
+            <AreaChart data={DATA} margin={{ top: 8, right: 20, left: 4, bottom: 0 }}>
               <defs>
                 <linearGradient id="pc-equityGrad" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stopColor="#C9A96E" stopOpacity="0.22" />
@@ -123,6 +194,8 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
               <CartesianGrid strokeDasharray="3 8" stroke="rgba(255,255,255,0.05)" vertical={false} />
               <XAxis
                 dataKey="label"
+                interval={tickInterval}
+                minTickGap={28}
                 tick={{ fill: "rgba(237,233,227,0.3)", fontSize: 10, fontFamily: "'Space Mono', monospace" }}
                 tickLine={false}
                 axisLine={{ stroke: "rgba(255,255,255,0.08)" }}
@@ -131,11 +204,22 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
                 tick={{ fill: "rgba(237,233,227,0.3)", fontSize: 10, fontFamily: "'Space Mono', monospace" }}
                 tickLine={false}
                 axisLine={false}
-                width={40}
+                width={48}
+                tickFormatter={axisChf}
                 domain={["auto", "auto"]}
               />
-              <Tooltip content={<CustomTooltip year={year} />} cursor={{ stroke: "rgba(201,169,110,0.2)", strokeWidth: 1 }} />
-              <ReferenceLine y={100} stroke="rgba(255,255,255,0.1)" strokeDasharray="4 6" />
+              <Tooltip content={<CustomTooltip />} cursor={{ stroke: "rgba(201,169,110,0.2)", strokeWidth: 1 }} />
+              <ReferenceLine y={EQUITY_BASE_CHF} stroke="rgba(255,255,255,0.12)" strokeDasharray="4 6" />
+              {accountChangePoint && (
+                <ReferenceDot
+                  x={accountChangePoint.label}
+                  y={accountChangePoint.equity}
+                  r={5}
+                  fill="#C9A96E"
+                  stroke="#060811"
+                  strokeWidth={2}
+                />
+              )}
               <Area
                 type="monotone"
                 dataKey="equity"
@@ -143,16 +227,16 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
                 strokeWidth={1.5}
                 fill="url(#pc-equityGrad)"
                 dot={false}
-                activeDot={{ r: 4, fill: "#C9A96E", stroke: "#060811", strokeWidth: 2 }}
+                activeDot={{ r: 3.5, fill: "#C9A96E", stroke: "#060811", strokeWidth: 2 }}
                 isAnimationActive={inView}
-                animationDuration={1800}
+                animationDuration={1400}
                 animationEasing="ease-out"
               />
             </AreaChart>
           </ResponsiveContainer>
         ) : (
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={DATA} margin={{ top: 8, right: 20, left: 0, bottom: 0 }}>
+            <AreaChart data={DATA} margin={{ top: 8, right: 20, left: 4, bottom: 0 }}>
               <defs>
                 <linearGradient id="pc-ddGrad" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stopColor="#C0665A" stopOpacity="0" />
@@ -162,6 +246,8 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
               <CartesianGrid strokeDasharray="3 8" stroke="rgba(255,255,255,0.05)" vertical={false} />
               <XAxis
                 dataKey="label"
+                interval={tickInterval}
+                minTickGap={28}
                 tick={{ fill: "rgba(237,233,227,0.3)", fontSize: 10, fontFamily: "'Space Mono', monospace" }}
                 tickLine={false}
                 axisLine={{ stroke: "rgba(255,255,255,0.08)" }}
@@ -170,10 +256,10 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
                 tick={{ fill: "rgba(237,233,227,0.3)", fontSize: 10, fontFamily: "'Space Mono', monospace" }}
                 tickLine={false}
                 axisLine={false}
-                width={40}
+                width={48}
                 tickFormatter={(v) => `${v}%`}
               />
-              <Tooltip content={<DDTooltip year={year} />} cursor={{ stroke: "rgba(192,102,90,0.2)", strokeWidth: 1 }} />
+              <Tooltip content={<DDTooltip />} cursor={{ stroke: "rgba(192,102,90,0.2)", strokeWidth: 1 }} />
               <ReferenceLine
                 y={MAX_DD}
                 stroke="rgba(192,102,90,0.6)"
@@ -194,9 +280,9 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
                 strokeWidth={1.5}
                 fill="url(#pc-ddGrad)"
                 dot={false}
-                activeDot={{ r: 4, fill: "#C0665A", stroke: "#060811", strokeWidth: 2 }}
+                activeDot={{ r: 3.5, fill: "#C0665A", stroke: "#060811", strokeWidth: 2 }}
                 isAnimationActive={inView}
-                animationDuration={1800}
+                animationDuration={1400}
                 animationEasing="ease-out"
               />
             </AreaChart>
@@ -209,7 +295,8 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
         style={{ borderColor: "rgba(255,255,255,0.05)" }}
       >
         <span className="text-white/22 text-[10px] tracking-wide">
-          Rapport de performance Summit One · Performances passées ≠ performances futures
+          Base {formatChf(EQUITY_BASE_CHF)} · rapport Summit One
+          {year ? ` · tableau ${year}` : ""} · Performances passées ≠ performances futures
         </span>
       </div>
     </motion.div>
