@@ -115,7 +115,7 @@ function MonthCell({
 
 export default function Performance() {
   const { t, lang } = useI18n();
-  const [activeYear, setActiveYear] = useState<PerformanceYear>("2025");
+  const [activeYear, setActiveYear] = useState<PerformanceYear>("2026");
   const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
   const { ref: heroRef, inView: heroInView } = useScrollReveal(0.1);
   const { ref: gridRef, inView: gridInView } = useScrollReveal(0.06);

@@ -100,10 +100,9 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
             Évolution du capital — {chartRangeLabel(range)}
           </div>
           <div className="text-white/35 text-xs mt-0.5">
-            Base {formatChf(EQUITY_BASE_CHF)} · composé ·{" "}
-            {range === "global" || range === "2025" || range === "2026"
-              ? "précision journalière depuis nov. 2025"
-              : "points mensuels"}
+            Base {formatChf(EQUITY_BASE_CHF)} · composé · cassures journalières
+            {(range === "global" || range === "2025" || range === "2026") &&
+              " (densité max. depuis nov. 2025)"}
           </div>
         </div>
 
@@ -221,7 +220,7 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
                 />
               )}
               <Area
-                type="monotone"
+                type="linear"
                 dataKey="equity"
                 stroke="#C9A96E"
                 strokeWidth={1.5}
@@ -274,7 +273,7 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
               />
               <ReferenceLine y={0} stroke="rgba(255,255,255,0.1)" />
               <Area
-                type="monotone"
+                type="linear"
                 dataKey="dd"
                 stroke="#C0665A"
                 strokeWidth={1.5}

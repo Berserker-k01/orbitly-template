@@ -90,12 +90,38 @@ function fmtDayLabel(d: Date): string {
   return `${dd}/${mm}`;
 }
 
-const MONTH_SHORT = ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Déc"];
+/** Deterministic 0..1 from integer seed (stable across renders). */
+function seededUnit(seed: number): number {
+  const x = Math.sin(seed * 12.9898) * 43758.5453;
+  return x - Math.floor(x);
+}
+
+/**
+ * Daily growth factors that compound exactly to monthlyGain%,
+ * with real ups/downs (cassures) instead of a smooth geometric path.
+ */
+function jaggedDailyFactors(monthlyGainPct: number, n: number, seedBase: number): number[] {
+  if (n <= 0) return [];
+  if (n === 1) return [1 + monthlyGainPct / 100];
+
+  const targetLog = Math.log(1 + monthlyGainPct / 100);
+  const amplitude = Math.max(0.012, Math.abs(targetLog) * 1.35);
+
+  const rawLogs = Array.from({ length: n }, (_, i) => {
+    const u1 = seededUnit(seedBase + i * 17.13);
+    const u2 = seededUnit(seedBase + i * 41.77 + 3);
+    // Occasional sharper day (win or loss) to break the curve
+    const spike = u2 > 0.82 ? (u2 - 0.82) * 4.5 : u2 < 0.14 ? (u2 - 0.14) * 3.2 : 0;
+    return (u1 - 0.48) * amplitude * 2.4 + spike * amplitude;
+  });
+
+  const sumRaw = rawLogs.reduce((a, b) => a + b, 0);
+  return rawLogs.map((l) => Math.exp(l + (targetLog - sumRaw) / n));
+}
 
 /**
  * Build equity curve in CHF from monthly returns.
- * - Avant le nouveau système : un point fin de mois.
- * - Depuis nov. 2025 : interpolation journalière (jours ouvrés) calée sur le rendement mensuel.
+ * Points journaliers (jours ouvrés) avec cassures ; calés sur le rendement mensuel du rapport.
  */
 export function buildEquitySeries(
   range: ChartRange,
@@ -139,32 +165,37 @@ export function buildEquitySeries(
 
       if (gain == null) return;
 
-      if (isNewSystemMonth(year, monthIndex)) {
-        const days = tradingDaysInMonth(year, monthIndex);
-        if (!days.length) return;
-        const dailyFactor = Math.pow(1 + gain / 100, 1 / days.length);
-        for (const day of days) {
-          equity *= dailyFactor;
-          if (equity > runMax) runMax = equity;
-          points.push({
-            t: day.getTime(),
-            label: fmtDayLabel(day),
-            equity: Math.round(equity * 100) / 100,
-            dd: Math.round(((equity - runMax) / runMax) * 10000) / 100,
-            daily: true,
-          });
-        }
-      } else {
+      const days = tradingDaysInMonth(year, monthIndex);
+      if (!days.length) {
         equity *= 1 + gain / 100;
         if (equity > runMax) runMax = equity;
         const d = monthEnd(year, monthIndex);
         points.push({
           t: d.getTime(),
-          label: `${MONTH_SHORT[monthIndex]} ${String(year).slice(2)}`,
+          label: `${String(monthIndex + 1).padStart(2, "0")}/${String(year).slice(2)}`,
           equity: Math.round(equity * 100) / 100,
           dd: Math.round(((equity - runMax) / runMax) * 10000) / 100,
         });
+        return;
       }
+
+      const denser = isNewSystemMonth(year, monthIndex);
+      // Avant nov. 2025 : ~2–3 points/semaine pour des cassures sans surcharger la vue globale
+      const step = denser ? 1 : Math.max(1, Math.floor(days.length / 8));
+      const sampleDays = denser ? days : days.filter((_, i) => i % step === 0 || i === days.length - 1);
+      const factors = jaggedDailyFactors(gain, sampleDays.length, year * 100 + monthIndex * 13);
+
+      sampleDays.forEach((day, i) => {
+        equity *= factors[i];
+        if (equity > runMax) runMax = equity;
+        points.push({
+          t: day.getTime(),
+          label: fmtDayLabel(day),
+          equity: Math.round(equity * 100) / 100,
+          dd: Math.round(((equity - runMax) / runMax) * 10000) / 100,
+          daily: denser,
+        });
+      });
     });
   }
 

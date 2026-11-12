@@ -23,7 +23,7 @@ export default function HomePerformance() {
   const { t, lang, langPath } = useI18n();
   const { ref, inView } = useScrollReveal(0.06);
   const [, setLocation] = useLocation();
-  const [activeYear, setActiveYear] = useState<PerformanceYear>("2025");
+  const [activeYear, setActiveYear] = useState<PerformanceYear>("2026");
   const pt = t.performance;
   const months = YEARLY_RETURNS[activeYear];
 

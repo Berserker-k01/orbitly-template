@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useScrollReveal, staggerContainer, staggerItem } from "@/hooks/useScrollReveal";
 import { useI18n } from "@/contexts/I18nContext";
+import { X } from "lucide-react";
 
 export default function EcosystemSection() {
   const { t } = useI18n();
@@ -15,8 +16,19 @@ export default function EcosystemSection() {
       id="differenciation"
     >
       <div className="section-divider absolute top-0 left-0 right-0" />
+      <div className="section-divider absolute bottom-0 left-0 right-0" />
 
-      <div className="container relative z-10 max-w-3xl">
+      <div className="absolute inset-0 z-0" aria-hidden="true">
+        <img
+          src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1920&auto=format&fit=crop&q=70"
+          alt=""
+          className="w-full h-full object-cover"
+          style={{ objectPosition: "50% 60%" }}
+        />
+        <div className="absolute inset-0" style={{ background: "rgba(6,8,17,0.92)" }} />
+      </div>
+
+      <div className="container relative z-10 max-w-4xl">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -26,49 +38,57 @@ export default function EcosystemSection() {
           <motion.h2
             variants={staggerItem}
             id="ecosystem-heading"
-            className="font-display text-3xl md:text-5xl font-medium text-white mb-5 leading-tight"
+            className="font-display text-3xl md:text-4xl font-medium text-white mb-4 leading-tight"
           >
             {d.title}
           </motion.h2>
-          <motion.p variants={staggerItem} className="text-white/55 text-sm md:text-base leading-relaxed">
+          <motion.p variants={staggerItem} className="text-white/55 text-sm md:text-base leading-relaxed max-w-2xl">
             {d.intro}
           </motion.p>
+          <motion.p variants={staggerItem} className="text-white/40 text-sm mt-4 font-medium">
+            {d.not_label}
+          </motion.p>
         </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.15 }}
-          className="text-white/40 text-xs tracking-[0.12em] uppercase mb-6"
-        >
-          {d.not_label}
-        </motion.p>
 
         <motion.ul
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="flex flex-col border-t"
-          style={{ borderColor: "rgba(255,255,255,0.08)" }}
+          className="flex flex-col gap-3 mb-10"
         >
           {d.not_items.map((item, i) => (
             <motion.li
               key={i}
               variants={staggerItem}
-              className="py-5 border-b"
-              style={{ borderColor: "rgba(255,255,255,0.08)" }}
+              className="flex items-start gap-3 p-4 rounded-xl"
+              style={{
+                background: "rgba(255,255,255,0.025)",
+                border: "1px solid rgba(255,255,255,0.07)",
+              }}
             >
-              <div className="text-white/90 text-sm font-medium mb-1.5">{item.title}</div>
-              <p className="text-white/45 text-sm leading-relaxed">{item.body}</p>
+              <div
+                className="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5"
+                style={{ background: "rgba(192,102,90,0.12)", border: "1px solid rgba(192,102,90,0.25)" }}
+              >
+                <X className="w-3.5 h-3.5" style={{ color: "#C0665A" }} />
+              </div>
+              <div>
+                <div className="text-white/85 text-sm font-semibold mb-1">{item.title}</div>
+                <p className="text-white/45 text-sm leading-relaxed">{item.body}</p>
+              </div>
             </motion.li>
           ))}
         </motion.ul>
 
         <motion.p
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.35 }}
-          className="text-white/50 text-sm leading-relaxed mt-10 font-display italic text-lg"
+          className="text-white/55 text-sm leading-relaxed p-5 rounded-xl"
+          style={{
+            background: "rgba(201,169,110,0.05)",
+            border: "1px solid rgba(201,169,110,0.18)",
+          }}
         >
           {d.distinction}
         </motion.p>
