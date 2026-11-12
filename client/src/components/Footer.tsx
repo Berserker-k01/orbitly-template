@@ -19,9 +19,14 @@ export default function Footer() {
   const navLinks = [
     { label: t.nav.home, href: langPath('/') },
     { label: t.nav.approach, href: langPath('/approche') },
-    { label: t.nav.technology, href: langPath('/technologie') },
     { label: t.nav.performance, href: langPath('/performances') },
     { label: t.nav.contact, href: langPath('/contact') },
+  ];
+
+  const usefulLinks = [
+    { label: t.nav.faq, href: langPath('/') + '#faq' },
+    { label: t.nav.referral, href: langPath('/parrainage') },
+    { label: t.nav.calculator, href: langPath('/calculatrice') },
   ];
 
   const legalLinks = [
@@ -118,7 +123,7 @@ export default function Footer() {
         role="contentinfo"
       >
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-10 mb-14">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-10 mb-14">
             {/* Brand */}
             <div className="md:col-span-2">
               <a
@@ -163,6 +168,26 @@ export default function Footer() {
               </h4>
               <ul className="flex flex-col gap-3">
                 {navLinks.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      onClick={(e) => { e.preventDefault(); nav(link.href); }}
+                      className="text-white/45 text-sm hover:text-white/70 transition-colors duration-200"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Liens utiles */}
+            <div>
+              <h4 className="text-white text-xs font-semibold mb-5 tracking-[0.1em] uppercase">
+                {t.footer.useful_links_title}
+              </h4>
+              <ul className="flex flex-col gap-3">
+                {usefulLinks.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}

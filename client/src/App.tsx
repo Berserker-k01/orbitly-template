@@ -14,6 +14,8 @@ import Contact from "./pages/Contact";
 import LegalMentions from "./pages/LegalMentions";
 import Privacy from "./pages/Privacy";
 import RiskWarnings from "./pages/RiskWarnings";
+import Parrainage from "./pages/Parrainage";
+import Calculator from "./pages/Calculator";
 
 const LANGS = ['fr', 'en', 'de'] as const;
 
@@ -43,6 +45,8 @@ function Router() {
       <Route path="/fr/mentions-legales" component={LegalMentions} />
       <Route path="/fr/confidentialite" component={Privacy} />
       <Route path="/fr/risques" component={RiskWarnings} />
+      <Route path="/fr/parrainage" component={Parrainage} />
+      <Route path="/fr/calculatrice" component={Calculator} />
       {/* EN */}
       <Route path="/en/" component={Home} />
       <Route path="/en/approche" component={Approach} />
@@ -52,6 +56,8 @@ function Router() {
       <Route path="/en/mentions-legales" component={LegalMentions} />
       <Route path="/en/confidentialite" component={Privacy} />
       <Route path="/en/risques" component={RiskWarnings} />
+      <Route path="/en/parrainage" component={Parrainage} />
+      <Route path="/en/calculatrice" component={Calculator} />
       {/* DE */}
       <Route path="/de/" component={Home} />
       <Route path="/de/approche" component={Approach} />
@@ -61,6 +67,8 @@ function Router() {
       <Route path="/de/mentions-legales" component={LegalMentions} />
       <Route path="/de/confidentialite" component={Privacy} />
       <Route path="/de/risques" component={RiskWarnings} />
+      <Route path="/de/parrainage" component={Parrainage} />
+      <Route path="/de/calculatrice" component={Calculator} />
       {/* Root */}
       <Route path="/" component={RootRedirect} />
       <Route component={NotFound} />

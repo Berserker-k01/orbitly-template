@@ -7,7 +7,7 @@ import {
 export function SystematicViz({ inView }: { inView: boolean }) {
   const cols = [
     {
-      label: "Discrétionnaire",
+      label: "Manuel",
       color: "#C0665A",
       border: "rgba(192,102,90,0.22)",
       bg: "rgba(192,102,90,0.05)",

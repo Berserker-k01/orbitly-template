@@ -260,13 +260,13 @@ export default function RiskWarnings() {
                 </RiskSection>
 
                 <RiskSection id="garantie" title="Absence de garantie" Icon={Shield}>
-                  <p>Aucune performance future n'est garantie. Les indicateurs communiqués par Summit One Capital sont déclarés sur la base d'un track record passé et sont soumis à validation documentaire indépendante.</p>
+                  <p>Aucune performance future n'est garantie. Les indicateurs communiqués par Summit One sont déclarés sur la base d'un track record passé et sont soumis à validation documentaire indépendante.</p>
                   <p>Ces informations ne constituent pas une garantie, une promesse ou une projection de résultats futurs.</p>
                 </RiskSection>
 
                 <RiskSection id="reglementaire" title="Information réglementaire" Icon={Globe}>
-                  <p>Summit One Capital se présente comme un éditeur de solutions logicielles financières. Les informations présentées sur ce site ne constituent pas un conseil financier, une recommandation d'investissement ou une offre de services d'investissement réglementés.</p>
-                  <p className="text-white/35 text-xs mt-2">La nature précise de l'activité réglementée éventuellement exercée par Summit One Capital et les autorisations détenues seront précisées dès leur confirmation officielle. Toute décision d'investissement doit être prise après consultation d'un conseiller financier indépendant dûment agréé.</p>
+                  <p>Summit One se présente comme un éditeur de solutions logicielles financières. Les informations présentées sur ce site ne constituent pas un conseil financier, une recommandation d'investissement ou une offre de services d'investissement réglementés.</p>
+                  <p className="text-white/35 text-xs mt-2">La nature précise de l'activité réglementée éventuellement exercée par Summit One et les autorisations détenues seront précisées dès leur confirmation officielle. Toute décision d'investissement doit être prise après avoir pris connaissance des risques.</p>
                 </RiskSection>
 
                 <RiskSection id="acces" title="Pays d'accès" Icon={BookOpen}>

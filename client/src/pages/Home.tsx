@@ -6,7 +6,6 @@ import Hero from "@/components/summit/Hero";
 import Stats from "@/components/summit/Stats";
 import HomePerformance from "@/components/summit/HomePerformance";
 import PhilosophySection from "@/components/summit/PhilosophySection";
-import ProcessSection from "@/components/summit/ProcessSection";
 import TechOverview from "@/components/summit/TechOverview";
 import EcosystemSection from "@/components/summit/EcosystemSection";
 import FAQSection from "@/components/summit/FAQSection";
@@ -20,7 +19,6 @@ export default function Home() {
         <Stats />
         <HomePerformance />
         <PhilosophySection />
-        <ProcessSection />
         <TechOverview />
         <EcosystemSection />
         <FAQSection />

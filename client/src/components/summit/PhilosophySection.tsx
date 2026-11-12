@@ -65,9 +65,17 @@ export default function PhilosophySection() {
 
             {/* Primary philosophy item — featured */}
             {primary && (
-              <motion.div variants={staggerItem}>
-                <div className="text-white/90 font-semibold text-sm mb-2">{primary.title}</div>
-                <p className="text-white/45 text-sm leading-relaxed">{primary.body}</p>
+              <motion.div variants={staggerItem} className="flex gap-4">
+                <div
+                  className="font-data text-xs font-bold flex-shrink-0 mt-0.5 w-7 text-right"
+                  style={{ color: "rgba(201,169,110,0.5)" }}
+                >
+                  01
+                </div>
+                <div>
+                  <div className="text-white/90 font-semibold text-sm mb-2">{primary.title}</div>
+                  <p className="text-white/45 text-sm leading-relaxed">{primary.body}</p>
+                </div>
               </motion.div>
             )}
 

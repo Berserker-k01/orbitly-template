@@ -21,12 +21,6 @@ function formatReturn(raw: number, lang: string): string {
 const YEARS = ["2022", "2023", "2024", "2025", "2026"] as const;
 type Year = typeof YEARS[number];
 
-const KPI_STYLES = [
-  { accent: "#C9A96E", border: "rgba(201,169,110,0.22)", bg: "rgba(201,169,110,0.04)" },
-  { accent: "#3A80CC", border: "rgba(58,128,204,0.2)",   bg: "rgba(29,95,168,0.04)"   },
-  { accent: "#5BAF8A", border: "rgba(91,175,138,0.2)",   bg: "rgba(91,175,138,0.04)"  },
-  { accent: "#C0665A", border: "rgba(192,102,90,0.2)",   bg: "rgba(192,102,90,0.04)"  },
-];
 
 function MonthCell({ label, raw, formattedValue, inView }: { label: string; raw: number; formattedValue: string; inView: boolean }) {
   const isPositive = raw >= 0;
@@ -59,17 +53,10 @@ export default function Performance() {
   const { t, lang } = useI18n();
   const [activeYear, setActiveYear] = useState<Year>("2025");
   const { ref: heroRef, inView: heroInView } = useScrollReveal(0.1);
-  const { ref: statsRef, inView: statsInView } = useScrollReveal(0.08);
   const { ref: gridRef, inView: gridInView } = useScrollReveal(0.06);
   const { ref: defsRef, inView: defsInView } = useScrollReveal(0.08);
 
   const pt = t.performance;
-  const KPI_ITEMS = [
-    { value: "+8,76 %", label: pt.kpi_avg_return_label, description: pt.kpi_avg_return_desc },
-    { value: "3,40",    label: pt.kpi_pf_label,          description: pt.kpi_pf_desc },
-    { value: "71 %",    label: pt.kpi_wr_label,          description: pt.kpi_wr_desc },
-    { value: "11,28 %", label: pt.kpi_dd_label,          description: pt.kpi_dd_desc },
-  ];
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#060811", color: "#EDE9E3" }}>
@@ -103,50 +90,6 @@ export default function Performance() {
               <motion.p variants={staggerItem} className="text-white/55 text-base md:text-lg max-w-xl leading-relaxed">
                 {t.performance.hero_subtitle}
               </motion.p>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* ── KPI Cards ── */}
-        <section className="relative py-10 md:py-14 overflow-hidden" ref={statsRef}>
-          <div className="section-divider mb-12" />
-          {/* Ambient */}
-          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-            <div
-              className="absolute top-0 left-0 w-[600px] h-[400px] ambient-breathe"
-              style={{ background: "radial-gradient(ellipse at 5% 10%, rgba(201,169,110,0.08) 0%, transparent 60%)", filter: "blur(50px)" }}
-            />
-            <div
-              className="absolute bottom-0 right-0 w-[500px] h-[350px] ambient-drift"
-              style={{ background: "radial-gradient(ellipse at 95% 90%, rgba(29,95,168,0.06) 0%, transparent 60%)", filter: "blur(60px)", animationDelay: "3s" }}
-            />
-            <div className="absolute inset-0 dot-grid opacity-20" />
-          </div>
-          <div className="container">
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              animate={statsInView ? "visible" : "hidden"}
-              className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12"
-            >
-              {KPI_ITEMS.map((item, i) => {
-                const style = KPI_STYLES[i];
-                return (
-                  <motion.div
-                    key={i}
-                    variants={staggerItem}
-                    className="relative p-6 rounded-xl"
-                    style={{ background: style.bg, border: `1px solid ${style.border}` }}
-                  >
-                    <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-xl" style={{ background: style.accent }} />
-                    <div className="font-data text-2xl md:text-3xl font-bold mb-2 tracking-tight" style={{ color: style.accent }}>
-                      {item.value}
-                    </div>
-                    <div className="text-white/80 text-sm font-medium mb-1">{item.label}</div>
-                    <div className="text-white/35 text-xs">{item.description}</div>
-                  </motion.div>
-                );
-              })}
             </motion.div>
           </div>
         </section>
@@ -225,10 +168,22 @@ export default function Performance() {
                   >
                     Myfxbook
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <p className="text-white/70 text-sm font-medium mb-1">{pt.myfxbook_verified}</p>
                     <p className="text-white/40 text-xs leading-relaxed">{pt.myfxbook_updated}</p>
                   </div>
+                  <a
+                    href="https://www.myfxbook.com/members/cstmhelvetius/helvora-trader/12121444"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors duration-200"
+                    style={{ background: "rgba(58,128,204,0.1)", border: "1px solid rgba(58,128,204,0.25)", color: "#3A80CC" }}
+                  >
+                    <span>Voir sur Myfxbook</span>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                      <path d="M2 8L8 2M8 2H3.5M8 2v4.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </a>
                 </motion.div>
               </>
             ) : (

@@ -82,15 +82,6 @@ export default function Hero() {
         style={{ zIndex: 10 }}
       >
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="badge-pill mb-10"
-        >
-          {t.hero.badge}
-        </motion.div>
-
-        <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate="visible"

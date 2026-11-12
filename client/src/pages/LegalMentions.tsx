@@ -110,19 +110,19 @@ export default function LegalMentions() {
             </LegalSection>
 
             <LegalSection title="Activité">
-              <p>Summit One Capital est un éditeur de solutions logicielles financières. Son activité consiste dans le développement, la maintenance et l'exploitation de stratégies de trading algorithmique.</p>
-              <p>Summit One Capital n'exerce pas d'activité de gestion de fonds, de conseil financier agréé, ni de prestation de services d'investissement au sens réglementaire du terme, à moins d'en avoir reçu l'autorisation des autorités compétentes.</p>
+              <p>Summit One est un éditeur de solutions logicielles financières. Son activité consiste dans le développement, la maintenance et l'exploitation de stratégies de trading algorithmique.</p>
+              <p>Summit One n'exerce pas d'activité de gestion de fonds, de conseil financier agréé, ni de prestation de services d'investissement au sens réglementaire du terme, à moins d'en avoir reçu l'autorisation des autorités compétentes.</p>
               <p className="text-white/35 text-xs">La nature précise de l'activité réglementée exercée et les autorisations détenues seront précisées dès leur confirmation officielle.</p>
             </LegalSection>
 
             <LegalSection title="Responsabilité">
               <p>Les informations publiées sur ce site sont fournies à titre indicatif et ne constituent pas un conseil financier, une recommandation d'investissement ou une offre de services financiers.</p>
-              <p>Summit One Capital ne peut être tenu responsable des décisions prises sur la base des informations contenues sur ce site. Les performances passées ne préjugent pas des performances futures.</p>
+              <p>Summit One ne peut être tenu responsable des décisions prises sur la base des informations contenues sur ce site. Les performances passées ne préjugent pas des performances futures.</p>
             </LegalSection>
 
             <LegalSection title="Propriété intellectuelle">
-              <p>L'ensemble du contenu de ce site (textes, graphiques, logo, structure) est la propriété de Summit One Capital ou de ses concédants de licences.</p>
-              <p>Toute reproduction, représentation, modification ou diffusion, totale ou partielle, est interdite sans l'autorisation écrite préalable de Summit One Capital.</p>
+              <p>L'ensemble du contenu de ce site (textes, graphiques, logo, structure) est la propriété de Summit One ou de ses concédants de licences.</p>
+              <p>Toute reproduction, représentation, modification ou diffusion, totale ou partielle, est interdite sans l'autorisation écrite préalable de Summit One.</p>
             </LegalSection>
 
             <LegalSection title="Droit applicable">

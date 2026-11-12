@@ -114,7 +114,7 @@ export default function EcosystemSection() {
           transition={{ delay: 0.6 }}
           className="text-white/25 text-xs text-center mt-8 max-w-lg mx-auto leading-relaxed"
         >
-          Les entités présentées sont des organisations distinctes. Summit One Capital est un éditeur de logiciels, non un gestionnaire de fonds ou conseiller financier.
+          Summit One est un éditeur de logiciels algorithmiques, non un gestionnaire de fonds ou conseiller financier agréé.
         </motion.p>
       </div>
     </section>
