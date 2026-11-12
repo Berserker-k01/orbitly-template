@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Aneto from "@/components/Aneto";
+import PhoneCountrySelect, { DEFAULT_PHONE_COUNTRY } from "@/components/PhoneCountrySelect";
+import type { PhoneCountry } from "@/lib/phoneCountries";
 import { useScrollReveal, staggerContainer, staggerItem } from "@/hooks/useScrollReveal";
 import { useI18n } from "@/contexts/I18nContext";
 
@@ -24,20 +26,42 @@ export default function Contact() {
   const { ref: heroRef, inView: heroInView } = useScrollReveal(0.1);
   const { ref: formRef, inView: formInView } = useScrollReveal(0.06);
   const [submitState, setSubmitState] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [phoneCountry, setPhoneCountry] = useState<PhoneCountry>(DEFAULT_PHONE_COUNTRY);
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<ContactFormData>();
+  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<ContactFormData>({
+    defaultValues: { country: DEFAULT_PHONE_COUNTRY.name },
+  });
+
+  function handlePhoneCountryChange(country: PhoneCountry) {
+    setPhoneCountry(country);
+    setValue("country", country.name, { shouldDirty: true });
+  }
 
   async function onSubmit(data: ContactFormData) {
     setSubmitState("loading");
+    const local = (data.phone || "").trim();
+    const phone = !local
+      ? ""
+      : local.startsWith("+")
+        ? local
+        : `${phoneCountry.dial} ${local.replace(/^0+/, "")}`;
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          phone,
+          country: data.country || phoneCountry.name,
+          phoneCountryCode: phoneCountry.code,
+          phoneDial: phoneCountry.dial,
+        }),
       });
       if (res.ok) {
         setSubmitState("success");
-        reset();
+        reset({ country: DEFAULT_PHONE_COUNTRY.name });
+        setPhoneCountry(DEFAULT_PHONE_COUNTRY);
       } else {
         setSubmitState("error");
       }
@@ -203,7 +227,7 @@ export default function Contact() {
                         <input
                           {...register("firstName", { required: t.contact.form.required })}
                           className={inputClass}
-                          placeholder="Mathéo"
+                          placeholder="Camille"
                         />
                         {errors.firstName && <p className={errorClass}>{errors.firstName.message}</p>}
                       </div>
@@ -212,7 +236,7 @@ export default function Contact() {
                         <input
                           {...register("lastName", { required: t.contact.form.required })}
                           className={inputClass}
-                          placeholder="Dupont"
+                          placeholder="Moreau"
                         />
                         {errors.lastName && <p className={errorClass}>{errors.lastName.message}</p>}
                       </div>
@@ -232,15 +256,26 @@ export default function Contact() {
                       {errors.email && <p className={errorClass}>{errors.email.message}</p>}
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className={labelClass}>{t.contact.form.phone}</label>
-                        <input
-                          type="tel"
-                          {...register("phone")}
-                          className={inputClass}
-                          placeholder="+41 00 000 00 00"
-                        />
+                        <div className="flex">
+                          <PhoneCountrySelect
+                            value={phoneCountry}
+                            onChange={handlePhoneCountryChange}
+                          />
+                          <input
+                            type="tel"
+                            {...register("phone")}
+                            className={`${inputClass} rounded-l-none`}
+                            placeholder="78 000 00 00"
+                            inputMode="tel"
+                            autoComplete="tel-national"
+                          />
+                        </div>
+                        <p className="text-white/25 text-[10px] mt-1.5">
+                          {phoneCountry.flag} {phoneCountry.name} · {phoneCountry.dial}
+                        </p>
                       </div>
                       <div>
                         <label className={labelClass}>{t.contact.form.country}</label>
