@@ -152,7 +152,7 @@ export default function Contact() {
                       </div>
                       <div>
                         <div className="text-white/35 text-xs mb-0.5 tracking-wide uppercase">Localisation</div>
-                        <div className="text-white/70 text-sm">Vaud, Suisse</div>
+                        <div className="text-white/70 text-sm">Suisse</div>
                       </div>
                     </div>
                   </div>

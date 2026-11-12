@@ -33,7 +33,7 @@ function FAQItem({ q, a, isOpen, onClick }: {
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <p className="text-white/50 text-sm leading-relaxed pb-5 pr-8">
+            <p className="text-white/50 text-sm leading-relaxed pb-5 pr-8 whitespace-pre-line">
               {a}
             </p>
           </motion.div>
@@ -50,6 +50,7 @@ export default function FAQSection() {
 
   return (
     <section
+      id="faq"
       className="relative py-20 md:py-28 overflow-hidden"
       ref={ref}
       aria-labelledby="faq-heading"

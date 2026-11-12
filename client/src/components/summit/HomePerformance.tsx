@@ -171,9 +171,18 @@ export default function HomePerformance() {
                   <p className="text-white/25 text-[10px] mt-0.5">Mise à jour : novembre 2026</p>
                 </div>
               </div>
-              <div className="text-white/20 text-[10px] text-right hidden sm:block leading-relaxed">
-                Données validées<br />manuellement
-              </div>
+              <a
+                href="https://www.myfxbook.com/members/cstmhelvetius/helvora-trader/12121444"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors duration-200"
+                style={{ background: "rgba(58,128,204,0.1)", border: "1px solid rgba(58,128,204,0.25)", color: "#3A80CC" }}
+              >
+                <span className="hidden sm:inline">Voir</span>
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                  <path d="M2 8L8 2M8 2H3.5M8 2v4.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
             </motion.div>
           </motion.div>
 

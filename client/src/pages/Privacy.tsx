@@ -37,7 +37,7 @@ export default function Privacy() {
               <div className="section-divider mb-12" />
 
               <Section title="Responsable du traitement">
-                <p>Summit One Capital — Route de Châtel 23, 1803 Chardonne, Suisse</p>
+                <p>Summit One — Route de Châtel 23, 1803 Chardonne, Suisse</p>
                 <p>Contact : summit.one.contact@gmail.com</p>
               </Section>
 

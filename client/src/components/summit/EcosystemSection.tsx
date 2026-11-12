@@ -1,24 +1,23 @@
 import { motion } from "framer-motion";
 import { useScrollReveal, staggerContainer, staggerItem } from "@/hooks/useScrollReveal";
 import { useI18n } from "@/contexts/I18nContext";
-import { Building2, Users, Briefcase } from "lucide-react";
-
-const ENTITY_ICONS = [Building2, Users, Briefcase];
+import { X } from "lucide-react";
 
 export default function EcosystemSection() {
   const { t } = useI18n();
   const { ref, inView } = useScrollReveal(0.08);
+  const d = t.ecosystem;
 
   return (
     <section
       className="relative py-20 md:py-28 overflow-hidden"
       ref={ref}
       aria-labelledby="ecosystem-heading"
+      id="differenciation"
     >
       <div className="section-divider absolute top-0 left-0 right-0" />
       <div className="section-divider absolute bottom-0 left-0 right-0" />
 
-      {/* Background architectural photo */}
       <div className="absolute inset-0 z-0" aria-hidden="true">
         <img
           src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1920&auto=format&fit=crop&q=70"
@@ -26,95 +25,75 @@ export default function EcosystemSection() {
           className="w-full h-full object-cover"
           style={{ objectPosition: "50% 60%" }}
         />
-        <div className="absolute inset-0" style={{ background: "rgba(6,8,17,0.90)" }} />
+        <div className="absolute inset-0" style={{ background: "rgba(6,8,17,0.92)" }} />
       </div>
 
-      <div className="container relative z-10">
+      <div className="container relative z-10 max-w-4xl">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="text-center mb-14"
+          className="mb-12"
         >
           <motion.span variants={staggerItem} className="badge-pill mb-6 inline-flex">
-            {t.ecosystem.badge}
+            {d.badge}
           </motion.span>
           <motion.h2
             variants={staggerItem}
             id="ecosystem-heading"
             className="text-3xl md:text-4xl font-semibold text-white mb-4"
           >
-            {t.ecosystem.title}
+            {d.title}
           </motion.h2>
-          <motion.p variants={staggerItem} className="text-white/50 max-w-lg mx-auto text-sm leading-relaxed">
-            {t.ecosystem.subtitle}
+          <motion.p variants={staggerItem} className="text-white/55 text-sm md:text-base leading-relaxed max-w-2xl">
+            {d.intro}
+          </motion.p>
+          <motion.p variants={staggerItem} className="text-white/40 text-sm mt-4 font-medium">
+            {d.not_label}
           </motion.p>
         </motion.div>
 
-        <motion.div
+        <motion.ul
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          className="flex flex-col gap-3 mb-10"
         >
-          {t.ecosystem.entities.map((entity, i) => {
-            const Icon = ENTITY_ICONS[i % ENTITY_ICONS.length];
-            const isFirst = i === 0;
-            return (
-              <motion.div
-                key={i}
-                variants={staggerItem}
-                className="relative p-7 rounded-xl"
-                style={{
-                  background: isFirst
-                    ? "linear-gradient(145deg, rgba(201,169,110,0.07), rgba(255,255,255,0.025))"
-                    : "rgba(255,255,255,0.025)",
-                  border: isFirst
-                    ? "1px solid rgba(201,169,110,0.2)"
-                    : "1px solid rgba(255,255,255,0.07)",
-                }}
+          {d.not_items.map((item, i) => (
+            <motion.li
+              key={i}
+              variants={staggerItem}
+              className="flex items-start gap-3 p-4 rounded-xl"
+              style={{
+                background: "rgba(255,255,255,0.025)",
+                border: "1px solid rgba(255,255,255,0.07)",
+              }}
+            >
+              <div
+                className="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5"
+                style={{ background: "rgba(192,102,90,0.12)", border: "1px solid rgba(192,102,90,0.25)" }}
               >
-                {isFirst && (
-                  <div
-                    className="absolute top-0 left-6 right-6 h-px"
-                    style={{ background: "linear-gradient(to right, transparent, rgba(201,169,110,0.5), transparent)" }}
-                    aria-hidden="true"
-                  />
-                )}
-                <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center mb-5"
-                  style={{
-                    background: isFirst ? "rgba(201,169,110,0.1)" : "rgba(255,255,255,0.04)",
-                    border: isFirst ? "1px solid rgba(201,169,110,0.25)" : "1px solid rgba(255,255,255,0.08)",
-                  }}
-                >
-                  <Icon
-                    className="w-4.5 h-4.5"
-                    style={{ color: isFirst ? "#C9A96E" : "rgba(237,233,227,0.5)" }}
-                  />
-                </div>
-                <div className="text-[10px] font-semibold tracking-[0.1em] uppercase mb-1.5" style={{ color: "#C9A96E" }}>
-                  {entity.role}
-                </div>
-                <h3 className="text-white font-semibold text-base mb-3">
-                  {entity.name}
-                </h3>
-                <p className="text-white/45 text-sm leading-relaxed">
-                  {entity.description}
-                </p>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+                <X className="w-3.5 h-3.5" style={{ color: "#C0665A" }} />
+              </div>
+              <div>
+                <div className="text-white/85 text-sm font-semibold mb-1">{item.title}</div>
+                <p className="text-white/45 text-sm leading-relaxed">{item.body}</p>
+              </div>
+            </motion.li>
+          ))}
+        </motion.ul>
 
-        {/* Disclaimer */}
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.6 }}
-          className="text-white/25 text-xs text-center mt-8 max-w-lg mx-auto leading-relaxed"
+          initial={{ opacity: 0, y: 10 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.35 }}
+          className="text-white/55 text-sm leading-relaxed p-5 rounded-xl"
+          style={{
+            background: "rgba(201,169,110,0.05)",
+            border: "1px solid rgba(201,169,110,0.18)",
+          }}
         >
-          Summit One est un éditeur de logiciels algorithmiques, non un gestionnaire de fonds ou conseiller financier agréé.
+          {d.distinction}
         </motion.p>
       </div>
     </section>

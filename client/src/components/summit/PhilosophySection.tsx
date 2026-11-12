@@ -97,7 +97,7 @@ export default function PhilosophySection() {
                 style={{ background: "linear-gradient(135deg, rgba(6,8,17,0.5) 0%, rgba(6,8,17,0.15) 50%, rgba(6,8,17,0.6) 100%)" }}
               />
               <div className="absolute bottom-4 left-4">
-                <span className="text-white/35 text-[10px] tracking-[0.2em] uppercase">Vaud · Suisse</span>
+                <span className="text-white/35 text-[10px] tracking-[0.2em] uppercase">Suisse</span>
               </div>
             </motion.div>
           </motion.div>
@@ -120,7 +120,7 @@ export default function PhilosophySection() {
                   className="font-data text-xs font-bold flex-shrink-0 mt-1 w-7 text-right"
                   style={{ color: "rgba(201,169,110,0.5)" }}
                 >
-                  0{i + 2}
+                  {String(i + 2).padStart(2, "0")}
                 </div>
                 <div className="flex-1">
                   <h3 className="text-white font-semibold text-base mb-2 tracking-tight">{item.title}</h3>

@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import { Gift, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Gift, ArrowRight, ChevronDown } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useScrollReveal, staggerContainer, staggerItem } from "@/hooks/useScrollReveal";
@@ -12,6 +13,7 @@ export default function Parrainage() {
   const { ref: stepsRef, inView: stepsInView } = useScrollReveal(0.06);
   const { ref: descRef, inView: descInView } = useScrollReveal(0.08);
   const [, setLocation] = useLocation();
+  const [openStep, setOpenStep] = useState<number | null>(0);
   const r = t.referral;
 
   return (
@@ -19,7 +21,6 @@ export default function Parrainage() {
       <Navbar />
       <main>
 
-        {/* ── Hero ── */}
         <section className="relative pt-32 pb-20 overflow-hidden">
           <div className="absolute inset-0 z-0" aria-hidden="true">
             <img
@@ -58,60 +59,68 @@ export default function Parrainage() {
 
         <div className="section-divider" />
 
-        {/* ── 3 Steps ── */}
+        {/* Collapsible steps */}
         <section className="relative py-16 md:py-20 overflow-hidden" ref={stepsRef}>
-          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-            <div
-              className="absolute top-0 right-0 w-[600px] h-[400px] ambient-breathe"
-              style={{ background: "radial-gradient(ellipse at 90% 10%, rgba(201,169,110,0.06) 0%, transparent 55%)", filter: "blur(60px)" }}
-            />
-            <div className="absolute inset-0 dot-grid opacity-15" />
-          </div>
-          <div className="container relative z-10">
+          <div className="container relative z-10 max-w-3xl">
             <motion.div
               variants={staggerContainer}
               initial="hidden"
               animate={stepsInView ? "visible" : "hidden"}
-              className="grid grid-cols-1 md:grid-cols-3 gap-6"
+              className="flex flex-col"
             >
-              {r.steps.map((step, i) => (
-                <motion.div
-                  key={i}
-                  variants={staggerItem}
-                  className="relative p-8 rounded-2xl"
-                  style={{
-                    background: i === 0
-                      ? "linear-gradient(145deg, rgba(201,169,110,0.07), rgba(255,255,255,0.025))"
-                      : "rgba(255,255,255,0.025)",
-                    border: i === 0
-                      ? "1px solid rgba(201,169,110,0.2)"
-                      : "1px solid rgba(255,255,255,0.07)",
-                  }}
-                >
-                  {i < r.steps.length - 1 && (
-                    <ArrowRight
-                      className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 w-5 h-5 z-10"
-                      style={{ color: "rgba(201,169,110,0.3)" }}
-                      aria-hidden="true"
-                    />
-                  )}
-                  <div
-                    className="font-data text-3xl font-bold mb-5 tracking-tight"
-                    style={{ color: "rgba(201,169,110,0.25)" }}
+              {r.steps.map((step, i) => {
+                const isOpen = openStep === i;
+                return (
+                  <motion.div
+                    key={i}
+                    variants={staggerItem}
+                    className="border-b"
+                    style={{ borderColor: "rgba(255,255,255,0.07)" }}
                   >
-                    {step.number}
-                  </div>
-                  <h3 className="text-white font-semibold text-lg mb-3">{step.title}</h3>
-                  <p className="text-white/50 text-sm leading-relaxed">{step.body}</p>
-                </motion.div>
-              ))}
+                    <button
+                      onClick={() => setOpenStep(isOpen ? null : i)}
+                      className="w-full flex items-start justify-between gap-4 py-6 text-left group"
+                      aria-expanded={isOpen}
+                    >
+                      <div className="flex items-start gap-4">
+                        <span
+                          className="font-data text-sm font-bold mt-0.5"
+                          style={{ color: "rgba(201,169,110,0.45)" }}
+                        >
+                          {step.number}
+                        </span>
+                        <span className="text-white/85 group-hover:text-white text-base font-semibold transition-colors">
+                          {step.title}
+                        </span>
+                      </div>
+                      <ChevronDown
+                        className={`w-4 h-4 flex-shrink-0 mt-1 transition-transform duration-300 ${isOpen ? "rotate-180 text-[#C9A96E]" : "text-white/35"}`}
+                      />
+                    </button>
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                          className="overflow-hidden"
+                        >
+                          <p className="text-white/50 text-sm leading-relaxed pb-6 pl-10 pr-8">
+                            {step.body}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                );
+              })}
             </motion.div>
           </div>
         </section>
 
         <div className="section-divider" />
 
-        {/* ── Description + CTA ── */}
         <section className="py-16 pb-24" ref={descRef}>
           <div className="container max-w-3xl">
             <motion.div
@@ -131,25 +140,13 @@ export default function Parrainage() {
               className="flex flex-col sm:flex-row items-start gap-4"
             >
               <a
-                href={langPath('/contact')}
-                onClick={(e) => { e.preventDefault(); setLocation(langPath('/contact')); }}
+                href={langPath("/contact")}
+                onClick={(e) => { e.preventDefault(); setLocation(langPath("/contact")); }}
                 className="btn-primary inline-flex items-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold"
               >
                 <span>{r.cta}</span>
                 <ArrowRight className="w-4 h-4 flex-shrink-0" />
               </a>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={descInView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.5 }}
-              className="mt-14 p-5 rounded-xl"
-              style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}
-            >
-              <p className="text-white/25 text-xs leading-relaxed">
-                Le programme de parrainage est soumis à des conditions générales. Les modalités précises (taux de commission, conditions de versement, éligibilité) sont communiquées lors de l'adhésion au programme. Les performances passées ne préjugent pas des performances futures.
-              </p>
             </motion.div>
           </div>
         </section>

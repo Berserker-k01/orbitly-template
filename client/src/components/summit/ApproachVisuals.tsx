@@ -221,7 +221,7 @@ export function RiskViz({ inView }: { inView: boolean }) {
     <div className="rounded-xl overflow-hidden p-4" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)" }}>
       <div className="flex items-center justify-between mb-2">
         <span className="text-[9px] text-white/25 tracking-[0.15em] uppercase font-medium">
-          Évolution du capital — 2025 · Données déclarées
+          Évolution du capital — 2025 · Données Myfxbook
         </span>
         <div className="flex items-center gap-1">
           <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#5BAF8A" }} />

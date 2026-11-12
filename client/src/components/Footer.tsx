@@ -10,8 +10,16 @@ export default function Footer() {
   const [, setLocation] = useLocation();
 
   function nav(path: string) {
-    setLocation(path);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const [pathname, hash] = path.split("#");
+    setLocation(pathname || langPath("/"));
+    if (hash) {
+      setTimeout(() => {
+        const el = document.getElementById(hash);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 80);
+      return;
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   const year = new Date().getFullYear();
@@ -156,7 +164,7 @@ export default function Footer() {
                   <span>+41 78 441 54 20</span>
                 </a>
                 <div className="flex items-center gap-2.5 text-white/40 text-xs">
-                  <span>Vaud, Suisse</span>
+                  <span>Suisse</span>
                 </div>
               </div>
             </div>

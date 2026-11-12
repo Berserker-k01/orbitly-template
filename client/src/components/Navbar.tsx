@@ -47,7 +47,16 @@ export default function Navbar() {
 
   function handleNav(href: string) {
     setMobileOpen(false);
-    setLocation(href);
+    setResourcesOpen(false);
+    const [path, hash] = href.split("#");
+    setLocation(path || langPath("/"));
+    if (hash) {
+      // Defer until after route paint
+      setTimeout(() => {
+        const el = document.getElementById(hash);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 80);
+    }
   }
 
   function handleLangSwitch(newLang: Lang) {

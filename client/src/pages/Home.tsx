@@ -3,11 +3,11 @@ import Footer from "@/components/Footer";
 import Aneto from "@/components/Aneto";
 import RiskBanner from "@/components/RiskBanner";
 import Hero from "@/components/summit/Hero";
-import Stats from "@/components/summit/Stats";
 import HomePerformance from "@/components/summit/HomePerformance";
 import PhilosophySection from "@/components/summit/PhilosophySection";
 import TechOverview from "@/components/summit/TechOverview";
 import EcosystemSection from "@/components/summit/EcosystemSection";
+import ReferralTeaser from "@/components/summit/ReferralTeaser";
 import FAQSection from "@/components/summit/FAQSection";
 
 export default function Home() {
@@ -16,11 +16,11 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Stats />
         <HomePerformance />
         <PhilosophySection />
         <TechOverview />
         <EcosystemSection />
+        <ReferralTeaser />
         <FAQSection />
       </main>
       <Footer />

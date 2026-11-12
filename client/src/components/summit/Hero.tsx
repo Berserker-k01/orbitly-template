@@ -145,7 +145,7 @@ export default function Hero() {
             className="text-xs tracking-[0.2em] uppercase font-medium"
             style={{ color: "rgba(237,233,227,0.28)" }}
           >
-            Vaud · Suisse
+            Suisse
           </span>
           <div className="section-divider w-12" />
         </motion.div>

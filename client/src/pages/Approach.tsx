@@ -46,7 +46,7 @@ function ApproachSection({
           className={textFirst ? "md:order-1" : "md:order-2"}
         >
           <div className="font-data text-xs text-white/20 mb-3 tracking-widest">
-            0{index + 1}
+            {String(index + 1).padStart(2, "0")}
           </div>
           <h2 className="text-2xl md:text-3xl font-semibold text-white leading-tight mb-5">
             {title}

@@ -8,14 +8,20 @@ import PerformanceCharts from "@/components/summit/PerformanceCharts";
 import { useScrollReveal, staggerContainer, staggerItem } from "@/hooks/useScrollReveal";
 import { useI18n } from "@/contexts/I18nContext";
 
-// ── 2025 monthly data (communicated by client, exact values) ─────────────────
-// Labels are localized at render time via t.performance.month_labels
-const RETURNS_2025 = [5.24, 4.04, 2.81, 0.16, 2.51, 0.69, 3.16, 1.34, 3.69, 10.21, -0.65, 0.08];
+// ── Monthly gains from Myfxbook (Helvora Trader) ─────────────────────────────
+// https://www.myfxbook.com/members/cstmhelvetius/helvora-trader/12121444
+const YEARLY_RETURNS: Record<string, number[]> = {
+  2025: [5.24, 4.04, 2.81, 0.16, 2.51, 0.69, 3.16, 1.34, 3.69, 10.21, -0.65, 0.08],
+};
 
 function formatReturn(raw: number, lang: string): string {
   const sign = raw >= 0 ? "+" : "";
   const dec = lang === "en" ? "." : ",";
   return `${sign}${raw.toFixed(2).replace(".", dec)} %`;
+}
+
+function compoundGain(returns: number[]): number {
+  return returns.reduce((acc, r) => acc * (1 + r / 100), 1) * 100 - 100;
 }
 
 const YEARS = ["2022", "2023", "2024", "2025", "2026"] as const;
@@ -135,23 +141,35 @@ export default function Performance() {
             </motion.div>
 
             {/* Grid content */}
-            {activeYear === "2025" ? (
+            {YEARLY_RETURNS[activeYear] ? (
               <>
                 <motion.div
+                  key={activeYear}
                   initial={{ opacity: 0 }}
                   animate={gridInView ? { opacity: 1 } : {}}
                   transition={{ duration: 0.4 }}
-                  className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 mb-8"
+                  className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 mb-6"
                 >
-                  {RETURNS_2025.map((raw, i) => (
+                  {YEARLY_RETURNS[activeYear].map((raw, i) => (
                     <MonthCell
-                      key={i}
+                      key={`${activeYear}-${i}`}
                       label={pt.month_labels[i]}
                       raw={raw}
                       formattedValue={formatReturn(raw, lang)}
                       inView={gridInView}
                     />
                   ))}
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={gridInView ? { opacity: 1, y: 0 } : {}}
+                  className="flex items-center justify-between mb-8 px-1"
+                >
+                  <span className="text-white/35 text-xs tracking-[0.1em] uppercase">Gain composé {activeYear}</span>
+                  <span className="font-data text-sm font-bold" style={{ color: "#5BAF8A" }}>
+                    {formatReturn(compoundGain(YEARLY_RETURNS[activeYear]), lang)}
+                  </span>
                 </motion.div>
 
                 {/* Myfxbook mention */}
@@ -188,6 +206,7 @@ export default function Performance() {
               </>
             ) : (
               <motion.div
+                key={activeYear}
                 initial={{ opacity: 0 }}
                 animate={gridInView ? { opacity: 1 } : {}}
                 className="flex flex-col items-center justify-center py-20 text-center"
@@ -204,6 +223,18 @@ export default function Performance() {
                 </div>
                 <p className="text-white/50 text-sm font-medium mb-2">{activeYear}</p>
                 <p className="text-white/30 text-sm max-w-xs leading-relaxed">{pt.data_pending}</p>
+                <a
+                  href="https://www.myfxbook.com/members/cstmhelvetius/helvora-trader/12121444"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 inline-flex items-center gap-1.5 text-xs font-medium"
+                  style={{ color: "#3A80CC" }}
+                >
+                  Consulter Myfxbook
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                    <path d="M2 8L8 2M8 2H3.5M8 2v4.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
               </motion.div>
             )}
 
@@ -224,7 +255,7 @@ export default function Performance() {
           <div className="container">
             <div className="mb-4">
               <span className="text-white/30 text-xs tracking-[0.12em] uppercase">
-                Illustration — représentation du profil de rendement (non contractuelle)
+                Évolution 2025 — données Myfxbook (base 100)
               </span>
             </div>
             <PerformanceCharts />

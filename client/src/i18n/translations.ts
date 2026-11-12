@@ -135,29 +135,38 @@ export const translations = {
     // ── Différenciation ──
     ecosystem: {
       badge: 'Différenciation',
-      title: 'Ce que Summit One est — et n\'est pas',
-      subtitle:
-        'Pour éviter toute confusion, voici une définition claire et précise du positionnement de Summit One.',
-      entities: [
+      title: 'Ce qu\'est Summit One et ce qui ne l\'est pas',
+      intro:
+        'Summit One est une plateforme de copy trading avec des bots programmés par IA pour le trading automatisé.',
+      not_label: 'Summit One n\'est expressément PAS :',
+      not_items: [
         {
-          name: 'Summit One n\'est pas',
-          role: 'À ne pas confondre',
-          description:
-            'Summit One n\'est pas une plateforme de copy trading. Ses signaux ne sont pas automatiquement répliqués sur vos comptes. Summit One n\'est pas non plus un fonds d\'investissement collectif, ni un conseiller financier réglementé.',
+          title: 'Pas un courtier',
+          body: 'Summit One n\'est ni une banque ni un courtier. Les utilisateurs créent leurs propres comptes auprès de courtiers partenaires.',
         },
         {
-          name: 'Summit One est',
-          role: 'Notre activité',
-          description:
-            'Summit One est un éditeur de stratégies algorithmiques propriétaires. Nous concevons, développons et opérons nos propres algorithmes de trading sur le marché des changes (EUR/USD), depuis la Suisse.',
+          title: 'Pas de gestion d\'actifs',
+          body: 'Summit One n\'a pas accès direct aux fonds des clients.',
         },
         {
-          name: 'Accès à la stratégie',
-          role: 'Modalités',
-          description:
-            'L\'accès à la stratégie est réservé à des partenaires qualifiés, via un réseau de distribution sélectionné. Chaque accès est encadré par un contrat et fait l\'objet d\'un accompagnement personnalisé.',
+          title: 'Pas un service de trading manuel',
+          body: 'Summit One repose sur des algorithmes de trading entièrement automatisés, et non sur le trading manuel.',
+        },
+        {
+          title: 'Aucun conseil financier',
+          body: 'Summit One ne propose pas de conseils d\'investissement individuels.',
+        },
+        {
+          title: 'Aucune garantie de victoire',
+          body: 'Les rendements ciblés mentionnés ne sont pas garantis. Le trading comporte un risque de perte.',
+        },
+        {
+          title: 'Pas un service de signal pur',
+          body: 'Summit One copie les transactions automatiquement au lieu d\'envoyer seulement des signaux.',
         },
       ],
+      distinction:
+        'Summit One se distingue des autres fournisseurs de bots de trading par : des algorithmes d\'IA développés en Suisse, un modèle de frais de performance sans coûts fixes, un historique en temps réel de plus de 4 ans.',
     },
 
     // ── FAQ ──
@@ -166,20 +175,20 @@ export const translations = {
       title: 'Comprendre le trading quantitatif',
       items: [
         {
-          q: "Comment commencer avec Summit One ?",
-          a: "Pour commencer, prenez contact via notre formulaire ou par e-mail. Notre équipe vous présentera notre approche, répondra à vos questions et évaluera avec vous la pertinence d\'un accès à la stratégie selon votre situation.",
+          q: "Comment puis-je commencer avec Summit One ?",
+          a: "Simple, suivez ces étapes :\n1. Envoyez-nous un message.\n2. Ensuite, nous vous enverrons les étapes pour ouvrir votre compte de trading auprès de notre courtier.\n3. Ensemble, nous allons lier votre compte à la stratégie choisie.\n4. Installez-vous confortablement et regardez votre produit choisi agir pour vous.\n\n(Nos experts sont là pour vous accompagner tout au long du processus.)",
         },
         {
-          q: "Quel est le montant minimum d\'investissement ?",
-          a: "Le montant minimum requis est de 5 000 CHF. Ce seuil permet de bénéficier d\'une gestion du risque adaptée aux paramètres de la stratégie. Votre capital reste sur votre propre compte, ouvert à votre nom.",
+          q: "Quel est l\'investissement minimum ?",
+          a: "L\'investissement minimum est de 5 000 CHF. Cela vous permet de suivre l\'une de nos trois stratégies disponibles. Ce montant sert à établir une gestion consciencieuse des risques.",
         },
         {
-          q: "Ai-je accès à mes fonds à tout moment ?",
-          a: "Oui. Votre capital est conservé sur votre propre compte de trading, ouvert à votre nom auprès du courtier partenaire. Vous restez propriétaire de vos fonds et pouvez y accéder selon les conditions du courtier.",
+          q: "Ai-je accès à mon investissement / à mon argent à un moment donné ?",
+          a: "Oui. Vos fonds restent à tout moment sur votre propre compte de trading, ouvert à votre nom auprès du courtier partenaire. Summit One n\'a pas d\'accès direct à vos fonds : vous gardez le contrôle et pouvez les retirer quand vous le souhaitez.",
         },
         {
-          q: "Puis-je arrêter à tout moment ?",
-          a: "Oui. L\'engagement peut être interrompu à tout moment, sous réserve des conditions contractuelles en vigueur. Il n\'y a pas de période de blocage de vos fonds.",
+          q: "Puis-je arrêter ou sortir du copy trading à tout moment ?",
+          a: "Oui, vous pouvez vous désabonner de nos services à tout moment et retirer ou augmenter votre capital. Il n\'y a pas de durée minimale.",
         },
         {
           q: "Qu\'est-ce que le trading systématique quantitatif ?",
@@ -211,7 +220,7 @@ export const translations = {
         },
         {
           q: "Comment accéder à la stratégie ?",
-          a: "La stratégie développée par Summit One Capital est accessible via un réseau de partenaires distributeurs sélectionnés. Contactez-nous pour obtenir des informations sur les modalités d\'accès.",
+          a: "La stratégie développée par Summit One est accessible via un réseau de partenaires distributeurs sélectionnés. Contactez-nous pour obtenir des informations sur les modalités d\'accès.",
         },
         {
           q: "Quels sont les risques du trading Forex ?",
@@ -228,26 +237,26 @@ export const translations = {
     referral: {
       badge: 'Programme de parrainage',
       title: 'Recommandez Summit One et recevez jusqu\'à 50 % des frais de commission',
-      subtitle: 'Partagez notre approche avec votre réseau et bénéficiez d\'une rémunération sur les frais générés par vos recommandations.',
+      subtitle: 'Partagez votre expérience du copy trading et soyez récompensé jusqu\'à 50 % des frais de commission.',
       steps: [
         {
           number: '01',
           title: 'Recommandation',
-          body: 'Partagez votre lien de parrainage ou recommandez Summit One directement à votre réseau. Chaque recommandation est tracée et associée à votre compte.',
+          body: 'La personne que vous recommandez indique votre nom lors de son inscription. Vous êtes alors automatiquement enregistré dans notre programme de parrainage.',
         },
         {
           number: '02',
           title: 'Gains',
-          body: 'Lorsqu\'une personne que vous avez recommandée commence à utiliser la stratégie, vous percevez une commission calculée sur les frais qu\'elle génère.',
+          body: 'Lorsque la personne recommandée réalise un profit sur son compte de trading, vous recevez jusqu\'à 50 % des frais de commission qu\'elle verse.',
         },
         {
           number: '03',
           title: 'Versement',
-          body: 'Vos commissions sont cumulées et versées selon les modalités convenues. Transparence totale sur les montants et les dates de versement.',
+          body: 'Les modalités et la fréquence de versement vous sont communiquées lors de votre inscription au programme.',
         },
       ],
-      description1: 'Le programme de parrainage Summit One est conçu pour récompenser ceux qui contribuent à faire connaître notre approche. Il n\'existe pas de plafond de gains : votre rémunération évolue avec le volume généré par votre réseau.',
-      description2: 'Pour rejoindre le programme ou obtenir plus d\'informations, prenez contact avec notre équipe. Nous vous fournirons votre lien personnalisé et les conditions détaillées du programme.',
+      description1: 'Pourquoi participer : le programme récompense les utilisateurs qui font confiance à Summit One et souhaitent partager leur expérience du copy trading.',
+      description2: 'Transparence : les conditions du programme sont communiquées clairement à l\'adhésion, sans système à plusieurs niveaux dissimulé.',
       cta: 'Rejoindre le programme',
     },
 
@@ -311,7 +320,7 @@ export const translations = {
       sections: [
         {
           title: 'Recherche et développement',
-          body: 'Summit One Capital développe ses propres stratégies algorithmiques. Le processus de R&D comprend l\'analyse de données historiques, l\'identification de patterns statistiques, le développement de modèles et leur validation.',
+          body: 'Summit One développe ses propres stratégies algorithmiques. Le processus de R&D comprend l\'analyse de données historiques, l\'identification de patterns statistiques, le développement de modèles et leur validation.',
         },
         {
           title: 'Analyse statistique',
@@ -340,9 +349,9 @@ export const translations = {
     // ── Performance page ──
     performance: {
       hero_title: 'Performances',
-      hero_subtitle: 'Résultats déclarés — Track record réel sur EUR/USD depuis 2022.',
-      table_title: 'Indicateurs de performance déclarés',
-      table_note: 'Ces chiffres sont communiqués par Summit One Capital. Leur publication définitive est conditionnée à la validation documentaire indépendante et à l\'autorisation de publication.',
+      hero_subtitle: 'Track record réel sur EUR/USD — données Myfxbook.',
+      table_title: 'Indicateurs de performance',
+      table_note: 'Ces chiffres sont issus du compte Myfxbook Helvora Trader. Les performances passées ne préjugent pas des performances futures.',
       definitions_title: 'Définitions et méthodologie',
       methodology_title: 'Note méthodologique',
       methodology: [
@@ -451,7 +460,7 @@ export const translations = {
       responses: {
         approach: 'Summit One conçoit et déploie des stratégies de trading systématique quantitatif sur le marché des changes (EUR/USD). Nous exploitons des patterns statistiques récurrents via des algorithmes d\'exécution automatisée.',
         performance: 'Sur 45 mois de track record : +8,76 % de rendement mensuel moyen déclaré, Profit Factor 3,40, taux de réussite 71 % (positions longues), drawdown maximal 11,28 %. Ces chiffres sont déclarés et soumis à validation. Les performances passées ne garantissent pas les résultats futurs.',
-        contact: 'Pour nous contacter : summit.one.contact@gmail.com | +41 78 441 54 20 | Vaud, Suisse. Vous pouvez aussi utiliser le formulaire de contact sur notre site.',
+        contact: 'Pour nous contacter : summit.one.contact@gmail.com | +41 78 441 54 20 | Suisse. Vous pouvez aussi utiliser le formulaire de contact sur notre site.',
         default: 'Je peux vous renseigner sur l\'approche de Summit One, nos indicateurs de performance, ou vous orienter vers notre équipe. Que souhaitez-vous savoir ?',
       },
     },
@@ -530,22 +539,27 @@ export const translations = {
     },
     ecosystem: {
       badge: 'Differentiation',
-      title: 'What Summit One is — and is not',
-      subtitle: 'To avoid any confusion, here is a clear and precise definition of Summit One\'s positioning.',
-      entities: [
-        { name: 'Summit One is not', role: 'Not to be confused with', description: 'Summit One is not a copy trading platform. Its signals are not automatically replicated to your accounts. Summit One is also not a collective investment fund, nor a regulated financial advisor.' },
-        { name: 'Summit One is', role: 'Our activity', description: 'Summit One is a publisher of proprietary algorithmic strategies. We design, develop, and operate our own trading algorithms on the foreign exchange market (EUR/USD), from Switzerland.' },
-        { name: 'Access to the strategy', role: 'Terms', description: 'Access to the strategy is reserved for qualified partners, through a selected distribution network. Each access is governed by a contract and includes personalized support.' },
+      title: 'What Summit One is — and what it is not',
+      intro: 'Summit One is a copy trading platform with AI-programmed bots for automated trading.',
+      not_label: 'Summit One is expressly NOT:',
+      not_items: [
+        { title: 'Not a broker', body: 'Summit One is neither a bank nor a broker. Users open their own accounts with partner brokers.' },
+        { title: 'No asset management', body: 'Summit One has no direct access to client funds.' },
+        { title: 'Not a manual trading service', body: 'Summit One relies on fully automated trading algorithms, not manual trading.' },
+        { title: 'No financial advice', body: 'Summit One does not provide individual investment advice.' },
+        { title: 'No guaranteed returns', body: 'Targeted returns mentioned are not guaranteed. Trading involves a risk of loss.' },
+        { title: 'Not a pure signal service', body: 'Summit One copies trades automatically instead of only sending signals.' },
       ],
+      distinction: 'Summit One stands out from other trading bot providers through: AI algorithms developed in Switzerland, a performance-fee model with no fixed costs, and a real-time track record of more than 4 years.',
     },
     faq: {
       badge: 'FAQ',
       title: 'Understanding quantitative trading',
       items: [
-        { q: 'How do I get started with Summit One?', a: 'To get started, contact us via our form or by email. Our team will present our approach, answer your questions, and assess with you whether access to the strategy is appropriate for your situation.' },
-        { q: 'What is the minimum investment amount?', a: 'The minimum required amount is CHF 5,000. This threshold allows for appropriate risk management aligned with the strategy\'s parameters. Your capital remains in your own account, opened in your name.' },
-        { q: 'Do I have access to my funds at all times?', a: 'Yes. Your capital is held in your own trading account, opened in your name with the partner broker. You remain the owner of your funds and can access them according to the broker\'s conditions.' },
-        { q: 'Can I stop at any time?', a: 'Yes. The engagement can be terminated at any time, subject to the contractual conditions in force. There is no lock-up period for your funds.' },
+        { q: 'How can I get started with Summit One?', a: 'Simply follow these steps:\n1. Send us a message.\n2. We will then send you the steps to open your trading account with our broker.\n3. Together, we will link your account to the chosen strategy.\n4. Sit back and watch your chosen product work for you.\n\n(Our experts are there to support you throughout the process.)' },
+        { q: 'What is the minimum investment?', a: 'The minimum investment is CHF 5,000. This allows you to follow one of our three available strategies. This amount supports conscientious risk management.' },
+        { q: 'Do I have access to my investment / my money at any given time?', a: 'Yes. Your funds remain at all times in your own trading account, opened in your name with the partner broker. Summit One has no direct access to your funds: you keep control and can withdraw them whenever you wish.' },
+        { q: 'Can I stop or exit copy trading at any time?', a: 'Yes, you can unsubscribe from our services at any time and withdraw or increase your capital. There is no minimum duration.' },
         { q: 'What is systematic quantitative trading?', a: 'Systematic quantitative trading uses mathematical and statistical models to make trading decisions according to predefined rules, without emotional intervention. Decisions are fully automated.' },
         { q: 'How does an algorithmic strategy work?', a: 'A trading algorithm continuously analyzes market data, identifies conditions matching the strategy rules, and automatically executes buy or sell orders according to defined parameters.' },
         { q: 'Which market does Summit One operate on?', a: 'Summit One focuses exclusively on the EUR/USD currency pair, one of the most liquid in the world, via the Vantage Markets infrastructure.' },
@@ -553,7 +567,7 @@ export const translations = {
         { q: 'What is a Profit Factor?', a: 'The Profit Factor is the ratio between total gross gains and total gross losses over a given period. A Profit Factor of 3.40 means that for every unit of currency lost, 3.40 units were gained.' },
         { q: 'How should a win rate be interpreted?', a: 'The win rate indicates the proportion of positions closed in profit. The figure communicated (71%) specifically concerns long positions. This rate alone is insufficient to evaluate a strategy.' },
         { q: 'What is a drawdown?', a: 'Drawdown refers to the decline in valuation from a previous peak. A maximum drawdown of 11.28% means valuation declined at most 11.28% from a peak before recovering.' },
-        { q: 'How can I access the strategy?', a: 'The strategy developed by Summit One Capital is accessible through a network of selected distribution partners. Contact us for information on access conditions.' },
+        { q: 'How can I access the strategy?', a: 'The strategy developed by Summit One is accessible through a network of selected distribution partners. Contact us for information on access conditions.' },
         { q: 'What are the risks of Forex trading?', a: 'The foreign exchange market is subject to significant fluctuations. Leveraged trading amplifies potential gains but also losses. It is possible to lose all or part of the invested capital.' },
         { q: "What is Summit One's role?", a: "Summit One is the publisher and developer of the algorithmic strategy. Its activity is that of a financial software publisher, distinct from a fund manager or financial advisor." },
       ],
@@ -581,7 +595,7 @@ export const translations = {
       hero_title: 'Technology & Strategy',
       hero_subtitle: 'From statistical research to automated execution: the technical infrastructure of Summit One.',
       sections: [
-        { title: 'Research and development', body: 'Summit One Capital develops its own algorithmic strategies. The R&D process includes historical data analysis, statistical pattern identification, model development and validation.' },
+        { title: 'Research and development', body: 'Summit One develops its own algorithmic strategies. The R&D process includes historical data analysis, statistical pattern identification, model development and validation.' },
         { title: 'Statistical analysis', body: 'Analysis of EUR/USD time series identifies recurring patterns with statistical significance. These patterns are filtered by multiple robustness criteria before validation.' },
         { title: 'Rigorous backtesting', body: 'Each strategy is tested on extended historical data, including robustness tests, parameter sensitivity analyses, and out-of-sample validations.' },
         { title: 'Automated execution', body: 'The automated execution infrastructure ensures positions are entered and exited according to defined rules, without behavioral latency or human interpretation.' },
@@ -592,9 +606,9 @@ export const translations = {
     },
     performance: {
       hero_title: 'Performance',
-      hero_subtitle: 'Declared results — Real track record on EUR/USD since 2022.',
-      table_title: 'Declared performance indicators',
-      table_note: 'These figures are communicated by Summit One Capital. Data communicated by Summit One Capital, updated manually.',
+      hero_subtitle: 'Real track record on EUR/USD — Myfxbook data.',
+      table_title: 'Performance indicators',
+      table_note: 'These figures come from the Helvora Trader Myfxbook account. Past performance is not indicative of future results.',
       definitions_title: 'Definitions and methodology',
       methodology_title: 'Methodological note',
       methodology: [
@@ -659,14 +673,14 @@ export const translations = {
     referral: {
       badge: 'Referral programme',
       title: 'Recommend Summit One and earn up to 50% of commission fees',
-      subtitle: 'Share our approach with your network and earn a commission on fees generated by your referrals.',
+      subtitle: 'Share your copy trading experience and be rewarded with up to 50% of commission fees.',
       steps: [
-        { number: '01', title: 'Referral', body: 'Share your referral link or recommend Summit One directly to your network. Each referral is tracked and linked to your account.' },
-        { number: '02', title: 'Earnings', body: 'When someone you referred starts using the strategy, you receive a commission calculated on the fees they generate.' },
-        { number: '03', title: 'Payment', body: 'Your commissions are accumulated and paid according to the agreed terms. Full transparency on amounts and payment dates.' },
+        { number: '01', title: 'Referral', body: 'The person you recommend enters your name when signing up. You are then automatically registered in our referral programme.' },
+        { number: '02', title: 'Earnings', body: 'When the referred person makes a profit on their trading account, you receive up to 50% of the commission fees they pay.' },
+        { number: '03', title: 'Payment', body: 'Payment terms and frequency are communicated when you join the programme.' },
       ],
-      description1: 'The Summit One referral programme is designed to reward those who help spread our approach. There is no earnings cap: your compensation grows with the volume generated by your network.',
-      description2: 'To join the programme or get more information, contact our team. We will provide your personalised link and the detailed programme terms.',
+      description1: 'Why join: the programme rewards users who trust Summit One and want to share their copy trading experience.',
+      description2: 'Transparency: programme terms are clearly communicated at signup, with no hidden multi-level scheme.',
       cta: 'Join the programme',
     },
     calculator: {
@@ -692,7 +706,7 @@ export const translations = {
       responses: {
         approach: 'Summit One designs and deploys systematic quantitative trading strategies on the foreign exchange market (EUR/USD), exploiting recurring statistical patterns through automated algorithmic execution.',
         performance: 'Over 45 months of track record: +8.76% average monthly return declared, Profit Factor 3.40, 71% win rate (long positions), 11.28% max drawdown. These figures are declared and subject to validation. Past performance does not guarantee future results.',
-        contact: 'Contact us: summit.one.contact@gmail.com | +41 78 441 54 20 | Vaud, Switzerland. You can also use the contact form on our site.',
+        contact: 'Contact us: summit.one.contact@gmail.com | +41 78 441 54 20 | Switzerland. You can also use the contact form on our site.',
         default: "I can tell you about Summit One\'s approach, our performance indicators, or direct you to our team. What would you like to know?",
       },
     },
@@ -772,21 +786,26 @@ export const translations = {
     ecosystem: {
       badge: 'Differenzierung',
       title: 'Was Summit One ist — und was nicht',
-      subtitle: 'Um Verwechslungen zu vermeiden, hier eine klare und präzise Definition der Positionierung von Summit One.',
-      entities: [
-        { name: 'Summit One ist nicht', role: 'Nicht zu verwechseln mit', description: 'Summit One ist keine Copy-Trading-Plattform. Seine Signale werden nicht automatisch auf Ihre Konten repliziert. Summit One ist auch kein kollektiver Investmentfonds und kein regulierter Finanzberater.' },
-        { name: 'Summit One ist', role: 'Unsere Tätigkeit', description: 'Summit One ist ein Herausgeber proprietärer algorithmischer Strategien. Wir entwickeln und betreiben eigene Handelsalgorithmen auf dem Devisenmarkt (EUR/USD), aus der Schweiz.' },
-        { name: 'Zugang zur Strategie', role: 'Bedingungen', description: 'Der Zugang zur Strategie ist qualifizierten Partnern über ein ausgewähltes Vertriebsnetzwerk vorbehalten. Jeder Zugang wird vertraglich geregelt und individuell begleitet.' },
+      intro: 'Summit One ist eine Copy-Trading-Plattform mit KI-programmierten Bots für automatisierten Handel.',
+      not_label: 'Summit One ist ausdrücklich KEIN:',
+      not_items: [
+        { title: 'Kein Broker', body: 'Summit One ist weder eine Bank noch ein Broker. Nutzer eröffnen eigene Konten bei Partnerbrokern.' },
+        { title: 'Keine Vermögensverwaltung', body: 'Summit One hat keinen direkten Zugriff auf Kundengelder.' },
+        { title: 'Kein manueller Trading-Service', body: 'Summit One basiert auf vollständig automatisierten Handelsalgorithmen, nicht auf manuellem Trading.' },
+        { title: 'Keine Finanzberatung', body: 'Summit One bietet keine individuellen Anlageberatungen.' },
+        { title: 'Keine Gewinngarantie', body: 'Genannte Zielrenditen sind nicht garantiert. Trading birgt ein Verlustrisiko.' },
+        { title: 'Kein reiner Signalservice', body: 'Summit One kopiert Trades automatisch, statt nur Signale zu senden.' },
       ],
+      distinction: 'Summit One unterscheidet sich durch: in der Schweiz entwickelte KI-Algorithmen, ein Performance-Gebührenmodell ohne Fixkosten und einen Echtzeit-Track-Record von mehr als 4 Jahren.',
     },
     faq: {
       badge: 'Häufige Fragen',
       title: 'Quantitativen Handel verstehen',
       items: [
-        { q: 'Wie fange ich mit Summit One an?', a: 'Nehmen Sie über unser Formular oder per E-Mail Kontakt auf. Unser Team stellt Ihnen unseren Ansatz vor, beantwortet Ihre Fragen und bewertet mit Ihnen, ob der Zugang zur Strategie für Ihre Situation geeignet ist.' },
-        { q: 'Wie hoch ist der Mindestanlagebetrag?', a: 'Der erforderliche Mindestbetrag beträgt 5.000 CHF. Diese Schwelle ermöglicht ein Risikomanagement, das auf die Parameter der Strategie abgestimmt ist. Ihr Kapital verbleibt auf Ihrem eigenen Konto.' },
-        { q: 'Habe ich jederzeit Zugang zu meinen Geldern?', a: 'Ja. Ihr Kapital wird auf Ihrem eigenen Handelskonto gehalten, das auf Ihren Namen eröffnet wurde. Sie bleiben Eigentümer Ihrer Gelder und können gemäß den Broker-Bedingungen darauf zugreifen.' },
-        { q: 'Kann ich jederzeit aufhören?', a: 'Ja. Die Beteiligung kann jederzeit beendet werden, vorbehaltlich der geltenden Vertragsbedingungen. Es gibt keine Sperrfrist für Ihre Gelder.' },
+        { q: 'Wie kann ich mit Summit One starten?', a: 'Einfach, folgen Sie diesen Schritten:\n1. Senden Sie uns eine Nachricht.\n2. Anschließend senden wir Ihnen die Schritte zur Eröffnung Ihres Handelskontos bei unserem Broker.\n3. Gemeinsam verknüpfen wir Ihr Konto mit der gewählten Strategie.\n4. Lehnen Sie sich zurück und beobachten Sie, wie Ihr gewähltes Produkt für Sie arbeitet.\n\n(Unsere Experten begleiten Sie während des gesamten Prozesses.)' },
+        { q: 'Wie hoch ist die Mindestanlage?', a: 'Die Mindestanlage beträgt 5.000 CHF. Damit können Sie eine unserer drei verfügbaren Strategien verfolgen. Dieser Betrag dient einem gewissenhaften Risikomanagement.' },
+        { q: 'Habe ich Zugriff auf meine Anlage / mein Geld zu einem bestimmten Zeitpunkt?', a: 'Ja. Ihre Gelder bleiben jederzeit auf Ihrem eigenen Handelskonto, das auf Ihren Namen beim Partnerbroker eröffnet wurde. Summit One hat keinen direkten Zugriff auf Ihre Gelder: Sie behalten die Kontrolle und können sie jederzeit abheben.' },
+        { q: 'Kann ich das Copy Trading jederzeit beenden oder aussteigen?', a: 'Ja, Sie können unsere Dienste jederzeit abbestellen und Ihr Kapital abheben oder erhöhen. Es gibt keine Mindestdauer.' },
         { q: 'Was ist systematischer quantitativer Handel?', a: 'Systematischer quantitativer Handel verwendet mathematische und statistische Modelle, um Handelsentscheidungen nach vordefinierten Regeln ohne emotionale Eingriffe zu treffen.' },
         { q: 'Wie funktioniert eine algorithmische Strategie?', a: 'Ein Handelsalgorithmus analysiert kontinuierlich Marktdaten, identifiziert Bedingungen entsprechend den Strategieregeln und führt automatisch Kauf- oder Verkaufsaufträge aus.' },
         { q: 'Auf welchem Markt operiert Summit One?', a: 'Summit One ist ausschließlich auf dem Währungspaar EUR/USD tätig, einem der liquidesten der Welt, über die Vantage Markets Infrastruktur.' },
@@ -794,7 +813,7 @@ export const translations = {
         { q: 'Was ist ein Profit Factor?', a: 'Der Profit Factor ist das Verhältnis zwischen Brutto-Gesamtgewinnen und Brutto-Gesamtverlusten. Ein Profit Factor von 3,40 bedeutet, dass für jede verlorene Einheit 3,40 Einheiten gewonnen wurden.' },
         { q: 'Wie ist eine Trefferquote zu interpretieren?', a: 'Die Trefferquote gibt den Anteil der mit Gewinn geschlossenen Positionen an. Der kommunizierte Wert (71 %) betrifft speziell Long-Positionen.' },
         { q: 'Was ist ein Drawdown?', a: 'Ein Drawdown bezeichnet den Rückgang der Bewertung von einem vorherigen Höchststand. Ein maximaler Drawdown von 11,28 % bedeutet, dass die Bewertung maximal 11,28 % vom Höchststand zurückgegangen ist.' },
-        { q: 'Wie kann ich auf die Strategie zugreifen?', a: 'Die von Summit One Capital entwickelte Strategie ist über ein Netzwerk ausgewählter Vertriebspartner zugänglich. Kontaktieren Sie uns für Informationen zu den Zugangsbedingungen.' },
+        { q: 'Wie kann ich auf die Strategie zugreifen?', a: 'Die von Summit One entwickelte Strategie ist über ein Netzwerk ausgewählter Vertriebspartner zugänglich. Kontaktieren Sie uns für Informationen zu den Zugangsbedingungen.' },
         { q: 'Was sind die Risiken des Forex-Handels?', a: 'Der Devisenmarkt unterliegt erheblichen Schwankungen. Der Hebelhandel verstärkt potenzielle Gewinne, aber auch Verluste. Es ist möglich, das gesamte investierte Kapital zu verlieren.' },
         { q: 'Was ist die Rolle von Summit One?', a: 'Summit One ist Herausgeber und Entwickler der algorithmischen Strategie. Seine Tätigkeit ist die eines Herausgebers von Finanzsoftware.' },
       ],
@@ -822,7 +841,7 @@ export const translations = {
       hero_title: 'Technologie & Strategie',
       hero_subtitle: 'Von der statistischen Forschung zur automatisierten Ausführung.',
       sections: [
-        { title: 'Forschung und Entwicklung', body: 'Summit One Capital entwickelt eigene algorithmische Strategien. Der F&E-Prozess umfasst historische Datenanalyse, Mustererkennung und Modellvalidierung.' },
+        { title: 'Forschung und Entwicklung', body: 'Summit One entwickelt eigene algorithmische Strategien. Der F&E-Prozess umfasst historische Datenanalyse, Mustererkennung und Modellvalidierung.' },
         { title: 'Statistische Analyse', body: 'Analyse von EUR/USD-Zeitreihen zur Identifizierung wiederkehrender Muster mit statistischer Signifikanz.' },
         { title: 'Rigoroses Backtesting', body: 'Jede Strategie wird auf ausgedehnten historischen Daten mit Robustheitstests und Out-of-Sample-Validierungen getestet.' },
         { title: 'Automatisierte Ausführung', body: 'Die automatisierte Ausführungsinfrastruktur stellt sicher, dass Positionen gemäß definierten Regeln eröffnet und geschlossen werden.' },
@@ -833,9 +852,9 @@ export const translations = {
     },
     performance: {
       hero_title: 'Performance',
-      hero_subtitle: 'Deklarierte Ergebnisse — Realer Track-Record auf EUR/USD seit 2022.',
-      table_title: 'Deklarierte Performance-Indikatoren',
-      table_note: 'Diese Zahlen werden von Summit One Capital kommuniziert. Daten kommuniziert von Summit One Capital, manuell aktualisiert.',
+      hero_subtitle: 'Realer Track-Record auf EUR/USD — Myfxbook-Daten.',
+      table_title: 'Performance-Indikatoren',
+      table_note: 'Diese Zahlen stammen vom Myfxbook-Konto Helvora Trader. Vergangene Wertentwicklungen sind kein Indikator für zukünftige Ergebnisse.',
       definitions_title: 'Definitionen und Methodik',
       methodology_title: 'Methodischer Hinweis',
       methodology: [
@@ -900,15 +919,15 @@ export const translations = {
     },
     referral: {
       badge: 'Empfehlungsprogramm',
-      title: 'Empfehlen Sie Summit One und verdienen Sie bis zu 50 % der Provisionen',
-      subtitle: 'Teilen Sie unseren Ansatz mit Ihrem Netzwerk und profitieren Sie von einer Vergütung auf die von Ihren Empfehlungen generierten Gebühren.',
+      title: 'Empfehlen Sie Summit One und erhalten Sie bis zu 50 % der Provisionen',
+      subtitle: 'Teilen Sie Ihre Copy-Trading-Erfahrung und werden Sie mit bis zu 50 % der Provisionsgebühren belohnt.',
       steps: [
-        { number: '01', title: 'Empfehlung', body: 'Teilen Sie Ihren Empfehlungslink oder empfehlen Sie Summit One direkt in Ihrem Netzwerk. Jede Empfehlung wird Ihrem Konto zugeordnet.' },
-        { number: '02', title: 'Verdienst', body: 'Wenn jemand, den Sie empfohlen haben, die Strategie nutzt, erhalten Sie eine Provision auf die generierten Gebühren.' },
-        { number: '03', title: 'Auszahlung', body: 'Ihre Provisionen werden kumuliert und nach den vereinbarten Bedingungen ausgezahlt. Volle Transparenz über Beträge und Auszahlungsdaten.' },
+        { number: '01', title: 'Empfehlung', body: 'Die von Ihnen empfohlene Person gibt Ihren Namen bei der Anmeldung an. Sie werden dann automatisch in unserem Empfehlungsprogramm erfasst.' },
+        { number: '02', title: 'Verdienst', body: 'Wenn die empfohlene Person auf ihrem Handelskonto einen Gewinn erzielt, erhalten Sie bis zu 50 % der von ihr gezahlten Provisionsgebühren.' },
+        { number: '03', title: 'Auszahlung', body: 'Auszahlungsmodalitäten und -frequenz werden bei der Anmeldung zum Programm mitgeteilt.' },
       ],
-      description1: 'Das Summit One Empfehlungsprogramm belohnt diejenigen, die zur Verbreitung unseres Ansatzes beitragen. Es gibt keine Verdienstgrenze.',
-      description2: 'Um dem Programm beizutreten oder weitere Informationen zu erhalten, kontaktieren Sie unser Team.',
+      description1: 'Warum teilnehmen: Das Programm belohnt Nutzer, die Summit One vertrauen und ihre Copy-Trading-Erfahrung teilen möchten.',
+      description2: 'Transparenz: Die Programmbedingungen werden bei der Anmeldung klar kommuniziert, ohne verstecktes Mehrstufiges System.',
       cta: 'Programm beitreten',
     },
     calculator: {

@@ -31,6 +31,19 @@ function RootRedirect() {
   return null;
 }
 
+function HomeRedirect() {
+  const [, setLocation] = useLocation();
+  const savedLang = (() => {
+    try { const l = localStorage.getItem('summit-lang'); return l && (LANGS as readonly string[]).includes(l) ? l : 'fr'; }
+    catch { return 'fr'; }
+  })();
+  if (typeof window !== 'undefined') {
+    const match = window.location.pathname.match(/^\/(fr|en|de)\//);
+    setLocation(`/${match?.[1] ?? savedLang}/`);
+  }
+  return null;
+}
+
 function Router() {
   return (
     <>
@@ -47,6 +60,9 @@ function Router() {
       <Route path="/fr/risques" component={RiskWarnings} />
       <Route path="/fr/parrainage" component={Parrainage} />
       <Route path="/fr/calculatrice" component={Calculator} />
+      <Route path="/fr/processus" component={HomeRedirect} />
+      <Route path="/fr/ecosysteme" component={HomeRedirect} />
+      <Route path="/fr/ecosystem" component={HomeRedirect} />
       {/* EN */}
       <Route path="/en/" component={Home} />
       <Route path="/en/approche" component={Approach} />
@@ -58,6 +74,9 @@ function Router() {
       <Route path="/en/risques" component={RiskWarnings} />
       <Route path="/en/parrainage" component={Parrainage} />
       <Route path="/en/calculatrice" component={Calculator} />
+      <Route path="/en/processus" component={HomeRedirect} />
+      <Route path="/en/ecosysteme" component={HomeRedirect} />
+      <Route path="/en/ecosystem" component={HomeRedirect} />
       {/* DE */}
       <Route path="/de/" component={Home} />
       <Route path="/de/approche" component={Approach} />
@@ -69,6 +88,9 @@ function Router() {
       <Route path="/de/risques" component={RiskWarnings} />
       <Route path="/de/parrainage" component={Parrainage} />
       <Route path="/de/calculatrice" component={Calculator} />
+      <Route path="/de/processus" component={HomeRedirect} />
+      <Route path="/de/ecosysteme" component={HomeRedirect} />
+      <Route path="/de/ecosystem" component={HomeRedirect} />
       {/* Root */}
       <Route path="/" component={RootRedirect} />
       <Route component={NotFound} />

@@ -97,10 +97,10 @@ export default function LegalMentions() {
           <div className="container max-w-3xl relative z-10">
 
             <LegalSection title="Éditeur">
-              <p><strong className="text-white/70">Dénomination sociale :</strong> Summit One Capital</p>
+              <p><strong className="text-white/70">Dénomination sociale :</strong> Summit One</p>
               <p><strong className="text-white/70">Forme juridique :</strong> Entreprise individuelle (EI)</p>
               <p><strong className="text-white/70">Fondateur :</strong> Mathéo Poque</p>
-              <p><strong className="text-white/70">Localisation :</strong> Vaud, Suisse</p>
+              <p><strong className="text-white/70">Localisation :</strong> Suisse</p>
               <p><strong className="text-white/70">Téléphone :</strong> +41 78 441 54 20</p>
               <p><strong className="text-white/70">E-mail :</strong> summit.one.contact@gmail.com</p>
               <p><strong className="text-white/70">Site web :</strong> summit-one.ch</p>

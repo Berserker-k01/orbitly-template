@@ -6,49 +6,53 @@ import {
 import { motion } from "framer-motion";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
-// NOT real historical data. Purely illustrative representation.
-const RAW = [
-  100.0, 108.0, 116.6, 111.9, 124.0, 133.0, 127.7, 140.5,
-  151.1, 145.4, 158.0, 170.5, 163.6, 176.5, 191.0, 183.6,
-  174.6, 169.3, 179.5, 194.0, 193.0, 208.5, 223.1, 214.6,
-  231.8, 250.3, 242.8, 262.2, 283.2, 272.5, 294.3, 317.8,
-  305.6, 329.9, 356.3, 342.9, 370.3, 400.0, 384.0, 414.7,
-  445.3, 428.1, 462.4, 496.6, 536.1,
-];
+// Equity curve compounded from Myfxbook monthly gains (account Helvora Trader)
+// Source: https://www.myfxbook.com/members/cstmhelvetius/helvora-trader/12121444
+const MONTHLY_GAINS_2025 = [5.24, 4.04, 2.81, 0.16, 2.51, 0.69, 3.16, 1.34, 3.69, 10.21, -0.65, 0.08];
+const MONTH_LABELS = ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Déc"];
 
 function buildChartData() {
-  let runMax = RAW[0];
-  return RAW.map((v, i) => {
-    if (v > runMax) runMax = v;
-    const dd = ((v - runMax) / runMax) * 100;
-    return { m: i + 1, equity: Math.round(v * 10) / 10, dd: Math.round(dd * 100) / 100 };
+  let equity = 100;
+  let runMax = 100;
+  return MONTHLY_GAINS_2025.map((gain, i) => {
+    equity = equity * (1 + gain / 100);
+    if (equity > runMax) runMax = equity;
+    const dd = ((equity - runMax) / runMax) * 100;
+    return {
+      m: i + 1,
+      label: MONTH_LABELS[i],
+      equity: Math.round(equity * 100) / 100,
+      dd: Math.round(dd * 100) / 100,
+    };
   });
 }
 
 const DATA = buildChartData();
 const MAX_DD = Math.min(...DATA.map(d => d.dd));
 
-function CustomTooltip({ active, payload, label }: any) {
+function CustomTooltip({ active, payload }: any) {
   if (!active || !payload?.length) return null;
+  const row = payload[0]?.payload;
   return (
     <div
       className="rounded-lg px-3 py-2 text-xs"
       style={{ background: "rgba(10,14,26,0.95)", border: "1px solid rgba(201,169,110,0.25)", color: "#EDE9E3" }}
     >
-      <div className="font-medium mb-1" style={{ color: "rgba(237,233,227,0.5)" }}>Mois {label}</div>
-      {payload[0] && <div style={{ color: "#C9A96E" }}>Valeur : {payload[0].value}</div>}
+      <div className="font-medium mb-1" style={{ color: "rgba(237,233,227,0.5)" }}>{row?.label} 2025</div>
+      {payload[0] && <div style={{ color: "#C9A96E" }}>Base 100 → {payload[0].value}</div>}
     </div>
   );
 }
 
-function DDTooltip({ active, payload, label }: any) {
+function DDTooltip({ active, payload }: any) {
   if (!active || !payload?.length) return null;
+  const row = payload[0]?.payload;
   return (
     <div
       className="rounded-lg px-3 py-2 text-xs"
       style={{ background: "rgba(10,14,26,0.95)", border: "1px solid rgba(192,102,90,0.25)", color: "#EDE9E3" }}
     >
-      <div className="font-medium mb-1" style={{ color: "rgba(237,233,227,0.5)" }}>Mois {label}</div>
+      <div className="font-medium mb-1" style={{ color: "rgba(237,233,227,0.5)" }}>{row?.label} 2025</div>
       {payload[0] && <div style={{ color: "#C0665A" }}>Drawdown : {payload[0].value?.toFixed(2)} %</div>}
     </div>
   );
@@ -72,8 +76,8 @@ export default function PerformanceCharts() {
         style={{ borderColor: "rgba(255,255,255,0.06)" }}
       >
         <div>
-          <div className="text-white/80 text-sm font-semibold">Courbe de valorisation</div>
-          <div className="text-white/35 text-xs mt-0.5">Base 100 — Illustration non contractuelle</div>
+          <div className="text-white/80 text-sm font-semibold">Courbe de valorisation 2025</div>
+          <div className="text-white/35 text-xs mt-0.5">Base 100 — Composé depuis les gains mensuels Myfxbook</div>
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -113,19 +117,17 @@ export default function PerformanceCharts() {
               </defs>
               <CartesianGrid strokeDasharray="3 8" stroke="rgba(255,255,255,0.05)" vertical={false} />
               <XAxis
-                dataKey="m"
+                dataKey="label"
                 tick={{ fill: "rgba(237,233,227,0.3)", fontSize: 10, fontFamily: "'Space Mono', monospace" }}
                 tickLine={false}
                 axisLine={{ stroke: "rgba(255,255,255,0.08)" }}
-                tickFormatter={(v) => `M${v}`}
-                interval={8}
               />
               <YAxis
                 tick={{ fill: "rgba(237,233,227,0.3)", fontSize: 10, fontFamily: "'Space Mono', monospace" }}
                 tickLine={false}
                 axisLine={false}
                 width={40}
-                tickFormatter={(v) => String(v)}
+                domain={[95, "auto"]}
               />
               <Tooltip content={<CustomTooltip />} cursor={{ stroke: "rgba(201,169,110,0.2)", strokeWidth: 1 }} />
               <ReferenceLine y={100} stroke="rgba(255,255,255,0.1)" strokeDasharray="4 6" />
@@ -154,12 +156,10 @@ export default function PerformanceCharts() {
               </defs>
               <CartesianGrid strokeDasharray="3 8" stroke="rgba(255,255,255,0.05)" vertical={false} />
               <XAxis
-                dataKey="m"
+                dataKey="label"
                 tick={{ fill: "rgba(237,233,227,0.3)", fontSize: 10, fontFamily: "'Space Mono', monospace" }}
                 tickLine={false}
                 axisLine={{ stroke: "rgba(255,255,255,0.08)" }}
-                tickFormatter={(v) => `M${v}`}
-                interval={8}
               />
               <YAxis
                 tick={{ fill: "rgba(237,233,227,0.3)", fontSize: 10, fontFamily: "'Space Mono', monospace" }}
@@ -204,7 +204,7 @@ export default function PerformanceCharts() {
         style={{ borderColor: "rgba(255,255,255,0.05)" }}
       >
         <span className="text-white/22 text-[10px] tracking-wide">
-          ILLUSTRATION — Représentation non contractuelle. Données en cours de validation documentaire indépendante.
+          Données Myfxbook — Helvora Trader · Performances passées ≠ performances futures
         </span>
       </div>
     </motion.div>
