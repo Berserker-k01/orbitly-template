@@ -101,9 +101,6 @@ export default function Approach() {
               initial="hidden"
               animate={inView ? "visible" : "hidden"}
             >
-              <motion.span variants={staggerItem} className="badge-pill mb-8 inline-flex">
-                Summit One · Méthodologie
-              </motion.span>
               <motion.h1
                 variants={staggerItem}
                 className="font-display text-4xl md:text-6xl lg:text-7xl font-medium text-white mb-6 leading-tight max-w-3xl"

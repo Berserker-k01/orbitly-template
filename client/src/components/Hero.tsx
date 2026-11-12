@@ -129,20 +129,6 @@ export default function Hero() {
 
       <div className="relative z-10 container flex flex-col items-center text-center pt-32 pb-0">
 
-        {/* Badge — now has proper breathing room below navbar */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.05 }}
-          className="badge-pill mb-8 max-w-[90vw] flex-wrap justify-center"
-        >
-          <Star className="w-3 h-3 fill-indigo-400 text-indigo-400 flex-shrink-0" />
-          <span className="whitespace-nowrap">Trusted by 12,000+ teams worldwide</span>
-          <span className="w-px h-3 bg-indigo-500/40 mx-0.5 hidden sm:block" />
-          <span className="text-white/55 whitespace-nowrap hidden sm:inline">New: AI Sprint Planning</span>
-          <ArrowRight className="w-3 h-3 text-white/55 hidden sm:block" />
-        </motion.div>
-
         {/* Headline */}
         <motion.div
           variants={staggerContainer}

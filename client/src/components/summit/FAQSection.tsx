@@ -66,9 +66,6 @@ export default function FAQSection() {
             transition={{ duration: 0.6 }}
             className="md:col-span-2"
           >
-            <span className="badge-pill mb-6 inline-flex">
-              {t.faq.badge}
-            </span>
             <h2
               id="faq-heading"
               className="text-3xl md:text-4xl font-semibold text-white mb-4 leading-tight"

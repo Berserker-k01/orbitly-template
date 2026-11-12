@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Calculator as CalcIcon, AlertTriangle } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip } from "recharts";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -52,15 +52,6 @@ export default function Calculator() {
           <div className="absolute inset-0 hero-grid opacity-15 z-1" aria-hidden="true" />
           <div className="container relative z-10" ref={ref}>
             <motion.div variants={staggerContainer} initial="hidden" animate={inView ? "visible" : "hidden"}>
-              <motion.div variants={staggerItem} className="flex items-center gap-3 mb-8">
-                <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center"
-                  style={{ background: "rgba(201,169,110,0.1)", border: "1px solid rgba(201,169,110,0.25)" }}
-                >
-                  <CalcIcon className="w-4 h-4" style={{ color: "#C9A96E" }} />
-                </div>
-                <span className="badge-pill inline-flex">{c.badge}</span>
-              </motion.div>
               <motion.h1
                 variants={staggerItem}
                 className="font-display text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-6 leading-tight max-w-3xl"

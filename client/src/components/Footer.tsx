@@ -80,9 +80,6 @@ export default function Footer() {
                 initial="hidden"
                 animate={inView ? "visible" : "hidden"}
               >
-                <motion.span variants={staggerItem} className="badge-pill mb-8 inline-flex">
-                  {t.cta.badge}
-                </motion.span>
                 <motion.h2
                   variants={staggerItem}
                   id="cta-heading"

@@ -35,9 +35,6 @@ export default function EcosystemSection() {
           animate={inView ? "visible" : "hidden"}
           className="mb-12"
         >
-          <motion.span variants={staggerItem} className="badge-pill mb-6 inline-flex">
-            {d.badge}
-          </motion.span>
           <motion.h2
             variants={staggerItem}
             id="ecosystem-heading"

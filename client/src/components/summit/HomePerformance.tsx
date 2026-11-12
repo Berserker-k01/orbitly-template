@@ -1,10 +1,15 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useI18n } from "@/contexts/I18nContext";
 import { useLocation } from "wouter";
-
-const RETURNS_2025 = [5.24, 4.04, 2.81, 0.16, 2.51, 0.69, 3.16, 1.34, 3.69, 10.21, -0.65, 0.08];
+import {
+  YEARLY_RETURNS,
+  PERFORMANCE_YEARS,
+  formatReturn,
+  type PerformanceYear,
+} from "@/lib/performanceData";
 
 const KPI = [
   { value: "+8,76 %", label: "Rendement mensuel moyen" },
@@ -14,17 +19,13 @@ const KPI = [
   { value: "45 mois", label: "Track record" },
 ];
 
-function formatRet(raw: number, lang: string): string {
-  const sign = raw >= 0 ? "+" : "";
-  const dec = lang === "en" ? "." : ",";
-  return `${sign}${raw.toFixed(2).replace(".", dec)}%`;
-}
-
 export default function HomePerformance() {
   const { t, lang, langPath } = useI18n();
   const { ref, inView } = useScrollReveal(0.06);
   const [, setLocation] = useLocation();
+  const [activeYear, setActiveYear] = useState<PerformanceYear>("2025");
   const pt = t.performance;
+  const months = YEARLY_RETURNS[activeYear];
 
   return (
     <section
@@ -57,7 +58,6 @@ export default function HomePerformance() {
             transition={{ duration: 0.6 }}
             className="lg:col-span-2"
           >
-            <span className="badge-pill mb-6 inline-flex">Nos performances</span>
             <h2
               id="home-perf-heading"
               className="font-display text-4xl md:text-5xl font-medium text-white leading-tight mb-5"
@@ -103,38 +103,51 @@ export default function HomePerformance() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lg:col-span-3"
           >
-            {/* Year selector (compact, non-interactive — visual only) */}
+            {/* Year selector — clickable */}
             <div className="flex items-center gap-2 mb-5 flex-wrap">
               <span className="text-white/25 text-xs tracking-widest uppercase mr-1">{pt.year_label}</span>
-              {["2022","2023","2024","2025","2026"].map((y) => (
-                <span
+              {PERFORMANCE_YEARS.map((y) => (
+                <button
                   key={y}
-                  className="px-3 py-1 rounded text-xs font-medium"
+                  type="button"
+                  onClick={() => setActiveYear(y)}
+                  className="px-3 py-1 rounded text-xs font-medium transition-all duration-200 cursor-pointer"
                   style={
-                    y === "2025"
+                    y === activeYear
                       ? { background: "rgba(201,169,110,0.12)", border: "1px solid rgba(201,169,110,0.35)", color: "#C9A96E" }
                       : { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", color: "rgba(237,233,227,0.3)" }
                   }
                 >
                   {y}
-                </span>
+                </button>
               ))}
             </div>
 
             {/* Monthly grid */}
             <div className="grid grid-cols-6 gap-2 mb-6">
-              {RETURNS_2025.map((raw, i) => {
-                const isPositive = raw >= 0;
+              {months.map((raw, i) => {
+                const isEmpty = raw == null;
+                const isPositive = !isEmpty && raw >= 0;
                 return (
                   <motion.div
-                    key={i}
+                    key={`${activeYear}-${i}`}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={inView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ duration: 0.25, delay: 0.2 + i * 0.03 }}
+                    transition={{ duration: 0.25, delay: 0.15 + i * 0.02 }}
                     className="flex flex-col items-center justify-center rounded-lg py-2.5 px-1 text-center"
                     style={{
-                      background: isPositive ? "rgba(91,175,138,0.07)" : "rgba(192,102,90,0.07)",
-                      border: `1px solid ${isPositive ? "rgba(91,175,138,0.18)" : "rgba(192,102,90,0.18)"}`,
+                      background: isEmpty
+                        ? "rgba(255,255,255,0.02)"
+                        : isPositive
+                          ? "rgba(91,175,138,0.07)"
+                          : "rgba(192,102,90,0.07)",
+                      border: `1px solid ${
+                        isEmpty
+                          ? "rgba(255,255,255,0.06)"
+                          : isPositive
+                            ? "rgba(91,175,138,0.18)"
+                            : "rgba(192,102,90,0.18)"
+                      }`,
                     }}
                   >
                     <span className="text-white/30 text-[9px] mb-1 leading-none font-medium uppercase tracking-wide">
@@ -142,9 +155,17 @@ export default function HomePerformance() {
                     </span>
                     <span
                       className="font-data text-[11px] font-bold leading-none"
-                      style={{ color: isPositive ? "#5BAF8A" : "#C0665A" }}
+                      style={{
+                        color: isEmpty
+                          ? "rgba(237,233,227,0.25)"
+                          : isPositive
+                            ? "#5BAF8A"
+                            : "#C0665A",
+                      }}
                     >
-                      {formatRet(raw, lang)}
+                      {raw == null
+                        ? "—"
+                        : formatReturn(raw, lang).replace(" %", "%")}
                     </span>
                   </motion.div>
                 );

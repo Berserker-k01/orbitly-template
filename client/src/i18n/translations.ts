@@ -355,7 +355,7 @@ export const translations = {
       definitions_title: 'Définitions et méthodologie',
       methodology_title: 'Note méthodologique',
       methodology: [
-        { label: 'Période d\'observation', value: 'Track record depuis 2022 (EUR/USD)' },
+        { label: 'Période d\'observation', value: 'Track record Jan 2023 → Sep 2026 (EUR/USD)' },
         { label: 'Instrument', value: 'EUR/USD (Forex)' },
         { label: 'Infrastructure', value: 'Vantage Markets' },
         { label: 'Origine', value: 'Suisse' },      ],

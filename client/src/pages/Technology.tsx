@@ -67,9 +67,6 @@ export default function Technology() {
               initial="hidden"
               animate={heroInView ? "visible" : "hidden"}
             >
-              <motion.span variants={staggerItem} className="badge-pill mb-8 inline-flex">
-                Summit One · Infrastructure
-              </motion.span>
               <motion.h1
                 variants={staggerItem}
                 className="font-display text-4xl md:text-6xl lg:text-7xl font-medium text-white mb-6 leading-tight max-w-3xl"
@@ -146,7 +143,6 @@ export default function Technology() {
               transition={{ duration: 0.6 }}
               className="mb-8"
             >
-              <span className="badge-pill inline-flex mb-4">EUR/USD · Analyse de marché</span>
               <h2 className="text-xl md:text-2xl font-semibold text-white mb-2">
                 Chandeliers japonais et signaux algorithmiques
               </h2>

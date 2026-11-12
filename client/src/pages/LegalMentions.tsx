@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { FileText } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useScrollReveal, staggerContainer, staggerItem } from "@/hooks/useScrollReveal";
@@ -62,15 +61,6 @@ export default function LegalMentions() {
               initial="hidden"
               animate={inView ? "visible" : "hidden"}
             >
-              <motion.div variants={staggerItem} className="flex items-center gap-3 mb-8">
-                <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center"
-                  style={{ background: "rgba(201,169,110,0.1)", border: "1px solid rgba(201,169,110,0.25)" }}
-                >
-                  <FileText className="w-4 h-4" style={{ color: "#C9A96E" }} />
-                </div>
-                <span className="badge-pill inline-flex">Informations légales</span>
-              </motion.div>
               <motion.h1
                 variants={staggerItem}
                 className="font-display text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-6 leading-tight"

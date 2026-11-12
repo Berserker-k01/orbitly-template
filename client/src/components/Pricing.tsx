@@ -88,9 +88,6 @@ export default function Pricing() {
           animate={inView ? "visible" : "hidden"}
           className="text-center mb-14"
         >
-          <motion.div variants={staggerItem}>
-            <span className="badge-pill mb-5">Pricing</span>
-          </motion.div>
           <motion.h2
             variants={staggerItem}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5 tracking-tight"

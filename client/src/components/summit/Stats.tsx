@@ -121,9 +121,6 @@ export default function Stats() {
           animate={inView ? "visible" : "hidden"}
           className="mb-10"
         >
-          <motion.span variants={staggerItem} className="badge-pill mb-6 inline-flex">
-            {t.stats.title}
-          </motion.span>
           <motion.h2
             variants={staggerItem}
             id="stats-heading"

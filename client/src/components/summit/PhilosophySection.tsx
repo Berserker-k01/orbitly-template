@@ -6,8 +6,6 @@ export default function PhilosophySection() {
   const { t } = useI18n();
   const { ref, inView } = useScrollReveal(0.08);
 
-  const [primary, ...secondary] = t.philosophy.items;
-
   return (
     <section
       className="relative py-20 md:py-32 overflow-hidden"
@@ -16,7 +14,6 @@ export default function PhilosophySection() {
     >
       <div className="section-divider absolute top-0 left-0 right-0" />
 
-      {/* Ambient background */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div
           className="absolute -top-20 right-0 w-[700px] h-[600px] ambient-breathe"
@@ -30,7 +27,6 @@ export default function PhilosophySection() {
       </div>
 
       <div className="container relative z-10">
-        {/* Two-column layout: editorial left, content right */}
         <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-start">
 
           {/* Left — editorial statement */}
@@ -40,10 +36,6 @@ export default function PhilosophySection() {
             animate={inView ? "visible" : "hidden"}
             className="md:col-span-5 md:sticky md:top-32"
           >
-            <motion.span variants={staggerItem} className="badge-pill mb-8 inline-flex">
-              {t.philosophy.badge}
-            </motion.span>
-
             <motion.h2
               variants={staggerItem}
               id="philosophy-heading"
@@ -52,7 +44,6 @@ export default function PhilosophySection() {
               {t.philosophy.title}
             </motion.h2>
 
-            {/* Pull quote */}
             <motion.div
               variants={staggerItem}
               className="relative pl-5 border-l mb-8"
@@ -63,23 +54,6 @@ export default function PhilosophySection() {
               </p>
             </motion.div>
 
-            {/* Primary philosophy item — featured */}
-            {primary && (
-              <motion.div variants={staggerItem} className="flex gap-4">
-                <div
-                  className="font-data text-xs font-bold flex-shrink-0 mt-0.5 w-7 text-right"
-                  style={{ color: "rgba(201,169,110,0.5)" }}
-                >
-                  01
-                </div>
-                <div>
-                  <div className="text-white/90 font-semibold text-sm mb-2">{primary.title}</div>
-                  <p className="text-white/45 text-sm leading-relaxed">{primary.body}</p>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Alpine photo — precision / mastery */}
             <motion.div
               variants={staggerItem}
               className="relative mt-10 rounded-2xl overflow-hidden"
@@ -102,14 +76,14 @@ export default function PhilosophySection() {
             </motion.div>
           </motion.div>
 
-          {/* Right — numbered principles */}
+          {/* Right — all numbered principles together (01 → 05) */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
             className="md:col-span-7 flex flex-col gap-0"
           >
-            {secondary.map((item, i) => (
+            {t.philosophy.items.map((item, i) => (
               <motion.div
                 key={i}
                 variants={staggerItem}
@@ -120,7 +94,7 @@ export default function PhilosophySection() {
                   className="font-data text-xs font-bold flex-shrink-0 mt-1 w-7 text-right"
                   style={{ color: "rgba(201,169,110,0.5)" }}
                 >
-                  {String(i + 2).padStart(2, "0")}
+                  {String(i + 1).padStart(2, "0")}
                 </div>
                 <div className="flex-1">
                   <h3 className="text-white font-semibold text-base mb-2 tracking-tight">{item.title}</h3>

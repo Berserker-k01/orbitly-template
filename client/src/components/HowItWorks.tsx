@@ -103,9 +103,6 @@ export default function HowItWorks() {
             animate={inView ? "visible" : "hidden"}
             className="lg:sticky lg:top-32"
           >
-            <motion.div variants={staggerItem}>
-              <span className="badge-pill mb-5">How It Works</span>
-            </motion.div>
             <motion.h2
               variants={staggerItem}
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight leading-tight"

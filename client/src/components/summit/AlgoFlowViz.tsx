@@ -52,7 +52,6 @@ export default function AlgoFlowViz() {
       }}
     >
       <div className="mb-6">
-        <span className="badge-pill inline-flex mb-3">Processus algorithmique</span>
         <h3 className="text-white font-semibold text-lg">De la donnée au signal</h3>
         <p className="text-white/40 text-sm mt-1">Flux de traitement automatisé — 6 étapes clés</p>
       </div>

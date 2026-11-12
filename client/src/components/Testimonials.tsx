@@ -156,9 +156,6 @@ export default function Testimonials() {
           animate={inView ? "visible" : "hidden"}
           className="text-center mb-20"
         >
-          <motion.div variants={staggerItem}>
-            <span className="badge-pill mb-5">Customer Stories</span>
-          </motion.div>
           <motion.h2
             variants={staggerItem}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5 tracking-tight"

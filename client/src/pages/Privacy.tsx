@@ -30,7 +30,6 @@ export default function Privacy() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6 }}
             >
-              <span className="badge-pill mb-8 inline-flex">Données personnelles</span>
               <h1 className="font-display text-4xl md:text-5xl font-medium text-white mb-8 leading-tight">
                 {t.legal.privacy_title}
               </h1>

@@ -1,36 +1,37 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, ReferenceLine
 } from "recharts";
 import { motion } from "framer-motion";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { YEARLY_RETURNS, type PerformanceYear } from "@/lib/performanceData";
 
-// Equity curve compounded from Myfxbook monthly gains (account Helvora Trader)
-// Source: https://www.myfxbook.com/members/cstmhelvetius/helvora-trader/12121444
-const MONTHLY_GAINS_2025 = [5.24, 4.04, 2.81, 0.16, 2.51, 0.69, 3.16, 1.34, 3.69, 10.21, -0.65, 0.08];
 const MONTH_LABELS = ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Déc"];
 
-function buildChartData() {
+function buildChartData(year: PerformanceYear) {
+  const returns = YEARLY_RETURNS[year];
   let equity = 100;
   let runMax = 100;
-  return MONTHLY_GAINS_2025.map((gain, i) => {
+  const points: { m: number; label: string; equity: number; dd: number }[] = [];
+
+  returns.forEach((gain, i) => {
+    if (gain == null) return;
     equity = equity * (1 + gain / 100);
     if (equity > runMax) runMax = equity;
     const dd = ((equity - runMax) / runMax) * 100;
-    return {
+    points.push({
       m: i + 1,
       label: MONTH_LABELS[i],
       equity: Math.round(equity * 100) / 100,
       dd: Math.round(dd * 100) / 100,
-    };
+    });
   });
+
+  return points;
 }
 
-const DATA = buildChartData();
-const MAX_DD = Math.min(...DATA.map(d => d.dd));
-
-function CustomTooltip({ active, payload }: any) {
+function CustomTooltip({ active, payload, year }: any) {
   if (!active || !payload?.length) return null;
   const row = payload[0]?.payload;
   return (
@@ -38,13 +39,13 @@ function CustomTooltip({ active, payload }: any) {
       className="rounded-lg px-3 py-2 text-xs"
       style={{ background: "rgba(10,14,26,0.95)", border: "1px solid rgba(201,169,110,0.25)", color: "#EDE9E3" }}
     >
-      <div className="font-medium mb-1" style={{ color: "rgba(237,233,227,0.5)" }}>{row?.label} 2025</div>
+      <div className="font-medium mb-1" style={{ color: "rgba(237,233,227,0.5)" }}>{row?.label} {year}</div>
       {payload[0] && <div style={{ color: "#C9A96E" }}>Base 100 → {payload[0].value}</div>}
     </div>
   );
 }
 
-function DDTooltip({ active, payload }: any) {
+function DDTooltip({ active, payload, year }: any) {
   if (!active || !payload?.length) return null;
   const row = payload[0]?.payload;
   return (
@@ -52,15 +53,17 @@ function DDTooltip({ active, payload }: any) {
       className="rounded-lg px-3 py-2 text-xs"
       style={{ background: "rgba(10,14,26,0.95)", border: "1px solid rgba(192,102,90,0.25)", color: "#EDE9E3" }}
     >
-      <div className="font-medium mb-1" style={{ color: "rgba(237,233,227,0.5)" }}>{row?.label} 2025</div>
+      <div className="font-medium mb-1" style={{ color: "rgba(237,233,227,0.5)" }}>{row?.label} {year}</div>
       {payload[0] && <div style={{ color: "#C0665A" }}>Drawdown : {payload[0].value?.toFixed(2)} %</div>}
     </div>
   );
 }
 
-export default function PerformanceCharts() {
+export default function PerformanceCharts({ year = "2025" }: { year?: PerformanceYear }) {
   const [showDD, setShowDD] = useState(false);
   const { ref, inView } = useScrollReveal(0.08);
+  const DATA = useMemo(() => buildChartData(year), [year]);
+  const MAX_DD = DATA.length ? Math.min(...DATA.map(d => d.dd)) : 0;
 
   return (
     <motion.div
@@ -76,8 +79,8 @@ export default function PerformanceCharts() {
         style={{ borderColor: "rgba(255,255,255,0.06)" }}
       >
         <div>
-          <div className="text-white/80 text-sm font-semibold">Courbe de valorisation 2025</div>
-          <div className="text-white/35 text-xs mt-0.5">Base 100 — Composé depuis les gains mensuels Myfxbook</div>
+          <div className="text-white/80 text-sm font-semibold">Courbe de valorisation {year}</div>
+          <div className="text-white/35 text-xs mt-0.5">Base 100 — Rapport de performance Summit One</div>
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -106,7 +109,9 @@ export default function PerformanceCharts() {
       </div>
 
       <div className="px-2 pt-4 pb-2" style={{ height: 260 }}>
-        {!showDD ? (
+        {DATA.length === 0 ? (
+          <div className="h-full flex items-center justify-center text-white/30 text-sm">Pas de données pour {year}</div>
+        ) : !showDD ? (
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={DATA} margin={{ top: 8, right: 20, left: 0, bottom: 0 }}>
               <defs>
@@ -127,9 +132,9 @@ export default function PerformanceCharts() {
                 tickLine={false}
                 axisLine={false}
                 width={40}
-                domain={[95, "auto"]}
+                domain={["auto", "auto"]}
               />
-              <Tooltip content={<CustomTooltip />} cursor={{ stroke: "rgba(201,169,110,0.2)", strokeWidth: 1 }} />
+              <Tooltip content={<CustomTooltip year={year} />} cursor={{ stroke: "rgba(201,169,110,0.2)", strokeWidth: 1 }} />
               <ReferenceLine y={100} stroke="rgba(255,255,255,0.1)" strokeDasharray="4 6" />
               <Area
                 type="monotone"
@@ -168,7 +173,7 @@ export default function PerformanceCharts() {
                 width={40}
                 tickFormatter={(v) => `${v}%`}
               />
-              <Tooltip content={<DDTooltip />} cursor={{ stroke: "rgba(192,102,90,0.2)", strokeWidth: 1 }} />
+              <Tooltip content={<DDTooltip year={year} />} cursor={{ stroke: "rgba(192,102,90,0.2)", strokeWidth: 1 }} />
               <ReferenceLine
                 y={MAX_DD}
                 stroke="rgba(192,102,90,0.6)"
@@ -204,7 +209,7 @@ export default function PerformanceCharts() {
         style={{ borderColor: "rgba(255,255,255,0.05)" }}
       >
         <span className="text-white/22 text-[10px] tracking-wide">
-          Données Myfxbook — Helvora Trader · Performances passées ≠ performances futures
+          Rapport de performance Summit One · Performances passées ≠ performances futures
         </span>
       </div>
     </motion.div>

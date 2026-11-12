@@ -170,15 +170,6 @@ export default function RiskWarnings() {
               initial="hidden"
               animate={inView ? "visible" : "hidden"}
             >
-              <motion.div variants={staggerItem} className="flex items-center gap-3 mb-8">
-                <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center"
-                  style={{ background: "rgba(201,169,110,0.1)", border: "1px solid rgba(201,169,110,0.25)" }}
-                >
-                  <AlertTriangle className="w-4 h-4" style={{ color: "#C9A96E" }} />
-                </div>
-                <span className="badge-pill inline-flex">Avertissements réglementaires</span>
-              </motion.div>
               <motion.h1
                 variants={staggerItem}
                 className="font-display text-4xl md:text-6xl lg:text-7xl font-medium text-white mb-6 leading-tight max-w-3xl"

@@ -37,9 +37,6 @@ export default function TechOverview() {
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
           >
-            <motion.span variants={staggerItem} className="badge-pill mb-6 inline-flex">
-              {t.tech.badge}
-            </motion.span>
             <motion.h2
               variants={staggerItem}
               id="tech-heading"
