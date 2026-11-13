@@ -8,7 +8,6 @@ import { I18nProvider } from "./contexts/I18nContext";
 import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import Approach from "./pages/Approach";
-import Technology from "./pages/Technology";
 import Performance from "./pages/Performance";
 import Contact from "./pages/Contact";
 import LegalMentions from "./pages/LegalMentions";
@@ -52,7 +51,7 @@ function Router() {
       {/* FR */}
       <Route path="/fr/" component={Home} />
       <Route path="/fr/approche" component={Approach} />
-      <Route path="/fr/technologie" component={Technology} />
+      <Route path="/fr/technologie" component={HomeRedirect} />
       <Route path="/fr/performances" component={Performance} />
       <Route path="/fr/contact" component={Contact} />
       <Route path="/fr/mentions-legales" component={LegalMentions} />
@@ -66,7 +65,7 @@ function Router() {
       {/* EN */}
       <Route path="/en/" component={Home} />
       <Route path="/en/approche" component={Approach} />
-      <Route path="/en/technologie" component={Technology} />
+      <Route path="/en/technologie" component={HomeRedirect} />
       <Route path="/en/performances" component={Performance} />
       <Route path="/en/contact" component={Contact} />
       <Route path="/en/mentions-legales" component={LegalMentions} />
@@ -80,7 +79,7 @@ function Router() {
       {/* DE */}
       <Route path="/de/" component={Home} />
       <Route path="/de/approche" component={Approach} />
-      <Route path="/de/technologie" component={Technology} />
+      <Route path="/de/technologie" component={HomeRedirect} />
       <Route path="/de/performances" component={Performance} />
       <Route path="/de/contact" component={Contact} />
       <Route path="/de/mentions-legales" component={LegalMentions} />

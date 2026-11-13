@@ -40,42 +40,34 @@ export default function Hero() {
         className="relative container flex flex-col items-start text-left pt-36 pb-24"
         style={{ zIndex: 10 }}
       >
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="font-display italic text-lg md:text-xl mb-8"
-          style={{ color: "rgba(201,169,110,0.85)" }}
-        >
-          Summit One
-        </motion.p>
-
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
-          className="mb-8 max-w-2xl"
+          className="mb-6 max-w-3xl"
         >
           <motion.h1
             variants={staggerItem}
-            className="font-display text-5xl md:text-7xl lg:text-[5.25rem] font-medium text-white leading-[1.05] tracking-tight mb-1"
+            className="font-display text-5xl md:text-7xl lg:text-[5.25rem] font-medium text-white leading-[1.05] tracking-tight"
           >
             {t.hero.title1}
           </motion.h1>
-          <motion.h1
-            variants={staggerItem}
-            className="font-display text-5xl md:text-7xl lg:text-[5.25rem] font-medium text-white/70 leading-[1.05] tracking-tight"
-          >
-            {t.hero.title2}
-          </motion.h1>
+          {t.hero.title2 ? (
+            <motion.h1
+              variants={staggerItem}
+              className="font-display text-5xl md:text-7xl lg:text-[5.25rem] font-medium text-white/70 leading-[1.05] tracking-tight mt-1"
+            >
+              {t.hero.title2}
+            </motion.h1>
+          ) : null}
         </motion.div>
 
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-sm md:text-base max-w-md mb-10 leading-relaxed"
-          style={{ color: "rgba(237,233,227,0.58)" }}
+          transition={{ duration: 0.6, delay: 0.35 }}
+          className="text-sm md:text-[0.95rem] max-w-xl mb-10 leading-relaxed"
+          style={{ color: "rgba(237,233,227,0.52)" }}
         >
           {t.hero.subtitle}
         </motion.p>

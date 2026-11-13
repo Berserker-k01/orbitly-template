@@ -12,6 +12,7 @@ import {
   PERFORMANCE_YEARS,
   formatReturn,
   compoundGain,
+  arithmeticTotal,
   type PerformanceYear,
 } from "@/lib/performanceData";
 
@@ -124,6 +125,7 @@ export default function Performance() {
   const pt = t.performance;
   const months = YEARLY_RETURNS[activeYear];
   const selectedRaw = selectedMonth != null ? months[selectedMonth] : null;
+  const yearCumulative = arithmeticTotal(months);
   const yearCompound = compoundGain(months);
 
   function handleYearChange(year: PerformanceYear) {
@@ -270,12 +272,34 @@ export default function Performance() {
                   <span className="text-white/30 text-xs">Cliquez une case pour la sélectionner</span>
                 )}
               </div>
-              {yearCompound != null && (
-                <div className="flex items-center gap-3">
-                  <span className="text-white/35 text-xs tracking-[0.1em] uppercase">Gain composé {activeYear}</span>
-                  <span className="font-data text-sm font-bold" style={{ color: yearCompound >= 0 ? "#5BAF8A" : "#C0665A" }}>
-                    {formatReturn(yearCompound, lang)}
-                  </span>
+              {(yearCumulative != null || yearCompound != null) && (
+                <div
+                  className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 px-4 py-3 rounded-xl"
+                  style={{
+                    background: "rgba(201,169,110,0.06)",
+                    border: "1px solid rgba(201,169,110,0.22)",
+                  }}
+                >
+                  {yearCumulative != null && (
+                    <div className="flex items-baseline gap-2.5">
+                      <span className="text-[11px] tracking-[0.1em] uppercase font-semibold" style={{ color: "rgba(201,169,110,0.75)" }}>
+                        Gains cumulés
+                      </span>
+                      <span className="font-data text-base font-bold" style={{ color: "#C9A96E" }}>
+                        {formatReturn(yearCumulative, lang)}
+                      </span>
+                    </div>
+                  )}
+                  {yearCompound != null && (
+                    <div className="flex items-baseline gap-2.5">
+                      <span className="text-[11px] tracking-[0.1em] uppercase font-semibold" style={{ color: "rgba(201,169,110,0.75)" }}>
+                        Gain composé
+                      </span>
+                      <span className="font-data text-base font-bold" style={{ color: "#C9A96E" }}>
+                        {formatReturn(yearCompound, lang)}
+                      </span>
+                    </div>
+                  )}
                 </div>
               )}
             </motion.div>
@@ -350,37 +374,13 @@ export default function Performance() {
           </div>
         </section>
 
-        {/* ── Methodology + definitions ── */}
+        {/* ── Definitions ── */}
         <section className="py-10 md:py-16 pb-24" ref={defsRef}>
           <div className="section-divider mb-12" />
           <div className="container">
             <motion.h2
               initial={{ opacity: 0, y: 16 }}
               animate={defsInView ? { opacity: 1, y: 0 } : {}}
-              className="text-xl font-semibold text-white mb-8"
-            >
-              {t.performance.methodology_title}
-            </motion.h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mb-12">
-              {t.performance.methodology.map((row, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={defsInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: i * 0.06 }}
-                  className="flex flex-col gap-1 p-4 rounded-lg"
-                  style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
-                >
-                  <span className="text-white/30 text-[10px] tracking-[0.1em] uppercase">{row.label}</span>
-                  <span className="text-white/65 text-sm">{row.value}</span>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 16 }}
-              animate={defsInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 }}
               className="text-xl font-semibold text-white mb-8"
             >
               {t.performance.definitions_title}
@@ -391,7 +391,7 @@ export default function Performance() {
                   key={i}
                   initial={{ opacity: 0, y: 14 }}
                   animate={defsInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.2 + i * 0.07 }}
+                  transition={{ delay: i * 0.07 }}
                   className="p-6 rounded-xl"
                   style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)" }}
                 >

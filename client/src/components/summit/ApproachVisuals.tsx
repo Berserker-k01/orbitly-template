@@ -1,7 +1,4 @@
 import { motion } from "framer-motion";
-import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, ResponsiveContainer,
-} from "recharts";
 
 // ── 1. Systématique vs Discrétionnaire ────────────────────────────────────
 export function SystematicViz({ inView }: { inView: boolean }) {
@@ -59,11 +56,32 @@ export function SystematicViz({ inView }: { inView: boolean }) {
 }
 
 // ── 2. Recherche quantitative — scatter plot animé ─────────────────────────
-const DOTS = Array.from({ length: 26 }, (_, i) => ({
+const LINE_M = -72 / 182; // approx. slope of the gold path
+const PERP_X = 0.368;
+const PERP_Y = 0.93;
+const OFFSET = 14; // ~10–20 px away from the gold line
+
+const RAW_DOTS = Array.from({ length: 26 }, (_, i) => ({
   x: 10 + ((i * 17 + 11) % 175),
   y: 95 - (Math.sin(i * 0.78 + 1) * 0.5 + 0.5) * 68 - ((i * 7 + 3) % 22),
   pos: (i * 3 + 1) % 4 !== 0,
 }));
+
+function offsetFromLine(d: { x: number; y: number; pos: boolean }) {
+  // Keep dots inside the pattern ellipse untouched
+  const inCircle = ((d.x - 158) / 22) ** 2 + ((d.y - 28) / 17) ** 2 <= 1.05;
+  if (inCircle) return d;
+  const lineY = 90 + LINE_M * (d.x - 10);
+  const above = d.y < lineY;
+  const sign = above ? -1 : 1;
+  return {
+    ...d,
+    x: d.x + PERP_X * sign * OFFSET,
+    y: d.y + PERP_Y * sign * OFFSET,
+  };
+}
+
+const DOTS = RAW_DOTS.map(offsetFromLine);
 
 export function ResearchViz({ inView }: { inView: boolean }) {
   return (
@@ -196,71 +214,70 @@ export function AlgoViz({ inView }: { inView: boolean }) {
   );
 }
 
-// ── 4. Gestion du risque — courbe de capital 2025 ─────────────────────────
-const RISK_DATA = [
-  { m: "J",  v: 5.24,  peak: 5.24  },
-  { m: "F",  v: 9.28,  peak: 9.28  },
-  { m: "M",  v: 12.09, peak: 12.09 },
-  { m: "A",  v: 12.25, peak: 12.25 },
-  { m: "M2", v: 14.76, peak: 14.76 },
-  { m: "J2", v: 15.45, peak: 15.45 },
-  { m: "J3", v: 18.61, peak: 18.61 },
-  { m: "A2", v: 19.95, peak: 19.95 },
-  { m: "S",  v: 23.64, peak: 23.64 },
-  { m: "O",  v: 33.85, peak: 33.85 },
-  { m: "N",  v: 33.20, peak: 33.85 },
-  { m: "D",  v: 33.28, peak: 33.85 },
+// ── 4. Gestion du risque — cadre en 4 étapes (sans chiffres non validés) ──
+const RISK_STEPS = [
+  {
+    title: "Risque défini",
+    body: "La perte maximale est connue à l'ouverture de chaque position.",
+  },
+  {
+    title: "Taille calculée",
+    body: "La taille de position est proportionnelle au capital et à la perte acceptée.",
+  },
+  {
+    title: "Exposition limitée",
+    body: "Un plafond limite le nombre de positions ouvertes en même temps.",
+  },
+  {
+    title: "Arrêt automatique",
+    body: "La stratégie se met en pause si la perte atteint un seuil fixé.",
+  },
 ];
-
-const MONTHS_SHORT = ["J","F","M","A","M","J","J","A","S","O","N","D"];
-
-const RISK_DATA_DISPLAY = RISK_DATA.map((d, i) => ({ ...d, m: MONTHS_SHORT[i] }));
 
 export function RiskViz({ inView }: { inView: boolean }) {
   return (
-    <div className="rounded-xl overflow-hidden p-4" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)" }}>
-      <div className="flex items-center justify-between mb-2">
+    <div
+      className="rounded-xl overflow-hidden p-4"
+      style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)" }}
+    >
+      <div className="mb-4">
         <span className="text-[9px] text-white/25 tracking-[0.15em] uppercase font-medium">
-          Évolution du capital — 2025 · Données Myfxbook
+          Cadre de risque · Illustration
         </span>
-        <div className="flex items-center gap-1">
-          <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#5BAF8A" }} />
-          <span className="font-data text-[9px]" style={{ color: "#5BAF8A" }}>+33,28 %</span>
-        </div>
       </div>
-      <div style={{ height: "150px" }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={RISK_DATA_DISPLAY} margin={{ top: 5, right: 5, bottom: 0, left: -22 }}>
-            <defs>
-              <linearGradient id="capitalGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#5BAF8A" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="#5BAF8A" stopOpacity={0.03} />
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
-            <XAxis dataKey="m" tick={{ fill: "rgba(237,233,227,0.25)", fontSize: 9 }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fill: "rgba(237,233,227,0.2)", fontSize: 8 }} axisLine={false} tickLine={false} domain={[0, 36]} />
-            <Area
-              type="monotone"
-              dataKey="v"
-              stroke="#5BAF8A"
-              strokeWidth={1.5}
-              fill="url(#capitalGrad)"
-              isAnimationActive={inView}
-              animationDuration={1500}
-              animationEasing="ease-out"
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        {RISK_STEPS.map((step, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.08 + i * 0.1, duration: 0.4 }}
+            className="p-3.5 rounded-lg"
+            style={{
+              background: "rgba(201,169,110,0.04)",
+              border: "1px solid rgba(201,169,110,0.18)",
+            }}
+          >
+            <div className="flex items-center gap-2 mb-2">
+              <span
+                className="font-data text-[10px] font-bold w-5 h-5 rounded flex items-center justify-center"
+                style={{
+                  color: "#C9A96E",
+                  background: "rgba(201,169,110,0.1)",
+                  border: "1px solid rgba(201,169,110,0.25)",
+                }}
+              >
+                {i + 1}
+              </span>
+              <span className="text-white/85 text-xs font-semibold">{step.title}</span>
+            </div>
+            <p className="text-white/40 text-[11px] leading-relaxed">{step.body}</p>
+          </motion.div>
+        ))}
       </div>
-      <div className="flex items-center gap-4 mt-2 pt-2" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-        <div className="flex items-center gap-1.5">
-          <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#C0665A" }} />
-          <span className="text-[9px] text-white/35">Drawdown max</span>
-          <span className="font-data text-[9px]" style={{ color: "#C0665A" }}>−0,65 %</span>
-        </div>
-        <div className="ml-auto text-[9px] text-white/20">Données déclarées 2025</div>
-      </div>
+      <p className="text-[9px] text-white/20 mt-3 tracking-wide">
+        Schéma illustratif — valeurs chiffrées à confirmer
+      </p>
     </div>
   );
 }

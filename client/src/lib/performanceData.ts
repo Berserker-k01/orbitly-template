@@ -97,31 +97,43 @@ function seededUnit(seed: number): number {
 }
 
 /**
- * Daily growth factors that compound exactly to monthlyGain%,
- * with real ups/downs (cassures) instead of a smooth geometric path.
+ * Weekly growth factors that compound exactly to monthlyGain%,
+ * with real ups/downs (cassures) — Myfxbook-style broken line.
  */
-function jaggedDailyFactors(monthlyGainPct: number, n: number, seedBase: number): number[] {
+function jaggedWeeklyFactors(monthlyGainPct: number, n: number, seedBase: number): number[] {
   if (n <= 0) return [];
   if (n === 1) return [1 + monthlyGainPct / 100];
 
   const targetLog = Math.log(1 + monthlyGainPct / 100);
-  const amplitude = Math.max(0.012, Math.abs(targetLog) * 1.35);
+  // Stronger amplitude so drawdowns land roughly in the −3 % … −11 % band
+  const amplitude = Math.max(0.028, Math.abs(targetLog) * 1.9);
 
   const rawLogs = Array.from({ length: n }, (_, i) => {
     const u1 = seededUnit(seedBase + i * 17.13);
     const u2 = seededUnit(seedBase + i * 41.77 + 3);
-    // Occasional sharper day (win or loss) to break the curve
-    const spike = u2 > 0.82 ? (u2 - 0.82) * 4.5 : u2 < 0.14 ? (u2 - 0.14) * 3.2 : 0;
-    return (u1 - 0.48) * amplitude * 2.4 + spike * amplitude;
+    const spike = u2 > 0.78 ? (u2 - 0.78) * 5.5 : u2 < 0.18 ? (u2 - 0.18) * 4.2 : 0;
+    return (u1 - 0.52) * amplitude * 2.8 + spike * amplitude;
   });
 
   const sumRaw = rawLogs.reduce((a, b) => a + b, 0);
   return rawLogs.map((l) => Math.exp(l + (targetLog - sumRaw) / n));
 }
 
+/** Friday closes (or last trading day) — one point per week. */
+function weeklyClosesInMonth(year: number, monthIndex: number): Date[] {
+  const days = tradingDaysInMonth(year, monthIndex);
+  if (!days.length) return [];
+  const fridays = days.filter((d) => d.getUTCDay() === 5);
+  const last = days[days.length - 1];
+  if (!fridays.length) return [last];
+  const lastFri = fridays[fridays.length - 1];
+  if (last.getTime() !== lastFri.getTime()) fridays.push(last);
+  return fridays;
+}
+
 /**
  * Build equity curve in CHF from monthly returns.
- * Points journaliers (jours ouvrés) avec cassures ; calés sur le rendement mensuel du rapport.
+ * One point per week (broken line), calibrated to monthly report returns.
  */
 export function buildEquitySeries(
   range: ChartRange,
@@ -165,8 +177,8 @@ export function buildEquitySeries(
 
       if (gain == null) return;
 
-      const days = tradingDaysInMonth(year, monthIndex);
-      if (!days.length) {
+      const weeks = weeklyClosesInMonth(year, monthIndex);
+      if (!weeks.length) {
         equity *= 1 + gain / 100;
         if (equity > runMax) runMax = equity;
         const d = monthEnd(year, monthIndex);
@@ -179,13 +191,8 @@ export function buildEquitySeries(
         return;
       }
 
-      const denser = isNewSystemMonth(year, monthIndex);
-      // Avant nov. 2025 : ~2–3 points/semaine pour des cassures sans surcharger la vue globale
-      const step = denser ? 1 : Math.max(1, Math.floor(days.length / 8));
-      const sampleDays = denser ? days : days.filter((_, i) => i % step === 0 || i === days.length - 1);
-      const factors = jaggedDailyFactors(gain, sampleDays.length, year * 100 + monthIndex * 13);
-
-      sampleDays.forEach((day, i) => {
+      const factors = jaggedWeeklyFactors(gain, weeks.length, year * 100 + monthIndex * 13);
+      weeks.forEach((day, i) => {
         equity *= factors[i];
         if (equity > runMax) runMax = equity;
         points.push({
@@ -193,7 +200,7 @@ export function buildEquitySeries(
           label: fmtDayLabel(day),
           equity: Math.round(equity * 100) / 100,
           dd: Math.round(((equity - runMax) / runMax) * 10000) / 100,
-          daily: denser,
+          daily: isNewSystemMonth(year, monthIndex),
         });
       });
     });

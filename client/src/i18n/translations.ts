@@ -20,10 +20,10 @@ export const translations = {
     // ── Hero ──
     hero: {
       badge: 'Trading systématique quantitatif — Suisse',
-      title1: 'La précision des algorithmes.',
-      title2: 'La rigueur des marchés.',
+      title1: 'Visez les sommets, avec méthode.',
+      title2: '',
       subtitle:
-        'Depuis la Suisse, nous développons des stratégies automatisées sur le Forex — des règles claires, une exécution sans improvisation, un historique que vous pouvez vérifier.',
+        'En trading comme en montagne, la progression se lit sur une courbe : des ascensions régulières, des paliers, parfois une descente à encaisser avant de repartir plus haut. Chez Summit One, chaque stratégie est pensée comme une ascension : préparation, gestion du risque et patience pour atteindre de nouveaux sommets.',
       cta_primary: 'Notre approche',
       cta_secondary: 'Nos performances',
       scroll_indicator: 'Continuer',
@@ -195,8 +195,8 @@ export const translations = {
           a: "Le trading systématique quantitatif consiste à utiliser des modèles mathématiques et statistiques pour prendre des décisions de trading selon des règles prédéfinies, sans intervention émotionnelle. Les décisions sont entièrement automatisées.",
         },
         {
-          q: "Comment fonctionne une stratégie algorithmique ?",
-          a: "Un algorithme de trading analyse en continu les données de marché, identifie les conditions correspondant aux règles de la stratégie, et exécute automatiquement les ordres d\'achat ou de vente selon des paramètres définis.",
+          q: "Qu\'est-ce que les intérêts composés ?",
+          a: "Les intérêts composés consistent à réinvestir les gains d\'une période pour qu\'ils produisent eux-mêmes des gains sur les périodes suivantes. Chaque année, le rendement s\'applique donc sur le capital de départ plus les gains déjà accumulés, et non sur le seul capital initial. C\'est ce qui donne à la courbe sa forme de plus en plus pentue avec le temps.\n\nFormule :\nCₙ = C₀ × (1 + r)ⁿ\nC₀ = capital de départ · r = rendement annuel · n = nombre d\'années\n\nExemple illustratif (10 000 €, 10 % / an, gains réinvestis) :\n5 ans  →  16 105 € composés  ·  15 000 € sans réinvestissement\n10 ans →  25 937 € composés  ·  20 000 € sans réinvestissement\n20 ans →  67 275 € composés  ·  30 000 € sans réinvestissement\n\nExemple purement illustratif, il ne représente pas une performance de Summit One et ne garantit aucun résultat futur.",
         },
         {
           q: "Sur quel marché intervient Summit One ?",
@@ -247,7 +247,7 @@ export const translations = {
         {
           number: '02',
           title: 'Gains',
-          body: 'Lorsque la personne recommandée réalise un profit sur son compte de trading, vous recevez jusqu\'à 50 % des frais de commission qu\'elle verse.',
+          body: 'Lorsque la personne recommandée nous rejoint, vous recevez jusqu\'à 50 % des frais de commission qu\'elle verse.',
         },
         {
           number: '03',
@@ -352,13 +352,14 @@ export const translations = {
       hero_subtitle: 'Track record réel sur EUR/USD — données Myfxbook.',
       table_title: 'Indicateurs de performance',
       table_note: 'Ces chiffres sont issus du compte Myfxbook Helvora Trader. Les performances passées ne préjugent pas des performances futures.',
-      definitions_title: 'Définitions et méthodologie',
+      definitions_title: 'Définitions',
       methodology_title: 'Note méthodologique',
       methodology: [
         { label: 'Période d\'observation', value: 'Track record Jan 2023 → Sep 2026 (EUR/USD)' },
         { label: 'Instrument', value: 'EUR/USD (Forex)' },
         { label: 'Infrastructure', value: 'Vantage Markets' },
-        { label: 'Origine', value: 'Suisse' },      ],
+        { label: 'Origine', value: 'Suisse' },
+      ],
       risk_note: 'AVERTISSEMENT IMPORTANT — Les performances passées ne préjugent pas des performances futures et ne constituent pas un indicateur fiable des résultats futurs. Le trading Forex avec effet de levier implique un risque élevé de perte. Il est possible de perdre tout ou partie du capital. Ces informations sont fournies à titre indicatif uniquement et ne constituent pas un conseil financier.',
       month_labels: ['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sep','Oct','Nov','Déc'],
       year_label: 'Année',
@@ -375,20 +376,24 @@ export const translations = {
       kpi_dd_desc: 'Recul maximal depuis un pic',
       definitions: [
         {
-          term: 'Rendement mensuel moyen',
-          def: 'Moyenne arithmétique des rendements mensuels sur la période d\'observation. La méthode de calcul précise (Time-Weighted Return, etc.) sera précisée lors de la validation documentaire.',
+          term: 'Backtesting',
+          def: 'Le backtesting consiste à appliquer une stratégie de trading à des données historiques de marché pour évaluer comment elle se serait comportée dans le passé. Il permet de mesurer le gain, le risque et la régularité d\'une stratégie avant de l\'utiliser en conditions réelles. Ses résultats ne garantissent pas les performances futures : les frais, le glissement (slippage) et les conditions de marché peuvent différer.',
+        },
+        {
+          term: 'Drawdown maximal',
+          def: 'Recul maximal de la valorisation depuis un précédent point haut sur la période d\'observation. Exprimé en pourcentage du pic de valorisation. Ce chiffre est un indicateur du risque de perte temporaire, non une garantie de perte maximale future.',
         },
         {
           term: 'Profit Factor',
           def: 'Rapport entre la somme des gains bruts et la somme des pertes brutes sur la période d\'observation. Un Profit Factor supérieur à 1 indique que les gains sont supérieurs aux pertes.',
         },
         {
-          term: 'Taux de réussite (Win Rate)',
-          def: 'Proportion de positions clôturées en profit. Le taux de 71 % communiqué concerne spécifiquement les positions longues. Le taux de réussite global peut différer.',
+          term: 'Rendement mensuel moyen',
+          def: 'Moyenne arithmétique des rendements mensuels sur la période d\'observation. La méthode de calcul précise (Time-Weighted Return, etc.) sera précisée lors de la validation documentaire.',
         },
         {
-          term: 'Drawdown maximal',
-          def: 'Recul maximal de la valorisation depuis un précédent point haut sur la période d\'observation. Exprimé en pourcentage du pic de valorisation. Ce chiffre est un indicateur du risque de perte temporaire, non une garantie de perte maximale future.',
+          term: 'Taux de réussite (Win Rate)',
+          def: 'Proportion de positions clôturées en profit. Le taux de 71 % communiqué concerne spécifiquement les positions longues. Le taux de réussite global peut différer.',
         },
       ],
     },
@@ -483,10 +488,10 @@ export const translations = {
     },
     hero: {
       badge: 'Systematic quantitative trading — Switzerland',
-      title1: 'Algorithmic precision.',
-      title2: 'Market discipline.',
+      title1: 'Aim for the summits, with method.',
+      title2: '',
       subtitle:
-        'We design systematic quantitative strategies that exploit statistical regularities observed in the foreign exchange market, through automated algorithmic execution.',
+        'In trading as in mountaineering, progress is read on a curve: steady climbs, plateaus, sometimes a descent to absorb before pushing higher. At Summit One, each strategy is built like an ascent — preparation, risk management and patience to reach new peaks.',
       cta_primary: 'Discover our approach',
       cta_secondary: 'View performance',
       scroll_indicator: 'Scroll to explore',
@@ -561,7 +566,7 @@ export const translations = {
         { q: 'Do I have access to my investment / my money at any given time?', a: 'Yes. Your funds remain at all times in your own trading account, opened in your name with the partner broker. Summit One has no direct access to your funds: you keep control and can withdraw them whenever you wish.' },
         { q: 'Can I stop or exit copy trading at any time?', a: 'Yes, you can unsubscribe from our services at any time and withdraw or increase your capital. There is no minimum duration.' },
         { q: 'What is systematic quantitative trading?', a: 'Systematic quantitative trading uses mathematical and statistical models to make trading decisions according to predefined rules, without emotional intervention. Decisions are fully automated.' },
-        { q: 'How does an algorithmic strategy work?', a: 'A trading algorithm continuously analyzes market data, identifies conditions matching the strategy rules, and automatically executes buy or sell orders according to defined parameters.' },
+        { q: 'What is compound interest?', a: 'Compound interest means reinvesting the gains from one period so they themselves generate gains in following periods. Each year, the return therefore applies to the starting capital plus gains already accumulated, not to the initial capital alone. That is what gives the curve its increasingly steep shape over time.\n\nFormula:\nCₙ = C₀ × (1 + r)ⁿ\nC₀ = starting capital · r = annual return · n = number of years\n\nIllustrative example (€10,000, 10% / year, gains reinvested):\n5 years  →  €16,105 compounded  ·  €15,000 without reinvestment\n10 years →  €25,937 compounded  ·  €20,000 without reinvestment\n20 years →  €67,275 compounded  ·  €30,000 without reinvestment\n\nPurely illustrative example — it does not represent Summit One performance and does not guarantee any future result.' },
         { q: 'Which market does Summit One operate on?', a: 'Summit One focuses exclusively on the EUR/USD currency pair, one of the most liquid in the world, via the Vantage Markets infrastructure.' },
         { q: 'What is backtesting?', a: 'Backtesting is a simulation process of a strategy on historical data, allowing evaluation of past performance and robustness before any real deployment.' },
         { q: 'What is a Profit Factor?', a: 'The Profit Factor is the ratio between total gross gains and total gross losses over a given period. A Profit Factor of 3.40 means that for every unit of currency lost, 3.40 units were gained.' },
@@ -609,13 +614,14 @@ export const translations = {
       hero_subtitle: 'Real track record on EUR/USD — Myfxbook data.',
       table_title: 'Performance indicators',
       table_note: 'These figures come from the Helvora Trader Myfxbook account. Past performance is not indicative of future results.',
-      definitions_title: 'Definitions and methodology',
+      definitions_title: 'Definitions',
       methodology_title: 'Methodological note',
       methodology: [
         { label: 'Observation period', value: 'Track record since 2022 (EUR/USD)' },
         { label: 'Instrument', value: 'EUR/USD (Forex)' },
         { label: 'Infrastructure', value: 'Vantage Markets' },
-        { label: 'Origin', value: 'Switzerland' },      ],
+        { label: 'Origin', value: 'Switzerland' },
+      ],
       risk_note: 'IMPORTANT WARNING — Past performance is not indicative of future results. Leveraged Forex trading involves a high risk of loss. It is possible to lose all or part of the invested capital. This information is provided for indicative purposes only and does not constitute financial advice.',
       month_labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
       year_label: 'Year',
@@ -631,10 +637,11 @@ export const translations = {
       kpi_dd_label: 'Maximum drawdown',
       kpi_dd_desc: 'Maximum retracement from peak',
       definitions: [
-        { term: 'Average monthly return', def: 'Arithmetic average of monthly returns over the observation period. ' },
+        { term: 'Average monthly return', def: 'Arithmetic average of monthly returns over the observation period.' },
+        { term: 'Backtesting', def: 'Backtesting applies a trading strategy to historical market data to evaluate how it would have behaved in the past. It helps measure gain, risk and consistency before live use. Results do not guarantee future performance: fees, slippage and market conditions may differ.' },
+        { term: 'Maximum Drawdown', def: 'Maximum decline in valuation from a previous peak over the observation period. Expressed as a percentage of the peak valuation.' },
         { term: 'Profit Factor', def: 'Ratio between the sum of gross gains and the sum of gross losses over the observation period. A Profit Factor above 1 indicates gains exceed losses.' },
         { term: 'Win Rate', def: 'Proportion of positions closed in profit. The 71% figure specifically concerns long positions. The overall win rate may differ.' },
-        { term: 'Maximum Drawdown', def: 'Maximum decline in valuation from a previous peak over the observation period. Expressed as a percentage of the peak valuation.' },
       ],
     },
     contact: {
@@ -676,7 +683,7 @@ export const translations = {
       subtitle: 'Share your copy trading experience and be rewarded with up to 50% of commission fees.',
       steps: [
         { number: '01', title: 'Referral', body: 'The person you recommend enters your name when signing up. You are then automatically registered in our referral programme.' },
-        { number: '02', title: 'Earnings', body: 'When the referred person makes a profit on their trading account, you receive up to 50% of the commission fees they pay.' },
+        { number: '02', title: 'Earnings', body: 'When the referred person joins us, you receive up to 50% of the commission fees they pay.' },
         { number: '03', title: 'Payment', body: 'Payment terms and frequency are communicated when you join the programme.' },
       ],
       description1: 'Why join: the programme rewards users who trust Summit One and want to share their copy trading experience.',
@@ -729,10 +736,10 @@ export const translations = {
     },
     hero: {
       badge: 'Systematischer quantitativer Handel — Schweiz',
-      title1: 'Algorithmische Präzision.',
-      title2: 'Disziplin der Märkte.',
+      title1: 'Zielen Sie auf die Gipfel — mit Methode.',
+      title2: '',
       subtitle:
-        'Wir entwickeln systematische quantitative Strategien, die statistische Regelmäßigkeiten auf dem Devisenmarkt durch automatisierte algorithmische Ausführung nutzen.',
+        'Im Trading wie im Gebirge liest sich der Fortschritt auf einer Kurve: stetige Anstiege, Plateaus, manchmal ein Abstieg, den man verkraften muss, bevor es wieder höher geht. Bei Summit One ist jede Strategie wie eine Besteigung gedacht — Vorbereitung, Risikomanagement und Geduld, um neue Gipfel zu erreichen.',
       cta_primary: 'Unseren Ansatz entdecken',
       cta_secondary: 'Performance ansehen',
       scroll_indicator: 'Scrollen zum Erkunden',
@@ -807,7 +814,7 @@ export const translations = {
         { q: 'Habe ich Zugriff auf meine Anlage / mein Geld zu einem bestimmten Zeitpunkt?', a: 'Ja. Ihre Gelder bleiben jederzeit auf Ihrem eigenen Handelskonto, das auf Ihren Namen beim Partnerbroker eröffnet wurde. Summit One hat keinen direkten Zugriff auf Ihre Gelder: Sie behalten die Kontrolle und können sie jederzeit abheben.' },
         { q: 'Kann ich das Copy Trading jederzeit beenden oder aussteigen?', a: 'Ja, Sie können unsere Dienste jederzeit abbestellen und Ihr Kapital abheben oder erhöhen. Es gibt keine Mindestdauer.' },
         { q: 'Was ist systematischer quantitativer Handel?', a: 'Systematischer quantitativer Handel verwendet mathematische und statistische Modelle, um Handelsentscheidungen nach vordefinierten Regeln ohne emotionale Eingriffe zu treffen.' },
-        { q: 'Wie funktioniert eine algorithmische Strategie?', a: 'Ein Handelsalgorithmus analysiert kontinuierlich Marktdaten, identifiziert Bedingungen entsprechend den Strategieregeln und führt automatisch Kauf- oder Verkaufsaufträge aus.' },
+        { q: 'Was ist Zinseszins?', a: 'Zinseszins bedeutet, die Gewinne einer Periode wieder anzulegen, damit sie in den folgenden Perioden selbst Gewinne erzeugen. Jedes Jahr gilt die Rendite daher auf das Startkapital plus bereits angesammelte Gewinne — nicht nur auf das Anfangskapital. Das gibt der Kurve mit der Zeit ihre zunehmend steilere Form.\n\nFormel:\nCₙ = C₀ × (1 + r)ⁿ\nC₀ = Startkapital · r = Jahresrendite · n = Anzahl der Jahre\n\nIllustratives Beispiel (10.000 €, 10 % / Jahr, reinvestierte Gewinne):\n5 Jahre  →  16.105 € mit Zinseszins  ·  15.000 € ohne Reinvestition\n10 Jahre →  25.937 € mit Zinseszins  ·  20.000 € ohne Reinvestition\n20 Jahre →  67.275 € mit Zinseszins  ·  30.000 € ohne Reinvestition\n\nRein illustratives Beispiel — es stellt keine Summit-One-Performance dar und garantiert kein zukünftiges Ergebnis.' },
         { q: 'Auf welchem Markt operiert Summit One?', a: 'Summit One ist ausschließlich auf dem Währungspaar EUR/USD tätig, einem der liquidesten der Welt, über die Vantage Markets Infrastruktur.' },
         { q: 'Was ist Backtesting?', a: 'Backtesting ist ein Simulationsprozess einer Strategie auf historischen Daten, der die Bewertung vergangener Leistungen und Robustheit vor dem realen Einsatz ermöglicht.' },
         { q: 'Was ist ein Profit Factor?', a: 'Der Profit Factor ist das Verhältnis zwischen Brutto-Gesamtgewinnen und Brutto-Gesamtverlusten. Ein Profit Factor von 3,40 bedeutet, dass für jede verlorene Einheit 3,40 Einheiten gewonnen wurden.' },
@@ -855,7 +862,7 @@ export const translations = {
       hero_subtitle: 'Realer Track-Record auf EUR/USD — Myfxbook-Daten.',
       table_title: 'Performance-Indikatoren',
       table_note: 'Diese Zahlen stammen vom Myfxbook-Konto Helvora Trader. Vergangene Wertentwicklungen sind kein Indikator für zukünftige Ergebnisse.',
-      definitions_title: 'Definitionen und Methodik',
+      definitions_title: 'Definitionen',
       methodology_title: 'Methodischer Hinweis',
       methodology: [
         { label: 'Beobachtungszeitraum', value: 'Track-Record seit 2022 (EUR/USD)' },
@@ -878,10 +885,11 @@ export const translations = {
       kpi_dd_label: 'Maximaler Drawdown',
       kpi_dd_desc: 'Maximaler Rückgang vom Höchststand',
       definitions: [
+        { term: 'Backtesting', def: 'Beim Backtesting wird eine Handelsstrategie auf historische Marktdaten angewendet, um zu bewerten, wie sie sich in der Vergangenheit verhalten hätte. Es hilft, Gewinn, Risiko und Regelmäßigkeit vor dem Live-Einsatz zu messen. Ergebnisse garantieren keine zukünftige Performance: Gebühren, Slippage und Marktbedingungen können abweichen.' },
         { term: 'Durchschnittliche monatliche Rendite', def: 'Arithmetisches Mittel der monatlichen Renditen über den Beobachtungszeitraum.' },
+        { term: 'Maximaler Drawdown', def: 'Maximaler Rückgang der Bewertung von einem vorherigen Höchststand.' },
         { term: 'Profit Factor', def: 'Verhältnis zwischen Brutto-Gesamtgewinnen und Brutto-Gesamtverlusten.' },
         { term: 'Trefferquote (Win Rate)', def: 'Anteil der mit Gewinn geschlossenen Positionen. Der Wert von 71% betrifft speziell Long-Positionen.' },
-        { term: 'Maximaler Drawdown', def: 'Maximaler Rückgang der Bewertung von einem vorherigen Höchststand.' },
       ],
     },
     contact: {
@@ -923,7 +931,7 @@ export const translations = {
       subtitle: 'Teilen Sie Ihre Copy-Trading-Erfahrung und werden Sie mit bis zu 50 % der Provisionsgebühren belohnt.',
       steps: [
         { number: '01', title: 'Empfehlung', body: 'Die von Ihnen empfohlene Person gibt Ihren Namen bei der Anmeldung an. Sie werden dann automatisch in unserem Empfehlungsprogramm erfasst.' },
-        { number: '02', title: 'Verdienst', body: 'Wenn die empfohlene Person auf ihrem Handelskonto einen Gewinn erzielt, erhalten Sie bis zu 50 % der von ihr gezahlten Provisionsgebühren.' },
+        { number: '02', title: 'Verdienst', body: 'Wenn die empfohlene Person zu uns kommt, erhalten Sie bis zu 50 % der von ihr gezahlten Provisionsgebühren.' },
         { number: '03', title: 'Auszahlung', body: 'Auszahlungsmodalitäten und -frequenz werden bei der Anmeldung zum Programm mitgeteilt.' },
       ],
       description1: 'Warum teilnehmen: Das Programm belohnt Nutzer, die Summit One vertrauen und ihre Copy-Trading-Erfahrung teilen möchten.',

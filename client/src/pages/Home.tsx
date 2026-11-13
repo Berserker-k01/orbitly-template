@@ -5,7 +5,6 @@ import RiskBanner from "@/components/RiskBanner";
 import Hero from "@/components/summit/Hero";
 import HomePerformance from "@/components/summit/HomePerformance";
 import PhilosophySection from "@/components/summit/PhilosophySection";
-import TechOverview from "@/components/summit/TechOverview";
 import EcosystemSection from "@/components/summit/EcosystemSection";
 import ReferralTeaser from "@/components/summit/ReferralTeaser";
 import FAQSection from "@/components/summit/FAQSection";
@@ -18,7 +17,6 @@ export default function Home() {
         <Hero />
         <HomePerformance />
         <PhilosophySection />
-        <TechOverview />
         <EcosystemSection />
         <ReferralTeaser />
         <FAQSection />

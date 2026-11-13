@@ -12,12 +12,28 @@ export default function PhilosophySection() {
       ref={ref}
       aria-labelledby="philosophy-heading"
     >
-      <div className="section-divider absolute top-0 left-0 right-0" />
+      <div className="absolute inset-0 z-0" aria-hidden="true">
+        <img
+          src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920&auto=format&fit=crop&q=70"
+          alt=""
+          className="w-full h-full object-cover"
+          style={{ objectPosition: "50% 40%" }}
+        />
+        <div className="absolute inset-0" style={{ background: "rgba(6,8,17,0.58)" }} />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, #060811 0%, transparent 12%, transparent 88%, #060811 100%)",
+          }}
+        />
+      </div>
+
+      <div className="section-divider absolute top-0 left-0 right-0 z-10" />
 
       <div className="container relative z-10">
         <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-start">
 
-          {/* Left — editorial statement (remonté) */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -41,30 +57,8 @@ export default function PhilosophySection() {
                 {t.philosophy.subtitle}
               </p>
             </motion.div>
-
-            <motion.div
-              variants={staggerItem}
-              className="relative mt-6 rounded-md overflow-hidden"
-              style={{ height: "200px" }}
-            >
-              <img
-                src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&auto=format&fit=crop&q=80"
-                alt=""
-                aria-hidden="true"
-                className="w-full h-full object-cover"
-                style={{ objectPosition: "50% 35%" }}
-              />
-              <div
-                className="absolute inset-0"
-                style={{ background: "linear-gradient(135deg, rgba(6,8,17,0.5) 0%, rgba(6,8,17,0.15) 50%, rgba(6,8,17,0.6) 100%)" }}
-              />
-              <div className="absolute bottom-4 left-4">
-                <span className="text-white/35 text-[10px] tracking-[0.2em] uppercase">Suisse</span>
-              </div>
-            </motion.div>
           </motion.div>
 
-          {/* Right — all numbered principles together (01 → 05) */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -76,7 +70,7 @@ export default function PhilosophySection() {
                 key={i}
                 variants={staggerItem}
                 className="flex gap-6 py-8 border-b"
-                style={{ borderColor: "rgba(255,255,255,0.06)" }}
+                style={{ borderColor: "rgba(255,255,255,0.08)" }}
               >
                 <div
                   className="font-data text-xs font-bold flex-shrink-0 mt-1 w-7 text-right"
@@ -86,7 +80,7 @@ export default function PhilosophySection() {
                 </div>
                 <div className="flex-1">
                   <h3 className="text-white font-semibold text-base mb-2 tracking-tight">{item.title}</h3>
-                  <p className="text-white/45 text-sm leading-relaxed">{item.body}</p>
+                  <p className="text-white/50 text-sm leading-relaxed">{item.body}</p>
                 </div>
               </motion.div>
             ))}

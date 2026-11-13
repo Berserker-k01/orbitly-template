@@ -100,9 +100,7 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
             Évolution du capital — {chartRangeLabel(range)}
           </div>
           <div className="text-white/35 text-xs mt-0.5">
-            Base {formatChf(EQUITY_BASE_CHF)} · composé · cassures journalières
-            {(range === "global" || range === "2025" || range === "2026") &&
-              " (densité max. depuis nov. 2025)"}
+            Base {formatChf(EQUITY_BASE_CHF)} · un point par semaine · ligne brisée
           </div>
         </div>
 
@@ -176,7 +174,7 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
         </div>
       )}
 
-      <div className="px-2 pt-4 pb-2" style={{ height: 300 }}>
+      <div className="px-2 pt-4 pb-2" style={{ height: 400 }}>
         {DATA.length === 0 ? (
           <div className="h-full flex items-center justify-center text-white/30 text-sm">
             Pas de données pour {chartRangeLabel(range)}
@@ -257,6 +255,8 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
                 axisLine={false}
                 width={48}
                 tickFormatter={(v) => `${v}%`}
+                domain={[Math.min(MAX_DD - 1, -12), 0]}
+                reversed
               />
               <Tooltip content={<DDTooltip />} cursor={{ stroke: "rgba(192,102,90,0.2)", strokeWidth: 1 }} />
               <ReferenceLine
@@ -265,13 +265,26 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
                 strokeDasharray="4 4"
                 label={{
                   value: `Max DD : ${MAX_DD.toFixed(2)}%`,
-                  position: "insideTopRight",
-                  fill: "rgba(192,102,90,0.7)",
+                  position: "insideBottomRight",
+                  fill: "rgba(192,102,90,0.85)",
                   fontSize: 10,
                   fontFamily: "'Space Mono', monospace",
                 }}
               />
               <ReferenceLine y={0} stroke="rgba(255,255,255,0.1)" />
+              {(() => {
+                const trough = DATA.find((d) => d.dd === MAX_DD);
+                return trough ? (
+                  <ReferenceDot
+                    x={trough.label}
+                    y={trough.dd}
+                    r={5}
+                    fill="#C0665A"
+                    stroke="#060811"
+                    strokeWidth={2}
+                  />
+                ) : null;
+              })()}
               <Area
                 type="linear"
                 dataKey="dd"

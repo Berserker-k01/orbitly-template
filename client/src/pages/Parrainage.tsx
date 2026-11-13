@@ -98,7 +98,13 @@ export default function Parrainage() {
                           className="overflow-hidden"
                         >
                           <p className="text-white/50 text-sm leading-relaxed pb-6 pl-10 pr-8">
-                            {step.body}
+                            {step.body.split(/(jusqu'à 50\s*%|up to 50\s*%|bis zu 50\s*%)/i).map((part, pi) =>
+                              /50\s*%/i.test(part) ? (
+                                <span key={pi} className="font-semibold" style={{ color: "#C9A96E" }}>{part}</span>
+                              ) : (
+                                <span key={pi}>{part}</span>
+                              ),
+                            )}
                           </p>
                         </motion.div>
                       )}
