@@ -18,16 +18,6 @@ export default function EcosystemSection() {
       <div className="section-divider absolute top-0 left-0 right-0" />
       <div className="section-divider absolute bottom-0 left-0 right-0" />
 
-      <div className="absolute inset-0 z-0" aria-hidden="true">
-        <img
-          src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1920&auto=format&fit=crop&q=70"
-          alt=""
-          className="w-full h-full object-cover"
-          style={{ objectPosition: "50% 60%" }}
-        />
-        <div className="absolute inset-0" style={{ background: "rgba(6,8,17,0.92)" }} />
-      </div>
-
       <div className="container relative z-10 max-w-4xl">
         <motion.div
           variants={staggerContainer}

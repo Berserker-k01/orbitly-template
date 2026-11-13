@@ -110,12 +110,12 @@ export default function Footer() {
               <a
                 href={langPath('/')}
                 onClick={(e) => { e.preventDefault(); nav(langPath('/')); }}
-                className="flex items-center gap-3 mb-5 group"
+                className="flex items-center mb-5 group max-w-xs"
               >
                 <img
-                  src="/logo-full.png"
+                  src="/logo.png"
                   alt="Summit One"
-                  style={{ height: '58px', width: 'auto', objectFit: 'contain', display: 'block' }}
+                  style={{ width: '100%', maxWidth: '280px', height: 'auto', objectFit: 'contain', display: 'block' }}
                 />
               </a>
               <p className="text-white/45 text-sm leading-relaxed mb-6 max-w-xs">

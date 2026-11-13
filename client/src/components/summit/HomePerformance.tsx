@@ -8,6 +8,8 @@ import {
   YEARLY_RETURNS,
   PERFORMANCE_YEARS,
   formatReturn,
+  compoundGain,
+  arithmeticTotal,
   type PerformanceYear,
 } from "@/lib/performanceData";
 
@@ -15,7 +17,7 @@ const KPI = [
   { value: "+8,76 %", label: "Rendement mensuel moyen" },
   { value: "3,40",    label: "Profit Factor" },
   { value: "71 %",    label: "Taux de réussite" },
-  { value: "11,28 %", label: "Drawdown maximal" },
+  { value: "11,5 %",  label: "Drawdown maximal" },
   { value: "45 mois", label: "Track record" },
 ];
 
@@ -26,6 +28,8 @@ export default function HomePerformance() {
   const [activeYear, setActiveYear] = useState<PerformanceYear>("2026");
   const pt = t.performance;
   const months = YEARLY_RETURNS[activeYear];
+  const yearCumulative = arithmeticTotal(months);
+  const yearCompound = compoundGain(months);
 
   return (
     <section
@@ -192,6 +196,40 @@ export default function HomePerformance() {
                 );
               })}
             </div>
+
+            {(yearCumulative != null || yearCompound != null) && (
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.45 }}
+                className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 mb-4 px-3 py-3 rounded-xl"
+                style={{
+                  background: "rgba(201,169,110,0.06)",
+                  border: "1px solid rgba(201,169,110,0.22)",
+                }}
+              >
+                {yearCumulative != null && (
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-[10px] tracking-[0.1em] uppercase font-semibold" style={{ color: "rgba(201,169,110,0.75)" }}>
+                      Gains cumulés
+                    </span>
+                    <span className="font-data text-sm font-bold" style={{ color: "#C9A96E" }}>
+                      {formatReturn(yearCumulative, lang)}
+                    </span>
+                  </div>
+                )}
+                {yearCompound != null && (
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-[10px] tracking-[0.1em] uppercase font-semibold" style={{ color: "rgba(201,169,110,0.75)" }}>
+                      Gain composé
+                    </span>
+                    <span className="font-data text-sm font-bold" style={{ color: "#C9A96E" }}>
+                      {formatReturn(yearCompound, lang)}
+                    </span>
+                  </div>
+                )}
+              </motion.div>
+            )}
 
             {/* Myfxbook row */}
             <motion.div

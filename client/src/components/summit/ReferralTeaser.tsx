@@ -20,9 +20,23 @@ export default function ReferralTeaser() {
       <div className="section-divider absolute top-0 left-0 right-0" />
 
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <img
+          src="/logo.png"
+          alt=""
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 object-contain"
+          style={{
+            width: "min(720px, 90vw)",
+            height: "auto",
+            opacity: 0.07,
+            filter: "brightness(0.55)",
+          }}
+        />
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] ambient-breathe"
-          style={{ background: "radial-gradient(ellipse, rgba(201,169,110,0.07) 0%, transparent 65%)", filter: "blur(50px)" }}
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 20%, #060811 78%)",
+          }}
         />
       </div>
 

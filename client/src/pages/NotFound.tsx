@@ -20,7 +20,7 @@ export default function NotFound() {
         >
           {/* Logo watermark */}
           <div className="mx-auto mb-10 opacity-20">
-            <img src="/logo-full.png" alt="" style={{ height: '64px', width: 'auto', objectFit: 'contain', display: 'block', margin: '0 auto' }} />
+            <img src="/logo-full-white.png" alt="" style={{ height: '72px', width: 'auto', objectFit: 'contain', display: 'block', margin: '0 auto' }} />
           </div>
 
           <div className="font-data text-6xl font-bold text-white/10 mb-4 select-none">404</div>

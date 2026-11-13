@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   AlertTriangle, TrendingDown, Cpu, FlaskConical,
@@ -30,15 +30,14 @@ function RiskSection({
   Icon?: React.ElementType;
   children: React.ReactNode;
 }) {
-  const { ref, inView } = useScrollReveal(0.08);
   return (
     <motion.div
       id={id}
-      ref={ref}
-      initial={{ opacity: 0, y: 16 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.45 }}
-      className="mb-12 scroll-mt-28"
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.4 }}
+      className="mb-12 scroll-mt-32"
     >
       <h2
         className="font-display text-2xl md:text-3xl font-medium text-white mb-5 pb-3"

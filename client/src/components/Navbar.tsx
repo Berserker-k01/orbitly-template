@@ -91,10 +91,10 @@ export default function Navbar() {
             aria-label="Summit One — Accueil"
           >
             <img
-              src="/logo-full.png"
+              src="/logo-full-white.png"
               alt="Summit One — Quantitative Trading"
               style={{
-                height: '64px',
+                height: '88px',
                 width: 'auto',
                 objectFit: 'contain',
                 display: 'block',

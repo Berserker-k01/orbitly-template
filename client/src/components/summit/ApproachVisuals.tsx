@@ -59,7 +59,7 @@ export function SystematicViz({ inView }: { inView: boolean }) {
 const LINE_M = -72 / 182; // approx. slope of the gold path
 const PERP_X = 0.368;
 const PERP_Y = 0.93;
-const OFFSET = 14; // ~10–20 px away from the gold line
+const OFFSET = 28; // push dots further from the gold line (circle dots stay)
 
 const RAW_DOTS = Array.from({ length: 26 }, (_, i) => ({
   x: 10 + ((i * 17 + 11) % 175),
@@ -214,24 +214,12 @@ export function AlgoViz({ inView }: { inView: boolean }) {
   );
 }
 
-// ── 4. Gestion du risque — cadre en 4 étapes (sans chiffres non validés) ──
-const RISK_STEPS = [
-  {
-    title: "Risque défini",
-    body: "La perte maximale est connue à l'ouverture de chaque position.",
-  },
-  {
-    title: "Taille calculée",
-    body: "La taille de position est proportionnelle au capital et à la perte acceptée.",
-  },
-  {
-    title: "Exposition limitée",
-    body: "Un plafond limite le nombre de positions ouvertes en même temps.",
-  },
-  {
-    title: "Arrêt automatique",
-    body: "La stratégie se met en pause si la perte atteint un seuil fixé.",
-  },
+// ── 4. Gestion du risque — bouclier à 4 couches (sans chiffres non validés) ──
+const RISK_LAYERS = [
+  { label: "Risque défini", short: "Défini", r: 78, body: "Perte max. connue à l'ouverture." },
+  { label: "Taille calculée", short: "Taille", r: 60, body: "Proportionnelle au capital accepté." },
+  { label: "Exposition limitée", short: "Expo.", r: 42, body: "Plafond de positions simultanées." },
+  { label: "Arrêt automatique", short: "Stop", r: 24, body: "Pause si le seuil de perte est atteint." },
 ];
 
 export function RiskViz({ inView }: { inView: boolean }) {
@@ -240,41 +228,84 @@ export function RiskViz({ inView }: { inView: boolean }) {
       className="rounded-xl overflow-hidden p-4"
       style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)" }}
     >
-      <div className="mb-4">
+      <div className="mb-3">
         <span className="text-[9px] text-white/25 tracking-[0.15em] uppercase font-medium">
-          Cadre de risque · Illustration
+          Cadre de risque · Bouclier à 4 couches
         </span>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-        {RISK_STEPS.map((step, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 10 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.08 + i * 0.1, duration: 0.4 }}
-            className="p-3.5 rounded-lg"
-            style={{
-              background: "rgba(201,169,110,0.04)",
-              border: "1px solid rgba(201,169,110,0.18)",
-            }}
-          >
-            <div className="flex items-center gap-2 mb-2">
+
+      <div className="grid grid-cols-1 sm:grid-cols-[1.1fr_1fr] gap-4 items-center">
+        <div className="relative mx-auto" style={{ width: 200, height: 200 }}>
+          <svg viewBox="0 0 200 200" width="200" height="200" aria-hidden="true">
+            {RISK_LAYERS.map((layer, i) => (
+              <motion.circle
+                key={layer.short}
+                cx="100"
+                cy="100"
+                r={layer.r}
+                fill={i === RISK_LAYERS.length - 1 ? "rgba(201,169,110,0.12)" : "transparent"}
+                stroke="rgba(201,169,110,0.35)"
+                strokeWidth="1.2"
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={inView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ delay: 0.1 + i * 0.12, duration: 0.45 }}
+                style={{ transformOrigin: "100px 100px" }}
+              />
+            ))}
+            <motion.path
+              d="M100 22 L118 34 L118 58 C118 78 100 92 100 92 C100 92 82 78 82 58 L82 34 Z"
+              fill="rgba(201,169,110,0.18)"
+              stroke="#C9A96E"
+              strokeWidth="1.4"
+              initial={{ opacity: 0, y: 6 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.55, duration: 0.4 }}
+            />
+            <motion.text
+              x="100"
+              y="56"
+              textAnchor="middle"
+              fill="#C9A96E"
+              fontSize="8"
+              fontFamily="Space Mono, monospace"
+              fontWeight="700"
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ delay: 0.7 }}
+            >
+              RISK
+            </motion.text>
+          </svg>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          {RISK_LAYERS.map((layer, i) => (
+            <motion.div
+              key={layer.label}
+              initial={{ opacity: 0, x: 10 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ delay: 0.15 + i * 0.1, duration: 0.35 }}
+              className="flex items-start gap-2.5"
+            >
               <span
-                className="font-data text-[10px] font-bold w-5 h-5 rounded flex items-center justify-center"
+                className="font-data text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
                 style={{
                   color: "#C9A96E",
-                  background: "rgba(201,169,110,0.1)",
-                  border: "1px solid rgba(201,169,110,0.25)",
+                  border: "1px solid rgba(201,169,110,0.4)",
+                  background: "rgba(201,169,110,0.08)",
                 }}
               >
                 {i + 1}
               </span>
-              <span className="text-white/85 text-xs font-semibold">{step.title}</span>
-            </div>
-            <p className="text-white/40 text-[11px] leading-relaxed">{step.body}</p>
-          </motion.div>
-        ))}
+              <div>
+                <div className="text-white/85 text-[11px] font-semibold leading-tight">{layer.label}</div>
+                <p className="text-white/40 text-[10px] leading-relaxed mt-0.5">{layer.body}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
+
       <p className="text-[9px] text-white/20 mt-3 tracking-wide">
         Schéma illustratif — valeurs chiffrées à confirmer
       </p>

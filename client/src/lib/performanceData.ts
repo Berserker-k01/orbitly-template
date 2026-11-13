@@ -10,8 +10,8 @@ export const YEARLY_RETURNS: Record<string, (number | null)[]> = {
   2024: [7.75, 9.74, 10.59, 9.67, 3.26, 10.33, 10.44, 10.36, 8.55, 9.08, 5.12, 10.39],
   // 2025 — Jan−Sep + Nov−Dec ; Oct = changement de compte Myfxbook (compte maître)
   2025: [-11.2, 13.46, 6.95, 12.89, 12.1, 14.28, 7.8, 10.91, 8.5, null, 19.06, 8.45],
-  // 2026 — Jan−Sep (Sep en cours) · 9/9 positifs · +88.09%
-  2026: [8.97, 7.39, 26.02, 7.64, 3.13, 18.58, 10.24, 4.71, 1.41, null, null, null],
+  // 2026 — Jan−Oct (données Myfxbook actualisées)
+  2026: [8.97, 7.39, 26.02, 7.64, 3.13, 18.58, 10.24, 10.63, 2.23, 4.8, null, null],
 };
 
 export const PERFORMANCE_YEARS = ["2023", "2024", "2025", "2026"] as const;
@@ -105,14 +105,16 @@ function jaggedWeeklyFactors(monthlyGainPct: number, n: number, seedBase: number
   if (n === 1) return [1 + monthlyGainPct / 100];
 
   const targetLog = Math.log(1 + monthlyGainPct / 100);
-  // Stronger amplitude so drawdowns land roughly in the −3 % … −11 % band
-  const amplitude = Math.max(0.028, Math.abs(targetLog) * 1.9);
+  // Soft noise: typical pullbacks ~2–6 %, max historique ~11.5 % (ex. jan. 2025)
+  const amplitude = Math.max(0.01, Math.abs(targetLog) * 0.7);
 
   const rawLogs = Array.from({ length: n }, (_, i) => {
     const u1 = seededUnit(seedBase + i * 17.13);
     const u2 = seededUnit(seedBase + i * 41.77 + 3);
-    const spike = u2 > 0.78 ? (u2 - 0.78) * 5.5 : u2 < 0.18 ? (u2 - 0.18) * 4.2 : 0;
-    return (u1 - 0.52) * amplitude * 2.8 + spike * amplitude;
+    // Occasional mid-month dip to keep DD visible without exploding past ~11.5 %
+    const dip = u2 < 0.22 ? -0.012 - u2 * 0.02 : 0;
+    const spike = u2 > 0.9 ? (u2 - 0.9) * 1.6 : 0;
+    return (u1 - 0.5) * amplitude * 1.35 + spike * amplitude + dip;
   });
 
   const sumRaw = rawLogs.reduce((a, b) => a + b, 0);

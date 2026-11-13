@@ -115,7 +115,7 @@ export default function Calculator() {
                       <input
                         type="range"
                         min={0.1}
-                        max={10}
+                        max={20}
                         step={0.1}
                         value={rate}
                         onChange={(e) => setRate(Number(e.target.value))}
