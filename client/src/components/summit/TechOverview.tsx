@@ -72,7 +72,7 @@ export default function TechOverview() {
               style={{ height: "180px" }}
             >
               <img
-                src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop&q=80"
+                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop&q=60"
                 alt=""
                 aria-hidden="true"
                 className="w-full h-full object-cover"

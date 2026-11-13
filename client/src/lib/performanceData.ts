@@ -87,7 +87,8 @@ function isNewSystemMonth(year: number, monthIndex: number): boolean {
 function fmtDayLabel(d: Date): string {
   const dd = String(d.getUTCDate()).padStart(2, "0");
   const mm = String(d.getUTCMonth() + 1).padStart(2, "0");
-  return `${dd}/${mm}`;
+  const yy = String(d.getUTCFullYear()).slice(2);
+  return `${dd}/${mm}/${yy}`;
 }
 
 /** Deterministic 0..1 from integer seed (stable across renders). */
@@ -154,7 +155,7 @@ export function buildEquitySeries(
   const startDate = new Date(Date.UTC(startYear, 0, 1, 12, 0, 0));
   points.push({
     t: startDate.getTime(),
-    label: `01/01/${String(startYear).slice(2)}`,
+    label: `01/01/${String(startYear).slice(2)}`, // jj/mm/aa
     equity: Math.round(equity * 100) / 100,
     dd: 0,
   });

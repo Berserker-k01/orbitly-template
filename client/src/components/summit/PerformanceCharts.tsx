@@ -100,7 +100,7 @@ export default function PerformanceCharts({ year = "2025" }: { year?: Performanc
             Évolution du capital — {chartRangeLabel(range)}
           </div>
           <div className="text-white/35 text-xs mt-0.5">
-            Base {formatChf(EQUITY_BASE_CHF)} · un point par semaine · ligne brisée
+            Base {formatChf(EQUITY_BASE_CHF)} · un point / semaine · dates jj/mm/aa
           </div>
         </div>
 

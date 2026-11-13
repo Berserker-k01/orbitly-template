@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, AlertCircle } from "lucide-react";
+import { X, Send, AlertCircle, MessageSquare } from "lucide-react";
 import { useI18n } from "@/contexts/I18nContext";
 
 interface Message {
@@ -104,36 +104,58 @@ export default function Aneto() {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1.5, type: "spring", stiffness: 260, damping: 20 }}
         onClick={() => setOpen((v) => !v)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-xl overflow-hidden"
+        className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 shadow-xl overflow-hidden"
         style={{
-          background: open ? "rgba(10,14,26,0.95)" : "#0A0E1A",
-          border: "1px solid rgba(201,169,110,0.45)",
-          boxShadow: "0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(201,169,110,0.2)",
+          height: 56,
+          paddingLeft: open ? 16 : 10,
+          paddingRight: open ? 16 : 16,
+          borderRadius: 999,
+          background: open
+            ? "rgba(10,14,26,0.95)"
+            : "linear-gradient(135deg, #C9A96E 0%, #B8914E 100%)",
+          border: open ? "1px solid rgba(201,169,110,0.45)" : "none",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(201,169,110,0.25)",
         }}
-        aria-label={open ? "Fermer Aneto" : "Ouvrir Aneto"}
+        aria-label={open ? "Fermer le chat Aneto" : "Ouvrir le chat Aneto"}
       >
         <AnimatePresence mode="wait">
           {open ? (
             <motion.div
               key="close"
-              initial={{ rotate: -90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="flex items-center gap-2"
             >
               <X className="w-5 h-5 text-white/70" />
+              <span className="text-white/70 text-xs font-medium hidden sm:inline">Fermer</span>
             </motion.div>
           ) : (
-            <motion.img
+            <motion.div
               key="open"
-              src="/logo.png"
-              alt=""
-              initial={{ rotate: 90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: -90, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              style={{ width: "34px", height: "34px", objectFit: "contain" }}
-            />
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="flex items-center gap-2.5"
+            >
+              <span
+                className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
+                style={{ background: "rgba(6,8,17,0.2)" }}
+              >
+                <img
+                  src="/logo-mark-clear.png"
+                  alt=""
+                  style={{ width: 22, height: 22, objectFit: "contain" }}
+                />
+              </span>
+              <span className="flex flex-col items-start leading-none pr-1">
+                <span className="text-[#060811] text-xs font-bold">Chat</span>
+                <span className="text-[#060811]/70 text-[10px] font-medium mt-0.5">Aneto</span>
+              </span>
+              <MessageSquare className="w-4 h-4 text-[#060811]/80 flex-shrink-0" />
+            </motion.div>
           )}
         </AnimatePresence>
       </motion.button>
@@ -168,7 +190,7 @@ export default function Aneto() {
                 }}
               >
                 <img
-                  src="/logo.png"
+                  src="/logo-mark-clear.png"
                   alt=""
                   style={{ width: 28, height: 28, objectFit: "contain", display: "block" }}
                 />

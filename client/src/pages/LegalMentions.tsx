@@ -47,7 +47,7 @@ export default function LegalMentions() {
         <section className="relative pt-32 pb-16 overflow-hidden">
           <div className="absolute inset-0 z-0" aria-hidden="true">
             <img
-              src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1920&auto=format&fit=crop&q=70"
+              src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&auto=format&fit=crop&q=60"
               alt=""
               className="w-full h-full object-cover"
               style={{ objectPosition: "50% 70%" }}

@@ -113,7 +113,7 @@ export default function Footer() {
                 className="flex items-center mb-5 group max-w-xs"
               >
                 <img
-                  src="/logo.png"
+                  src="/logo-mark-clear.png"
                   alt="Summit One"
                   style={{ width: '100%', maxWidth: '280px', height: 'auto', objectFit: 'contain', display: 'block' }}
                 />

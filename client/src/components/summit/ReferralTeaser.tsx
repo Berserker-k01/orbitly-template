@@ -19,23 +19,24 @@ export default function ReferralTeaser() {
     >
       <div className="section-divider absolute top-0 left-0 right-0" />
 
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
         <img
-          src="/logo.png"
+          src="/logo-mark-clear.png"
           alt=""
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 object-contain"
           style={{
-            width: "min(720px, 90vw)",
+            width: "min(1600px, 140vw)",
+            maxWidth: "none",
             height: "auto",
-            opacity: 0.07,
-            filter: "brightness(0.55)",
+            opacity: 0.11,
+            filter: "brightness(0.45)",
           }}
         />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at center, transparent 20%, #060811 78%)",
+              "radial-gradient(ellipse at center, transparent 10%, rgba(6,8,17,0.55) 55%, #060811 92%)",
           }}
         />
       </div>
