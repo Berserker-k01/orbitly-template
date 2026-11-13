@@ -263,16 +263,12 @@
     filter: blur(80px);
   }
 
-  /* ─── Section divider ─── */
-  .section-divider {
-    height: 1px;
-    background: rgba(255,255,255,0.06);
-  }
-
-  /* ─── Section divider blue ─── */
+  /* ─── Section divider (disabled — seamless sections) ─── */
+  .section-divider,
   .section-divider-blue {
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(29,95,168,0.3), transparent);
+    display: none;
+    height: 0;
+    background: none;
   }
 
   /* ─── Card hover — subtle visual feedback only, no lift ─── */

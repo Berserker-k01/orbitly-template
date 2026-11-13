@@ -35,6 +35,13 @@ function nextId(prefix: string) {
   return `${prefix}-${Date.now()}-${msgSeq}`;
 }
 
+function splitWelcome(welcome: string): string[] {
+  return welcome
+    .split(/\n\n+/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+}
+
 export default function Aneto() {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
@@ -48,7 +55,14 @@ export default function Aneto() {
 
   useEffect(() => {
     if (open && messages.length === 0) {
-      setMessages([{ id: "welcome", role: "assistant", text: t.aneto.welcome }]);
+      const parts = splitWelcome(t.aneto.welcome);
+      setMessages(
+        parts.map((text, i) => ({
+          id: i === 0 ? "welcome" : `welcome-note-${i}`,
+          role: "assistant" as const,
+          text,
+        }))
+      );
     }
   }, [open, messages.length, t.aneto.welcome]);
 
@@ -75,10 +89,10 @@ export default function Aneto() {
     setBusy(true);
     setMessages((prev) => {
       const next = [...prev, userMsg];
-      // Keep conversation readable — drop oldest after welcome if too long
       if (next.length > 24) {
-        const welcome = next[0]?.id === "welcome" ? [next[0]] : [];
-        return [...welcome, ...next.slice(-(welcome.length ? 23 : 24))];
+        const keepWelcome = next.filter((m) => m.id.startsWith("welcome"));
+        const rest = next.filter((m) => !m.id.startsWith("welcome"));
+        return [...keepWelcome, ...rest.slice(-(24 - keepWelcome.length))];
       }
       return next;
     });
@@ -104,7 +118,7 @@ export default function Aneto() {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1.5, type: "spring", stiffness: 260, damping: 20 }}
         onClick={() => setOpen((v) => !v)}
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 shadow-xl overflow-hidden"
+        className="fixed bottom-5 right-4 z-50 flex items-center gap-2.5 shadow-xl overflow-hidden sm:bottom-6 sm:right-6"
         style={{
           height: 56,
           paddingLeft: open ? 16 : 10,
@@ -147,7 +161,7 @@ export default function Aneto() {
                 <img
                   src="/logo-mark-clear.png"
                   alt=""
-                  style={{ width: 22, height: 22, objectFit: "contain" }}
+                  style={{ width: 26, height: 26, objectFit: "contain" }}
                 />
               </span>
               <span className="flex flex-col items-start leading-none pr-1">
@@ -163,16 +177,16 @@ export default function Aneto() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.96 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed bottom-24 right-6 z-50 w-[340px] sm:w-[360px] rounded-2xl overflow-hidden flex flex-col"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 16 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed z-50 flex flex-col overflow-hidden rounded-2xl left-3 right-3 bottom-[5.5rem] sm:left-auto sm:right-6 sm:bottom-24 sm:w-[360px]"
             style={{
               background: "rgba(10,14,26,0.97)",
               border: "1px solid rgba(255,255,255,0.1)",
-              backdropFilter: "blur(24px)",
-              maxHeight: "520px",
+              height: "min(70dvh, 520px)",
+              maxHeight: "min(70dvh, 520px)",
               boxShadow: "0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,169,110,0.1)",
             }}
           >
@@ -192,32 +206,29 @@ export default function Aneto() {
                 <img
                   src="/logo-mark-clear.png"
                   alt=""
-                  style={{ width: 28, height: 28, objectFit: "contain", display: "block" }}
+                  style={{ width: 30, height: 30, objectFit: "contain", display: "block" }}
                 />
               </div>
-              <div>
+              <div className="min-w-0">
                 <div className="text-white text-sm font-semibold leading-none mb-0.5">
                   {t.aneto.title}
                 </div>
-                <div className="text-white/35 text-xs">{t.aneto.subtitle}</div>
+                <div className="text-white/35 text-xs truncate">{t.aneto.subtitle}</div>
               </div>
-              <div className="ml-auto flex items-center gap-1.5">
+              <div className="ml-auto flex items-center gap-1.5 flex-shrink-0">
                 <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#5BAF8A", boxShadow: "0 0 6px rgba(91,175,138,0.6)" }} />
                 <span className="text-white/35 text-xs">Online</span>
               </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-0">
+            <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 flex flex-col gap-3 min-h-0">
               {messages.map((msg) => (
-                <motion.div
+                <div
                   key={msg.id}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.25 }}
-                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                  className={`flex flex-shrink-0 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[85%] px-3.5 py-2.5 rounded-xl text-xs leading-relaxed whitespace-pre-line ${
+                    className={`max-w-[85%] px-3.5 py-2.5 rounded-xl text-xs leading-relaxed break-words ${
                       msg.role === "user"
                         ? "text-[#060811] font-medium rounded-br-sm"
                         : "text-white/75 rounded-bl-sm"
@@ -230,9 +241,9 @@ export default function Aneto() {
                   >
                     {msg.text}
                   </div>
-                </motion.div>
+                </div>
               ))}
-              <div ref={messagesEndRef} />
+              <div ref={messagesEndRef} className="flex-shrink-0 h-px" />
             </div>
 
             <div
@@ -254,12 +265,12 @@ export default function Aneto() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => { if (e.key === "Enter") handleSend(); }}
                 placeholder={t.aneto.placeholder}
-                className="flex-1 bg-white/[0.04] border border-white/[0.08] rounded-lg px-3.5 py-2.5 text-xs text-white placeholder-white/25 focus:outline-none focus:border-[rgba(201,169,110,0.4)] transition-colors duration-200"
+                className="flex-1 min-w-0 bg-white/[0.04] border border-white/[0.08] rounded-lg px-3.5 py-2.5 text-xs text-white placeholder-white/25 focus:outline-none focus:border-[rgba(201,169,110,0.4)] transition-colors duration-200"
               />
               <button
                 onClick={handleSend}
                 disabled={!input.trim() || busy}
-                className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 disabled:opacity-30"
+                className="w-9 h-9 flex-shrink-0 rounded-lg flex items-center justify-center transition-all duration-200 disabled:opacity-30"
                 style={{ background: "linear-gradient(135deg, #C9A96E, #B8914E)" }}
                 aria-label={t.aneto.send}
               >

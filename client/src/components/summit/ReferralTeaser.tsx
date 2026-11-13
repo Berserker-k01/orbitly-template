@@ -25,18 +25,17 @@ export default function ReferralTeaser() {
           alt=""
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 object-contain"
           style={{
-            width: "min(1600px, 140vw)",
+            width: "min(1400px, 120vw)",
             maxWidth: "none",
             height: "auto",
-            opacity: 0.11,
-            filter: "brightness(0.45)",
+            opacity: 0.16,
           }}
         />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at center, transparent 10%, rgba(6,8,17,0.55) 55%, #060811 92%)",
+              "radial-gradient(ellipse at center, transparent 20%, rgba(6,8,17,0.4) 60%, #060811 95%)",
           }}
         />
       </div>

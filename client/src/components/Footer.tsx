@@ -115,13 +115,10 @@ export default function Footer() {
                 <img
                   src="/logo-mark-clear.png"
                   alt="Summit One"
-                  style={{ width: '100%', maxWidth: '280px', height: 'auto', objectFit: 'contain', display: 'block' }}
+                  style={{ width: '100%', maxWidth: '340px', height: 'auto', objectFit: 'contain', objectPosition: 'left center', display: 'block' }}
                 />
               </a>
-              <p className="text-white/45 text-sm leading-relaxed mb-6 max-w-xs">
-                {t.footer.tagline}
-              </p>
-              <div className="flex flex-col gap-2.5">
+              <div className="flex flex-col gap-2.5 mt-5">
                 <a
                   href="mailto:summit.one.contact@gmail.com"
                   className="flex items-center gap-2.5 text-white/40 hover:text-[#C9A96E] text-xs transition-colors duration-200"
